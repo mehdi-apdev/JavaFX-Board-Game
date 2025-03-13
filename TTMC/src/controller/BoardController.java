@@ -25,7 +25,7 @@ public class BoardController {
 			
 			try {
 				// Load the FXML file of the new interface
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menuView.fxml"));
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
 				Pane root = fxmlLoader.load();
 
 				// Create a new scene with the loaded content

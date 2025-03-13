@@ -28,7 +28,7 @@ public class MenuController {
 			
 			try {
 				// Load the FXML file of the new interface
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("boardView.fxml"));
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/boardView.fxml"));
 				Pane root = fxmlLoader.load();
 
 				// Create a new scene with the loaded content
@@ -37,7 +37,7 @@ public class MenuController {
 				// Get the current scene and the current stage (window)
 				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
 
 				// Set the new scene on the current stage
 				stage.setScene(scene);

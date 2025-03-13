@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
    <children>
       <ImageView fitHeight="868.0" fitWidth="1545.0" layoutX="-4.0" layoutY="-2.0" pickOnBounds="true" styleClass="entertaiment">
          <image>
-            <Image url="@../../../../../../../../../git/TTMC/TTMC/ressources/images/cartoon-nature-forest-scenery-free-vector.jpg" />
+            <Image url="@../../ressources/images/cartoon-nature-forest-scenery-free-vector.jpg" />
          </image>
       </ImageView>
       <Button fx:id="btnPlay" layoutX="633.0" layoutY="285.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="105.0" prefWidth="270.0" text="PLAY">

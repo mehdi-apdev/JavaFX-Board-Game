@@ -20,7 +20,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-				Pane root = (Pane)FXMLLoader.load(getClass().getResource("menuView.fxml"));
+				Pane root = (Pane)FXMLLoader.load(getClass().getResource("../view/menuView.fxml"));
 				
 				// Obtenir les dimensions de l'écran
 		        double screenWidth = Screen.getPrimary().getBounds().getWidth();

@@ -3,9 +3,12 @@ package controller;
 
 
 
+import java.io.Console;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +48,8 @@ public class BoardController {
 	        // Create a list of players with one player
 	        List<Player> players = new ArrayList<>();
 	        players.add(new Player("Player 1"));
+	        
+	      
 
 	        // Initialize the game with the list of players
 	        game = new Game(players);
@@ -56,6 +61,18 @@ public class BoardController {
 			spaces.add(second);
 			spaces.add(third);
 			spaces.add(fourth);
+			
+			// Initialize the spaces (rectangles) on the board
+			List<Rectangle> spaces2 = new ArrayList<>();
+			// Adding rectangles to the list(method below)
+			spaces2 = addSpaces(2); 
+			List<Rectangle> spaces3 = new ArrayList<>();
+			spaces3 = addSpaces(3); 
+			List<Rectangle> spaces4 = new ArrayList<>();
+			spaces4 = addSpaces(4); 
+		
+			
+			
 			
 	        
 
@@ -87,6 +104,8 @@ public class BoardController {
 
 	            // Show the new scene
 	            stage.show();
+	            
+	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -97,7 +116,18 @@ public class BoardController {
 	        game.getCurrentPlayer().move(1);
 	        playerView.updatePosition();
 	        playerView.animate();
+	    
 	    }
+	    
+	   private List<Rectangle> addSpaces(int path){
+		  
+		   List<Rectangle> spaces = new ArrayList<>();
+		   for (int i = 1; i<= 4; i++) {
+			   Rectangle rec = (Rectangle) board.lookup("rec"+path+"_"+i); //Example rec4_1 --> rec path 4 number 1 
+			   spaces.add(rec); 
+		   }
+		  return spaces;
+	   }
 	}
 
 

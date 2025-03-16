@@ -3,6 +3,7 @@ package controller;
 
 
 
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,16 +13,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class MenuController {
 	
 	
 		@FXML
-		private Button btnPlay; 
+		private Button btnPlay;
 		
 		@FXML
-		private Label label;  
+		private Button btnOption; 
+		
+		@FXML
+		private Label label;
+		
+		private MediaPlayer mediaPlayer;
 		
 		@FXML
 		protected void onButtonClicked(ActionEvent event) {
@@ -44,9 +52,23 @@ public class MenuController {
 
 				// Show the new scene
 				stage.show();
+
+		        
 				} catch (IOException e) {
 				    e.printStackTrace();
 			}
 			
 		}
+		
+		@FXML
+		protected void onButtonOptionClicked(ActionEvent event) {
+			
+				String cheminAudio = "file:ressources/sounds/Jungle_Music.mp3";
+		        Media media = new Media(new File(cheminAudio).toURI().toString());
+		        mediaPlayer = new MediaPlayer(media);
+
+		        mediaPlayer.play();  
+		}
+		
+		
 }

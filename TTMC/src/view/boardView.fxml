@@ -16,20 +16,20 @@
             <Image url="@../../ressources/images/cartoon-nature-forest-scenery-free-vector.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="145.0" layoutY="769.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec4_2" arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="145.0" layoutY="769.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="1005.0" layoutY="692.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="738.0" layoutY="486.0" rotate="-14.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="84.0" layoutY="551.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec3_1" arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="84.0" layoutY="551.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle fx:id="first" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="74.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="944.0" layoutY="705.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="313.0" layoutY="120.0" rotate="7.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="85.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="1196.0" layoutY="99.0" rotate="-72.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="84.0" layoutY="769.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
+      <Rectangle fx:id="rec4_1" arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="84.0" layoutY="769.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="402.0" layoutY="280.0" rotate="18.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="2.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="211.0" layoutY="537.0" rotate="-25.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="263.0" layoutY="500.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec3_3" arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="211.0" layoutY="537.0" rotate="-25.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
+      <Rectangle fx:id="rec3_4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="263.0" layoutY="500.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="346.0" layoutY="396.0" rotate="-143.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="292.0" layoutY="435.0" rotate="-143.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
+      <Rectangle fx:id="rec3_5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="292.0" layoutY="435.0" rotate="-143.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="392.0" layoutY="139.0" rotate="-166.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="60.0" />
       <Rectangle fx:id="second" arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="134.0" layoutY="162.0" rotate="-103.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="1132.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
@@ -53,22 +53,22 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="613.0" layoutY="448.0" rotate="-19.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="1319.0" layoutY="125.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="449.0" layoutY="162.0" rotate="-55.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="134.0" layoutY="339.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
+      <Rectangle fx:id="rec2_2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="134.0" layoutY="339.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
       <Rectangle fx:id="third" arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="195.0" layoutY="139.0" rotate="161.1" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="490.0" layoutY="109.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle fx:id="fourth" arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="255.0" layoutY="125.0" rotate="-8.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="422.0" layoutY="217.0" rotate="-72.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" y="7.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="146.0" layoutY="543.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0084ff" height="60.0" layoutX="268.0" layoutY="729.0" rotate="-27.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec3_2" arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="146.0" layoutY="543.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
+      <Rectangle fx:id="rec4_4" arcHeight="5.0" arcWidth="5.0" fill="#0084ff" height="60.0" layoutX="268.0" layoutY="729.0" rotate="-27.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="1253.0" layoutY="119.0" rotate="-80.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="65.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="1089.0" layoutY="703.0" rotate="-178.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0">
          <rotationAxis>
             <Point3D />
          </rotationAxis>
       </Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="74.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec2_1" arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="74.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="1271.0" layoutY="698.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="323.0" layoutY="695.0" rotate="-37.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" y="1.0" />
+      <Rectangle fx:id="rec4_5" arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="323.0" layoutY="695.0" rotate="-37.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" y="1.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="974.0" layoutY="453.0" rotate="16.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="ent" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="367.0" layoutY="651.0" rotate="-46.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="917.0" layoutY="435.0" rotate="14.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
@@ -79,7 +79,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="550.0" layoutY="89.0" rotate="73.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="1308.0" layoutY="308.0" rotate="-117.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="1113.0" layoutY="482.0" rotate="176.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" y="7.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="209.0" layoutY="751.0" rotate="-16.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
+      <Rectangle fx:id="rec4_3" arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="209.0" layoutY="751.0" rotate="-16.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="1030.0" layoutY="456.0" rotate="11.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="764.0" layoutY="589.0" rotate="57.1" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" styleClass="improbable" width="85.0" y="7.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="877.0" layoutY="683.0" rotate="27.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
@@ -103,9 +103,9 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="574.0" layoutY="309.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="448.0" layoutY="349.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="500.0" layoutY="328.0" rotate="-107.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="85.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="316.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="255.0" layoutY="327.0" rotate="-97.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="195.0" layoutY="335.0" rotate="-93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec2_5" arcHeight="5.0" arcWidth="5.0" fill="#7aa823" height="60.0" layoutX="316.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="improbable" width="60.0" />
+      <Rectangle fx:id="rec2_4" arcHeight="5.0" arcWidth="5.0" fill="#611a44" height="60.0" layoutX="255.0" layoutY="327.0" rotate="-97.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle fx:id="rec2_3" arcHeight="5.0" arcWidth="5.0" fill="#c19632" height="60.0" layoutX="195.0" layoutY="335.0" rotate="-93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="1410.0" layoutY="462.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="401.0" layoutY="585.0" rotate="-51.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="904.0" layoutY="194.0" rotate="-79.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />

@@ -60,15 +60,16 @@ public class MenuController {
 			
 		}
 		
-		@FXML
+		
+		/*@FXML
 		protected void onButtonOptionClicked(ActionEvent event) {
 			
-				String cheminAudio = "file:ressources/sounds/Jungle_Music.mp3";
+				String cheminAudio = "C:/Users/rodmo/Documents/HELHA/jungle.mp3";
 		        Media media = new Media(new File(cheminAudio).toURI().toString());
 		        mediaPlayer = new MediaPlayer(media);
 
 		        mediaPlayer.play();  
-		}
+		}*/
 		
 		
 }

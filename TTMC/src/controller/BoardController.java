@@ -42,6 +42,7 @@ public class BoardController {
 		@FXML private Rectangle second; //rectangle object
 		@FXML private Rectangle third; //rectangle object
 		@FXML private Rectangle fourth; //rectangle object
+		@FXML private Rectangle rec; //rectangle object
 		
 	    @FXML
 	    public void initialize() {
@@ -49,35 +50,31 @@ public class BoardController {
 	        List<Player> players = new ArrayList<>();
 	        players.add(new Player("Player 1"));
 	        
-	      
 
 	        // Initialize the game with the list of players
 	        game = new Game(players);
 
-	        // Initialize the spaces (rectangles) on the board
-	        List<Rectangle> spaces = new ArrayList<>();
-	        // Add your rectangles to the spaces list here
-			spaces.add(first);
-			spaces.add(second);
-			spaces.add(third);
-			spaces.add(fourth);
+	        
+			// Initialize all the spaces (rectangles) on the board
+			List<Rectangle> allSpaces = new ArrayList<>();
+			addAllSpaces(allSpaces, board);
 			
 			// Initialize the spaces (rectangles) on the board
-			List<Rectangle> spaces2 = new ArrayList<>();
-			// Adding rectangles to the list(method below)
-			spaces2 = addSpaces(2); 
-			List<Rectangle> spaces3 = new ArrayList<>();
-			spaces3 = addSpaces(3); 
-			List<Rectangle> spaces4 = new ArrayList<>();
-			spaces4 = addSpaces(4); 
-		
-			
-			
-			
+	        List<Rectangle> spaces1 = new ArrayList<>();
+	        spaces1 = addSpaces(allSpaces, 1);
 	        
-
+			List<Rectangle> spaces2 = new ArrayList<>();
+			spaces2 = addSpaces(allSpaces, 2);
+			
+			List<Rectangle> spaces3 = new ArrayList<>();
+			spaces3 = addSpaces(allSpaces, 3);
+			
+			List<Rectangle> spaces4 = new ArrayList<>();
+			spaces4 = addSpaces(allSpaces, 4);
+			
+		
 	        // Initialize the player view with the current player and spaces
-	        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, spaces);
+	        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, spaces1);
 	        playerView.updatePosition();
 	        // Add the player's circle to the board
 	        board.getChildren().add(playerView.getCircle());
@@ -116,18 +113,42 @@ public class BoardController {
 	        game.getCurrentPlayer().move(1);
 	        playerView.updatePosition();
 	        playerView.animate();
+	        
+	    	
 	    
 	    }
 	    
-	   private List<Rectangle> addSpaces(int path){
-		  
-		   List<Rectangle> spaces = new ArrayList<>();
-		   for (int i = 1; i<= 4; i++) {
-			   Rectangle rec = (Rectangle) board.lookup("rec"+path+"_"+i); //Example rec4_1 --> rec path 4 number 1 
-			   spaces.add(rec); 
-		   }
-		  return spaces;
-	   }
-	}
-
-
+	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
+	    	
+	    	for (Node rec : board.getChildren()) {
+	    		if (rec instanceof Rectangle) {
+	    			allSpaces.add((Rectangle)rec);
+	    		}	
+			}
+	    }
+	    
+	    private List<Rectangle> addSpaces(List<Rectangle> allSpaces, int path){
+	    	List<Rectangle> spacesTmp = new ArrayList<>();
+			String expectedId;
+	    	System.out.println("Liste modif :\n");
+	    	
+	    	for (int i = 1; i<= 24; i++) {
+	    		expectedId = "rec"+path+"_"+i;
+	    		for (Rectangle rec : allSpaces) {
+					if (expectedId.equals(rec.getId())) {
+						System.out.println(rec);
+						spacesTmp.add(rec);
+					}
+				}
+	    	}
+	    	
+	    	
+	    	
+	    	return spacesTmp;
+	    }
+	    
+	    
+	   
+	
+	    
+}

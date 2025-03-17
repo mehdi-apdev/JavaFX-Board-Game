@@ -3,6 +3,7 @@ package view;
 
 import java.util.List;
 
+import controller.Sound;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,7 +16,7 @@ public class PlayerView {
     private Player player;
     private Circle circle; // visual representation of the player
     private List<Rectangle> spaces; // visual representation of the spaces
-
+    private Sound sound = new Sound("ressources/sounds"); 
     // Constructor
     public PlayerView(Player player, Color color, List<Rectangle> spaces) {
         this.player = player;
@@ -50,6 +51,6 @@ public class PlayerView {
 
     // Method to animate the player
     public void animate() {
-    	//TODO
+    	sound.playMedia(1);
     }
 }

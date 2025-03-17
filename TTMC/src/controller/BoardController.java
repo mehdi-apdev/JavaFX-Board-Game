@@ -6,15 +6,18 @@ package controller;
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,7 +31,7 @@ import models.Space;
 import view.PlayerView;
 import view.SpaceView;
 
-public class BoardController {
+public class BoardController{
 	
 	
 		@FXML
@@ -130,25 +133,16 @@ public class BoardController {
 	    private List<Rectangle> addSpaces(List<Rectangle> allSpaces, int path){
 	    	List<Rectangle> spacesTmp = new ArrayList<>();
 			String expectedId;
-	    	System.out.println("Liste modif :\n");
-	    	
+	   
 	    	for (int i = 1; i<= 24; i++) {
 	    		expectedId = "rec"+path+"_"+i;
 	    		for (Rectangle rec : allSpaces) {
 					if (expectedId.equals(rec.getId())) {
-						System.out.println(rec);
 						spacesTmp.add(rec);
 					}
 				}
 	    	}
-	    	
-	    	
-	    	
 	    	return spacesTmp;
 	    }
-	    
-	    
-	   
-	
-	    
+    
 }

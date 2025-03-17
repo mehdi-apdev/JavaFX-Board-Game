@@ -5,9 +5,14 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +22,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class MenuController implements Initializable{
 	
 	
 		@FXML
@@ -30,6 +35,10 @@ public class MenuController {
 		private Label label;
 		
 		private MediaPlayer mediaPlayer;
+		private Media media;
+		private File directory;
+		private File[] files;
+		private ArrayList<File>sounds; 
 		
 		@FXML
 		protected void onButtonClicked(ActionEvent event) {
@@ -59,17 +68,32 @@ public class MenuController {
 			}
 			
 		}
-		
-		
-		/*@FXML
-		protected void onButtonOptionClicked(ActionEvent event) {
-			
-				String cheminAudio = "C:/Users/rodmo/Documents/HELHA/jungle.mp3";
-		        Media media = new Media(new File(cheminAudio).toURI().toString());
-		        mediaPlayer = new MediaPlayer(media);
 
-		        mediaPlayer.play();  
-		}*/
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
+			// TODO Auto-generated method stub
+			sounds = new ArrayList<File>();
+			directory = new File("ressources/sounds");
+			files = directory.listFiles();
+			if(files != null) {
+				for (File file : files) {
+					sounds.add(file);
+					System.out.println(file);
+				}
+			}
+			
+			
+			media = new Media(sounds.get(0).toURI().toString()); 
+			mediaPlayer = new MediaPlayer(media);
+			
+			
+		}
+		
+		
+		@FXML
+		protected void onButtonOptionClicked(ActionEvent event) {
+		      mediaPlayer.play();  
+		}
 		
 		
 }

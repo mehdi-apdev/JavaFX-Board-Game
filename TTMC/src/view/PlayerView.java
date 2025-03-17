@@ -22,7 +22,7 @@ public class PlayerView {
         this.spaces = spaces;
 
         // Create the circle
-        this.circle = new Circle(10, color);
+        this.circle = new Circle(12, color);
 
 
         // Set the initial position of the circle

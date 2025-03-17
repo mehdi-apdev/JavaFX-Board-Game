@@ -18,7 +18,7 @@
             <Font name="Eras Bold ITC" size="39.0" />
          </font>
       </Button>
-      <Button fx:id="btnOption" layoutX="633.0" layoutY="411.0" mnemonicParsing="false"  prefHeight="105.0" prefWidth="270.0" text="OPTIONS">
+      <Button fx:id="btnOption" layoutX="633.0" layoutY="411.0" mnemonicParsing="false" onAction="#onButtonOptionClicked" prefHeight="105.0" prefWidth="270.0" text="OPTIONS">
          <font>
             <Font name="Eras Bold ITC" size="39.0" />
          </font>

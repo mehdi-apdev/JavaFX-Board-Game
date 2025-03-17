@@ -75,7 +75,7 @@ public class BoardController{
 			
 		
 	        // Initialize the player view with the current player and spaces
-	        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, spaces1);
+	        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, spaces4);
 	        playerView.updatePosition();
 	        // Add the player's circle to the board
 	        board.getChildren().add(playerView.getCircle());
@@ -137,6 +137,7 @@ public class BoardController{
 	    		for (Rectangle rec : allSpaces) {
 					if (expectedId.equals(rec.getId())) {
 						spacesTmp.add(rec);
+						System.out.println(rec);
 					}
 				}
 	    	}

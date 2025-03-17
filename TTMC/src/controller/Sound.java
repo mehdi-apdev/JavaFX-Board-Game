@@ -11,9 +11,9 @@ public class Sound {
     private MediaPlayer mediaPlayer;
 
     // Constructor to initialize media files
-    public Sound(String directoryPath) {
+    public Sound() {
         sounds = new ArrayList<>();
-        File directory = new File(directoryPath);
+        File directory = new File("ressources/sounds");
         File[] files = directory.listFiles();
 
         if (files != null) {

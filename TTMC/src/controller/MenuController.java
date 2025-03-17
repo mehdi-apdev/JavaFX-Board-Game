@@ -35,7 +35,7 @@ public class MenuController{
 		@FXML
 		private CheckBox musicCheckBox;
 		
-		private Sound sound = new Sound("ressources/sounds"); 
+		private Sound sound = new Sound(); 
 				
 		
 		@FXML

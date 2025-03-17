@@ -16,7 +16,7 @@ public class PlayerView {
     private Player player;
     private Circle circle; // visual representation of the player
     private List<Rectangle> spaces; // visual representation of the spaces
-    private Sound sound = new Sound("ressources/sounds"); 
+    private Sound sound = new Sound(); 
     // Constructor
     public PlayerView(Player player, Color color, List<Rectangle> spaces) {
         this.player = player;

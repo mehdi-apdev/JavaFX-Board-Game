@@ -51,6 +51,6 @@ public class PlayerView {
 
     // Method to animate the player
     public void animate() {
-    	sound.playMedia(1);
+    	sound.playMedia(0);
     }
 }

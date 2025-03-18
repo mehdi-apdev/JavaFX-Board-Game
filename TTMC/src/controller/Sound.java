@@ -1,5 +1,5 @@
 package controller;
-import javafx.scene.media.Media;
+import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.util.ArrayList;

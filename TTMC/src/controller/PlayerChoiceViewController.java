@@ -16,6 +16,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import models.Game;
@@ -24,13 +26,20 @@ import view.PlayerView;
 
 public class PlayerChoiceViewController {
 	
+	public enum colorEnum{
+		RED, ORANGE, YELLOW, BLUE
+	}
+	
 
 	@FXML
-	private Button btnBack, btnPlay; 
+	private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext; 
 	private Game game; //game object
 	private PlayerView playerView; //player view object
 	@FXML
 	private CheckBox musicCheckBox;
+	@FXML
+	private Circle playerColor;
+	private colorEnum playerColorEnum; 
 	@FXML
 	private ImageView volumeImage;
 	private Sound touchSound = new Sound(); 
@@ -38,6 +47,9 @@ public class PlayerChoiceViewController {
 	
 	 @FXML
 	    public void initialize() {
+		 
+		 //initialize the First color 
+		 playerColorEnum = colorEnum.RED;
 	     
 		 //do a shared class to avoid repetition
 		 if (Main.mainSound.isMuted()== true) {
@@ -52,7 +64,6 @@ public class PlayerChoiceViewController {
 
 	    }
 
-	
 	
 	@FXML
     protected void onButtonBackClicked(ActionEvent event) {
@@ -108,7 +119,6 @@ public class PlayerChoiceViewController {
             // Show the new scene
             stage.show();
             
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,6 +138,69 @@ public class PlayerChoiceViewController {
 			volumeImage.setImage(noVolume);
 		}
 	}
+	
+	@FXML
+	protected void onButtonPreviousClicked(ActionEvent event) {
+		//Play sound
+		touchSound.playMedia("click.wav", 0.5);
+		
+		//Switch to change color
+		switch (playerColorEnum) {
+	    case RED:
+	        playerColorEnum = colorEnum.YELLOW;
+	        playerColor.setFill(Color.YELLOW);
+	        break;
+	    case YELLOW:
+	        playerColorEnum = colorEnum.ORANGE;
+	        playerColor.setFill(Color.ORANGE);
+	        break;
+	    case ORANGE:
+	        playerColorEnum = colorEnum.BLUE;
+	        playerColor.setFill(Color.BLUE);
+	        break;
+	    case BLUE:
+	        playerColorEnum = colorEnum.RED;
+	        playerColor.setFill(Color.RED);
+	        break;
+	}
+	}
+	
+	@FXML
+	protected void onButtonNextClicked(ActionEvent event) {
+		//Play sound
+		touchSound.playMedia("click.wav", 0.5);
+		
+		//Switch to change color
+		switch (playerColorEnum) {
+        case colorEnum.RED:
+        	playerColorEnum = colorEnum.BLUE;
+        	playerColor.setFill(Color.BLUE);
+        	break;
+        case colorEnum.BLUE:
+        	playerColorEnum = colorEnum.ORANGE;
+        	playerColor.setFill(Color.ORANGE);
+            break;
+        case colorEnum.ORANGE:
+        	playerColorEnum = colorEnum.YELLOW;
+        	playerColor.setFill(Color.YELLOW);
+            break;
+        case colorEnum.YELLOW:
+        	playerColorEnum = colorEnum.RED;
+        	playerColor.setFill(Color.RED);
+           break;
+		}
+		
+	}
+		
+	
+	
+	@FXML
+	protected void onButtonOkClicked(ActionEvent event) {
+		//Play sound
+		touchSound.playMedia("click2.wav", 0.5);
+		
+	}
+	
 	
 
 }

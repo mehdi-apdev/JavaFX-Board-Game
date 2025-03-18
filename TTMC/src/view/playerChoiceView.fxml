@@ -25,18 +25,18 @@
                   <Font name="Comic Sans MS Bold" size="13.0" />
                </font>
             </TextField>
-            <Button layoutX="173.0" layoutY="321.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="226.0" text="OK">
+            <Button fx:id="btnOk" layoutX="173.0" layoutY="321.0" mnemonicParsing="false" onAction="#onButtonOkClicked" prefHeight="74.0" prefWidth="226.0" text="OK">
                <font>
                   <Font name="Eras Bold ITC" size="42.0" />
                </font>
             </Button>
-            <Circle fill="DODGERBLUE" layoutX="286.0" layoutY="208.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button layoutX="379.0" layoutY="181.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="167.0" text="NEXT">
+            <Circle fx:id="playerColor" fill="DODGERBLUE" layoutX="286.0" layoutY="208.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="btnNext" layoutX="379.0" layoutY="181.0" mnemonicParsing="false" onAction="#onButtonNextClicked" prefHeight="54.0" prefWidth="167.0" text="NEXT">
                <font>
                   <Font name="Eras Bold ITC" size="24.0" />
                </font>
             </Button>
-            <Button layoutX="14.0" layoutY="183.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="167.0" text="PREVIOUS">
+            <Button fx:id="btnPrevious" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" onAction="#onButtonPreviousClicked" prefHeight="47.0" prefWidth="167.0" text="PREVIOUS">
                <font>
                   <Font name="Eras Bold ITC" size="24.0" />
                </font>

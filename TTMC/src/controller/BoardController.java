@@ -28,6 +28,7 @@ import models.Player;
 import models.Space;
 import view.PlayerView;
 import view.SpaceView;
+import java.util.Random;
 
 public class BoardController{
 	
@@ -39,11 +40,7 @@ public class BoardController{
 		private Pane board; //visual representation of the board
 		private Game game; //game object
 		private PlayerView playerView; //player view object
-		@FXML private Rectangle first; //rectangle object
-		@FXML private Rectangle second; //rectangle object
-		@FXML private Rectangle third; //rectangle object
-		@FXML private Rectangle fourth; //rectangle object
-		@FXML private Rectangle rec; //rectangle object
+
 		
 	    @FXML
 	    public void initialize() {
@@ -61,21 +58,28 @@ public class BoardController{
 			addAllSpaces(allSpaces, board);
 			
 			// Initialize the spaces (rectangles) on the board
-	        List<Rectangle> spaces1 = new ArrayList<>();
-	        spaces1 = addSpaces(allSpaces, 1);
+	        List<Rectangle> spaces1 = addSpaces(allSpaces,1);
+	        List<Rectangle> spaces2 = addSpaces(allSpaces,2);
+	        List<Rectangle> spaces3 = addSpaces(allSpaces,3);
+	        List<Rectangle> spaces4 = addSpaces(allSpaces,4);
 	        
-			List<Rectangle> spaces2 = new ArrayList<>();
-			spaces2 = addSpaces(allSpaces, 2);
-			
-			List<Rectangle> spaces3 = new ArrayList<>();
-			spaces3 = addSpaces(allSpaces, 3);
-			
-			List<Rectangle> spaces4 = new ArrayList<>();
-			spaces4 = addSpaces(allSpaces, 4);
+	        //Create a list of all space lists
+	        List<List<Rectangle>> allSpacesList = new ArrayList<>();
+	        allSpacesList.add(spaces1);
+	        allSpacesList.add(spaces2);
+	        allSpacesList.add(spaces3);	
+	        allSpacesList.add(spaces4);
+
+            // Select a random list of spaces
+	        Random random = new Random();
+            List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size())); // Get a random list of spaces
+	       
+            
+            
 			
 		
 	        // Initialize the player view with the current player and spaces
-	        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, spaces4);
+            playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, selectedSpaces);
 	        playerView.updatePosition();
 	        // Add the player's circle to the board
 	        board.getChildren().add(playerView.getCircle());
@@ -109,15 +113,26 @@ public class BoardController{
 	        }
 	    }
 
-	    private void onBoardClicked(MouseEvent event) {
-	        // Move the player forward one space
-	        game.getCurrentPlayer().move(1);
-	        playerView.updatePosition();
-	        playerView.animate();
-	        
-	    	
-	    
-	    }
+
+		private void onBoardClicked(MouseEvent event) {
+			// Move the player to a random number of steps between 1 and 4
+		    Random rd = new Random();
+		    int steps = rd.nextInt(4) + 1;
+		
+		    int currentPosition = game.getCurrentPlayer().getPosition();
+		    int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+		
+		    // If the number of steps is greater than the remaining steps, move to the last space
+		    if (steps > remainingSteps) {
+		        steps = remainingSteps;
+		    }
+		
+		    // Move the player
+		    game.getCurrentPlayer().move(steps);
+		    playerView.updatePosition();
+		    playerView.animate();
+		}
+
 	    
 	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
 	    	
@@ -137,7 +152,7 @@ public class BoardController{
 	    		for (Rectangle rec : allSpaces) {
 					if (expectedId.equals(rec.getId())) {
 						spacesTmp.add(rec);
-						System.out.println(rec);
+						//System.out.println(rec);
 					}
 				}
 	    	}

@@ -2,6 +2,7 @@ package controller;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +24,20 @@ public class Sound {
         }
     }
 
-    // Method to play a specific media file
-    public void playMedia(int index) {
-        if (index >= 0 && index < sounds.size()) {
-            Media media = new Media(sounds.get(index).toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        } else {
-            System.out.println("Invalid index for media.");
+ // Method to play a specific media file
+    public void playMedia(String nameFile) {
+        boolean fileFound = false;
+        for (File sound : sounds) {
+            if (sound.getName().toString().equals(nameFile)) {
+                Media media = new Media(sound.toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                fileFound = true;
+                break;
+            }
+        }
+        if (!fileFound) {
+            System.out.println("File not found: " + nameFile);
         }
     }
 

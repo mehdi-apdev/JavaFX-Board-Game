@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Annotations 2.18.2.jar"/>
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Core 2.18.2.jar"/>
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Databind 2.18.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

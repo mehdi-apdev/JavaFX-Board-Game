@@ -124,8 +124,6 @@ public class BoardController{
 	        playerView.updatePosition();
 	        playerView.animate();
 	        
-	    	
-	    
 	    }
 	    
 	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
@@ -146,7 +144,7 @@ public class BoardController{
 	    		for (Rectangle rec : allSpaces) {
 					if (expectedId.equals(rec.getId())) {
 						spacesTmp.add(rec);
-						System.out.println(rec);
+						//System.out.println(rec);
 					}
 				}
 	    	}

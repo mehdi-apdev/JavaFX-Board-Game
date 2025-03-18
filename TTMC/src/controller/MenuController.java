@@ -71,7 +71,7 @@ public class MenuController{
 		
 		@FXML
 		protected void onButtonOptionClicked(ActionEvent event) {
-		      sound.playMedia(0);
+		      sound.playMedia("jungle.mp3");
 		}
 		
 		@FXML

@@ -2,6 +2,7 @@ package application;
 
 import java.util.Optional;
 
+import controller.Sound;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -17,6 +18,9 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 	
+	//sound accessible to all class
+	public static Sound mainSound = new Sound();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -30,6 +34,9 @@ public class Main extends Application {
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				
+				//play music
+				mainSound.playMedia("jungle.mp3", 0.3);
+				mainSound.loop();
 		
 				primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 					

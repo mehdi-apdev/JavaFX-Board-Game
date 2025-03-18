@@ -113,18 +113,26 @@ public class BoardController{
 	        }
 	    }
 
-	    private void onBoardClicked(MouseEvent event) {
-	        // Move the player forward one space
-	    	
-	    	Random rd = new Random();
-	    	int steps = rd.nextInt(4)+1;
-	    	
-	    	
-	        game.getCurrentPlayer().move(steps); // Move the player forward one to four spaces
-	        playerView.updatePosition();
-	        playerView.animate();
-	        
-	    }
+
+		private void onBoardClicked(MouseEvent event) {
+			// Move the player to a random number of steps between 1 and 4
+		    Random rd = new Random();
+		    int steps = rd.nextInt(4) + 1;
+		
+		    int currentPosition = game.getCurrentPlayer().getPosition();
+		    int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+		
+		    // If the number of steps is greater than the remaining steps, move to the last space
+		    if (steps > remainingSteps) {
+		        steps = remainingSteps;
+		    }
+		
+		    // Move the player
+		    game.getCurrentPlayer().move(steps);
+		    playerView.updatePosition();
+		    playerView.animate();
+		}
+
 	    
 	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
 	    	

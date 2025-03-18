@@ -53,4 +53,9 @@ public class PlayerView {
     public void animate() {
     	sound.playMedia("tap.wav");
     }
+    
+    //Getter of spaces
+	public List<Rectangle> getSpaces() {
+		return spaces;
+	}
 }

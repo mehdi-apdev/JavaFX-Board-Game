@@ -42,6 +42,7 @@ public class BoardController{
 		private CheckBox musicCheckBox;
 		@FXML
 		private ImageView volumeImage;
+		private Sound touchSound = new Sound();
 
 		
 	    @FXML
@@ -100,6 +101,8 @@ public class BoardController{
 	    protected void onButtonClicked(ActionEvent event) {
 	        try {
 	        	
+	        	//Play sound
+				touchSound.playMedia("click2.wav", 0.5);
 	            // Load the FXML file of the new interface
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
 	            Pane root = fxmlLoader.load();

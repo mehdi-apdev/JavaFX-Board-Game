@@ -35,7 +35,7 @@ public class Main extends Application {
 				primaryStage.setScene(scene);
 				
 				//play music
-				mainSound.playMedia("jungle.mp3", 0.3);
+				mainSound.playMedia("georgeTheme.mp3", 0.1);
 				mainSound.loop();
 		
 				primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

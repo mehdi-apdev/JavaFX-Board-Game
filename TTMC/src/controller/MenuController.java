@@ -63,7 +63,7 @@ public class MenuController{
 				
 
 				//Play sound
-				touchSound.playMedia("touch.wav", 0.7);
+				touchSound.playMedia("click2.wav", 0.5);
 				
 				// Load the FXML file of the new interface
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/playerChoiceView.fxml"));
@@ -95,7 +95,7 @@ public class MenuController{
 		@FXML
 		protected void onButtonOptionClicked(ActionEvent event) {
 			//Play sound
-			touchSound.playMedia("touch.wav", 0.7);
+			touchSound.playMedia("click2.wav", 0.5);
 		}
 		
 		@FXML

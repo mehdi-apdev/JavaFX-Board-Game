@@ -74,7 +74,7 @@ public class Sound {
     public void unMuteMedia() {
         if (mediaPlayer != null) {
         	isMuted = false;
-            mediaPlayer.setVolume(0.3);
+            mediaPlayer.setVolume(0.1);
         }
     }
 

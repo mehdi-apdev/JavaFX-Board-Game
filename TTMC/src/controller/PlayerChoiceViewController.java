@@ -33,6 +33,7 @@ public class PlayerChoiceViewController {
 	private CheckBox musicCheckBox;
 	@FXML
 	private ImageView volumeImage;
+	private Sound touchSound = new Sound(); 
 	
 	
 	 @FXML
@@ -57,6 +58,8 @@ public class PlayerChoiceViewController {
     protected void onButtonBackClicked(ActionEvent event) {
         try {
         	
+        	//Play sound
+			touchSound.playMedia("click2.wav", 0.5);
             // Load the FXML file of the new interface
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
             Pane root = fxmlLoader.load();
@@ -85,6 +88,8 @@ public class PlayerChoiceViewController {
     protected void onButtonPlayClicked(ActionEvent event) {
         try {
         	
+        	//Play sound
+			touchSound.playMedia("click2.wav", 0.5);
             // Load the FXML file of the new interface
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/boardView.fxml"));
             Pane root = fxmlLoader.load();

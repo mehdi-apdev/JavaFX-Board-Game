@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -199,6 +200,11 @@ public class PlayerChoiceViewController {
 		//Play sound
 		touchSound.playMedia("click2.wav", 0.5);
 		
+	}
+	
+	//Return the color
+	public Paint getColor() {
+		return playerColor.getFill();
 	}
 	
 	

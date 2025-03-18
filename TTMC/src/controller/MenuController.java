@@ -4,18 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.scene.control.CheckBox;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -115,7 +120,24 @@ public class MenuController{
 		
 		@FXML
 		protected void onButtonQuitClicked(ActionEvent event) {
-		    // menuBoard.setVisible(false);
+			//Play sound
+			touchSound.playMedia("click2.wav", 0.5);
+			
+			//Send Alert if the player wants to quit
+			Alert alert = new Alert(AlertType.CONFIRMATION); 
+			alert.setTitle("Exit Program"); 
+			alert.setHeaderText("Confirm Exit");
+			alert.setContentText("Are you sure that you want to exit the program?");
+				
+			Optional<ButtonType> result = alert.showAndWait();
+			if(result.isPresent() && result.get() == ButtonType.OK) {
+				
+				//End program
+				Platform.exit(); 
+			}
+			else {
+				event.consume();
+			}
 		}
 		
 		

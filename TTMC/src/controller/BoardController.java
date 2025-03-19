@@ -1,9 +1,5 @@
 package controller;
 
-
-
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -32,14 +32,17 @@ import java.util.Random;
 
 public class BoardController{
 	
-	
 		@FXML
 		private Button btnBack;  //back button
-		
 		@FXML 
 		private Pane board; //visual representation of the board
 		private Game game; //game object
 		private PlayerView playerView; //player view object
+		@FXML
+		private CheckBox musicCheckBox;
+		@FXML
+		private ImageView volumeImage;
+		private Sound touchSound = new Sound();
 
 		
 	    @FXML
@@ -47,12 +50,10 @@ public class BoardController{
 	        // Create a list of players with one player
 	        List<Player> players = new ArrayList<>();
 	        players.add(new Player("Player 1"));
-	        
-
+	
 	        // Initialize the game with the list of players
 	        game = new Game(players);
 
-	        
 			// Initialize all the spaces (rectangles) on the board
 			List<Rectangle> allSpaces = new ArrayList<>();
 			addAllSpaces(allSpaces, board);
@@ -74,11 +75,8 @@ public class BoardController{
 	        Random random = new Random();
             List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size())); // Get a random list of spaces
 	       
-            
-            
-			
-		
-	        // Initialize the player view with the current player and spaces
+           
+	       //Initialize the player view with the current player and spaces
             playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, selectedSpaces);
 	        playerView.updatePosition();
 	        // Add the player's circle to the board
@@ -86,11 +84,25 @@ public class BoardController{
 
 	        // Add mouse click event handler to move the player
 	        board.setOnMouseClicked(this::onBoardClicked);
+	        
+	        //do a shared class to avoid repetition
+	        if (Main.mainSound.isMuted()== true) {
+	        	musicCheckBox.setSelected(false);;
+	        	Image noVolume = new Image("file:ressources/images/noVolume.png"); 
+				volumeImage.setImage(noVolume);
+			}else {
+				musicCheckBox.setSelected(true);
+				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
+				volumeImage.setImage(maxVolume);
+			}
 	    }
 
 	    @FXML
 	    protected void onButtonClicked(ActionEvent event) {
 	        try {
+	        	
+	        	//Play sound
+				touchSound.playMedia("click2.wav", 0.5);
 	            // Load the FXML file of the new interface
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
 	            Pane root = fxmlLoader.load();
@@ -100,6 +112,8 @@ public class BoardController{
 
 	            // Get the current scene and the current stage (window)
 	            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	            
+	            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
 
 	            // Set the new scene on the current stage
 	            stage.setScene(scene);
@@ -133,7 +147,7 @@ public class BoardController{
 		    playerView.animate();
 		}
 
-	    
+	    //Method to add all the rectangles from the pane
 	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
 	    	
 	    	for (Node rec : board.getChildren()) {
@@ -143,6 +157,7 @@ public class BoardController{
 			}
 	    }
 	    
+	    //Method to filter rectangles
 	    private List<Rectangle> addSpaces(List<Rectangle> allSpaces, int path){
 	    	List<Rectangle> spacesTmp = new ArrayList<>();
 			String expectedId;
@@ -158,5 +173,21 @@ public class BoardController{
 	    	}
 	    	return spacesTmp;
 	    }
+	    
+	    @FXML
+		protected void onChecked(ActionEvent event) {
+			
+			// Check the current mute status and toggle it
+			if (Main.mainSound.isMuted()) { 
+				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
+				volumeImage.setImage(maxVolume);
+				Main.mainSound.unMuteMedia(); //method to unmute the media
+			} else {
+				Main.mainSound.muteMedia(); //method to mute the media
+				Image noVolume = new Image("file:ressources/images/noVolume.png"); 
+				volumeImage.setImage(noVolume);
+			}
+		}
+		
     
 }

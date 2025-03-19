@@ -1,0 +1,158 @@
+[
+  {
+    "nom_theme": "improbable",
+    "priorite": 2,
+    "question": "How many grape berries are needed to make a 75 cl bottle of wine?",
+    "reponse_correcte": "600",
+    "reponses_fausses": ["1000", "200", "150"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 2,
+    "question": "What is carpophobia?",
+    "reponse_correcte": "The fear of wrists",
+    "reponses_fausses": ["The fear of fruits", "The fear of bones", "The fear of feet"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 4,
+    "question": "How many photos are uploaded to Facebook daily?",
+    "reponse_correcte": "350 million",
+    "reponses_fausses": ["1 billion", "100 million", "50 million"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 3,
+    "question": "What is the maximum speed of a giraffe?",
+    "reponse_correcte": "60 km/h",
+    "reponses_fausses": ["30 km/h", "80 km/h", "100 km/h"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 3,
+    "question": "Which planet in our solar system spins the fastest?",
+    "reponse_correcte": "Jupiter",
+    "reponses_fausses": ["Earth", "Mars", "Venus"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 4,
+    "question": "On average, how many hairs does a person have?",
+    "reponse_correcte": "100,000 to 150,000 hairs",
+    "reponses_fausses": ["50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 3,
+    "question": "What is the rarest blood type?",
+    "reponse_correcte": "AB negative",
+    "reponses_fausses": ["O positive", "A negative", "B positive"]
+  },
+  {
+    "nom_theme": "improbable",
+    "priorite": 2,
+    "question": "How many hearts does an octopus have?",
+    "reponse_correcte": "Three",
+    "reponses_fausses": ["One", "Two", "Four"]
+  },
+  
+  {
+    "nom_theme": "informatics",
+    "priorite": 3,
+    "question": "What is polymorphism?",
+    "reponse_correcte": "A concept in OOP where an entity can have multiple forms.",
+    "reponses_fausses": ["A way to store multiple variables", "A method to encrypt passwords", "A machine learning model"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 2,
+    "question": "What is the primary programming language for Android apps?",
+    "reponse_correcte": "Java",
+    "reponses_fausses": ["Python", "Swift", "C++"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 2,
+    "question": "What part of web development deals with UI/UX?",
+    "reponse_correcte": "Front end",
+    "reponses_fausses": ["Back end", "Database", "Server-side"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 2,
+    "question": "What is RAM?",
+    "reponse_correcte": "Random Access Memory",
+    "reponses_fausses": ["Hard Drive", "Cache", "ROM"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 3,
+    "question": "What is a DDOS attack?",
+    "reponse_correcte": "An attack overwhelming a server with requests.",
+    "reponses_fausses": ["SQL Injection", "Brute Force", "Phishing"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 3,
+    "question": "What does HTML stand for?",
+    "reponse_correcte": "HyperText Markup Language",
+    "reponses_fausses": ["High Tech Machine Learning", "HyperTransfer Markup Language", "Home Tool Markup Language"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 2,
+    "question": "What is the function of an IP address?",
+    "reponse_correcte": "Identify a device on a network",
+    "reponses_fausses": ["Store website data", "Encrypt messages", "Speed up browsing"]
+  },
+  {
+    "nom_theme": "informatics",
+    "priorite": 3,
+    "question": "What is the purpose of a firewall?",
+    "reponse_correcte": "To protect networks from unauthorized access",
+    "reponses_fausses": ["To increase internet speed", "To store passwords", "To block ads"]
+  },
+
+  {
+    "nom_theme": "education",
+    "priorite": 1,
+    "question": "When did humans first walk on the moon?",
+    "reponse_correcte": "1969",
+    "reponses_fausses": ["1955", "1972", "1980"]
+  },
+  {
+    "nom_theme": "education",
+    "priorite": 2,
+    "question": "Who fought against racism in South Africa?",
+    "reponse_correcte": "Nelson Mandela",
+    "reponses_fausses": ["Martin Luther King Jr.", "Barack Obama", "Mahatma Gandhi"]
+  },
+  {
+    "nom_theme": "education",
+    "priorite": 4,
+    "question": "What was the result of Charles Quint's expedition against Algiers?",
+    "reponse_correcte": "Failure due to a storm and resistance",
+    "reponses_fausses": ["Victory", "A peace treaty", "No significant impact"]
+  },
+  {
+    "nom_theme": "education",
+    "priorite": 1,
+    "question": "What is the largest country in Africa?",
+    "reponse_correcte": "Algeria",
+    "reponses_fausses": ["Nigeria", "Egypt", "South Africa"]
+  },
+  {
+    "nom_theme": "education",
+    "priorite": 1,
+    "question": "Who was the first president of the USA?",
+    "reponse_correcte": "George Washington",
+    "reponses_fausses": ["Abraham Lincoln", "Thomas Jefferson", "John Adams"]
+  },
+  {
+    "nom_theme": "education",
+    "priorite": 1,
+    "question": "What is the capital of Norway?",
+    "reponse_correcte": "Oslo",
+    "reponses_fausses": ["Stockholm", "Copenhagen", "Helsinki"]
+  }
+]

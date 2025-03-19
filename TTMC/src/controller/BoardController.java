@@ -50,7 +50,7 @@ public class BoardController{
 		@FXML
 		private Button btnBack, validerButton;  //back button
 		@FXML 
-		private Pane board; //visual representation of the board
+		private Pane board, playersContainer; //visual representation of the board
 		private Game game; //game object
 		private PlayerView playerView; //player view object
 		@FXML
@@ -237,13 +237,16 @@ public class BoardController{
 	        		questionCard.setVisible(true);
 	        		questionsContainer.setVisible(true);
 	        		playTransition(questionCard, false);
-	        		
 	        	}
 	        }
 			if (event.getCode() == KeyCode.O) {
 				displayNextQuestionCard();
 			}
-	        
+			if (event.getCode() == KeyCode.N) {
+				if (playersContainer.isVisible()) {
+			        playTransitionPlayerPane(playersContainer).setOnFinished(e -> {playersContainer.setVisible(false);});
+			    }
+			}
 	    }
 	    
 	    //Method to display the next question card
@@ -292,7 +295,7 @@ public class BoardController{
 	    		setToX = 0;
 	    		setToY = 0;
 	    	}
-	    	// Créer une ScaleTransition pour agrandir le Pane
+	    	//Create a ScaleTransition to enlarge the Pane
 	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
 	        scaleTransition.setFromX(setFromx); 
 	        scaleTransition.setFromY(setFromY); 
@@ -305,7 +308,7 @@ public class BoardController{
 	    
 	    private ScaleTransition playTransitionLabel (Label container) {
 		    
-	    	// Créer une ScaleTransition pour agrandir le Pane
+	    	//Create a ScaleTransition to enlarge the Pane
 	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
 	        scaleTransition.setFromX(0); 
 	        scaleTransition.setFromY(0); 
@@ -315,6 +318,20 @@ public class BoardController{
 	        sound.resetMedia();
 
 	        return scaleTransition;
+	    }
+	    
+	    private TranslateTransition playTransitionPlayerPane(Pane container) {
+	    	
+	        TranslateTransition transition = new TranslateTransition();
+	        transition.setDuration(Duration.seconds(2));
+	        transition.setNode(container);
+	        transition.setFromY(container.getLayoutY()); // start position
+	        transition.setToY(-100); //Final Position
+	        transition.setCycleCount(1); 
+	      
+	        //Start transition
+	        transition.play();
+	        return transition;
 	    }
 	    
 	    @FXML

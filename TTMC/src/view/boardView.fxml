@@ -116,9 +116,9 @@
       <Rectangle id="rec4_7" arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="401.0" layoutY="585.0" rotate="-51.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
       <Rectangle id="rec2_15" arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="904.0" layoutY="194.0" rotate="-79.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
       <Rectangle id="rec3_15" arcHeight="5.0" arcWidth="5.0" fill="#9c1e1e" height="85.0" layoutX="728.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="85.0" />
-      <Button fx:id="btnBack" layoutY="-7.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="42.0" prefWidth="120.0" text="BACK">
+      <Button fx:id="btnBack" layoutX="11.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="44.0" prefWidth="139.0" text="BACK">
          <font>
-            <Font name="Eras Bold ITC" size="12.0" />
+            <Font name="Eras Bold ITC" size="22.0" />
          </font>
       </Button>
       <Rectangle id="rec2_19" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="1119.0" layoutY="318.0" rotate="-135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" styleClass="improbable" width="85.0" />
@@ -172,5 +172,70 @@
             <Button fx:id="validerButton" layoutX="140.0" layoutY="481.0" mnemonicParsing="false" onAction="#onButtonValiderClicked" prefHeight="42.0" prefWidth="168.0" text="Valider" />
          </children>
       </AnchorPane>
+      <Pane fx:id="playersContainer" layoutX="181.0" layoutY="-9.0" prefHeight="54.0" prefWidth="1210.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-color: #5C3D2E; -fx-border-radius: 15px; -fx-border-width: 4px; -fx-background-radius: 15px;">
+         <children>
+            <Label fx:id="namePlayer1" layoutX="24.0" layoutY="17.0" prefHeight="17.0" prefWidth="100.0" text="Player 1">
+               <font>
+                  <Font name="Eras Bold ITC" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="namePlayer2" layoutX="327.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player 2">
+               <font>
+                  <Font name="Eras Bold ITC" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="namePlayer3" layoutX="629.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
+               <font>
+                  <Font name="Eras Bold ITC" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="namePlayer4" layoutX="944.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
+               <font>
+                  <Font name="Eras Bold ITC" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="172.0" layoutY="18.0" />
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="539.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ressources/images/hint.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="846.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ressources/images/hint.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="1132.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ressources/images/hint.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="251.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ressources/images/hint.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="230.0" layoutY="13.0" text="0">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="13.0" text="0">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="824.0" layoutY="13.0" text="0">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="1117.0" layoutY="15.0" text="0">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

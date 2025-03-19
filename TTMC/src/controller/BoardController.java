@@ -19,7 +19,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -40,6 +43,7 @@ public class BoardController{
 		private PlayerView playerView; //player view object
 		@FXML
 		private CheckBox musicCheckBox;
+		@FXML private AnchorPane questionCard;
 		@FXML
 		private ImageView volumeImage;
 		private Sound touchSound = new Sound();
@@ -95,6 +99,10 @@ public class BoardController{
 				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
 				volumeImage.setImage(maxVolume);
 			}
+	        
+	        
+	        // Add key event handler to the scene
+	        board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
 	    }
 
 	    @FXML
@@ -188,6 +196,18 @@ public class BoardController{
 				volumeImage.setImage(noVolume);
 			}
 		}
+	    
+	    //Method to handle key press event to show/hide question card 'Letter P'
+	    private void handleKeyPress(KeyEvent event) {
+	        if (event.getCode() == KeyCode.P) {
+	        	if(questionCard.isVisible()) {
+	        		questionCard.setVisible(false);
+	        	}else {
+	        		questionCard.setVisible(true);
+	        	}
+	        }
+	        
+	    }
 		
     
 }

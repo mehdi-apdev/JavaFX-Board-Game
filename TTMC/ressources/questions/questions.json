@@ -1,158 +1,297 @@
+
 [
   {
-    "nom_theme": "improbable",
-    "priorite": 2,
+    "theme_name": "improbable",
+    "priority": 2,
     "question": "How many grape berries are needed to make a 75 cl bottle of wine?",
-    "reponse_correcte": "600",
-    "reponses_fausses": ["1000", "200", "150"]
+    "responses": ["600", "1000", "200", "150"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 2,
+    "theme_name": "improbable",
+    "priority": 2,
     "question": "What is carpophobia?",
-    "reponse_correcte": "The fear of wrists",
-    "reponses_fausses": ["The fear of fruits", "The fear of bones", "The fear of feet"]
+    "responses": ["The fear of wrists", "The fear of fruits", "The fear of bones", "The fear of feet"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 4,
+    "theme_name": "improbable",
+    "priority": 4,
     "question": "How many photos are uploaded to Facebook daily?",
-    "reponse_correcte": "350 million",
-    "reponses_fausses": ["1 billion", "100 million", "50 million"]
+    "responses": ["350 million", "1 billion", "100 million", "50 million"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 3,
+    "theme_name": "improbable",
+    "priority": 3,
     "question": "What is the maximum speed of a giraffe?",
-    "reponse_correcte": "60 km/h",
-    "reponses_fausses": ["30 km/h", "80 km/h", "100 km/h"]
+    "responses": ["60 km/h", "30 km/h", "80 km/h", "100 km/h"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 3,
+    "theme_name": "improbable",
+    "priority": 3,
     "question": "Which planet in our solar system spins the fastest?",
-    "reponse_correcte": "Jupiter",
-    "reponses_fausses": ["Earth", "Mars", "Venus"]
+    "responses": ["Jupiter", "Earth", "Mars", "Venus"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 4,
+    "theme_name": "improbable",
+    "priority": 4,
     "question": "On average, how many hairs does a person have?",
-    "reponse_correcte": "100,000 to 150,000 hairs",
-    "reponses_fausses": ["50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
+    "responses": ["100,000 to 150,000 hairs", "50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 3,
+    "theme_name": "improbable",
+    "priority": 3,
     "question": "What is the rarest blood type?",
-    "reponse_correcte": "AB negative",
-    "reponses_fausses": ["O positive", "A negative", "B positive"]
+    "responses": ["AB negative", "O positive", "A negative", "B positive"]
   },
   {
-    "nom_theme": "improbable",
-    "priorite": 2,
+    "theme_name": "improbable",
+    "priority": 2,
     "question": "How many hearts does an octopus have?",
-    "reponse_correcte": "Three",
-    "reponses_fausses": ["One", "Two", "Four"]
+    "responses": ["Three", "One", "Two", "Four"]
   },
-  
   {
-    "nom_theme": "informatics",
-    "priorite": 3,
+    "theme_name": "improbable",
+    "priority": 2,
+    "question": "What is the tallest building in the world?",
+    "responses": ["Burj Khalifa", "Shanghai Tower", "Abraj Al-Bait Clock Tower", "Ping An Finance Centre"]
+  },
+  {
+    "theme_name": "improbable",
+    "priority": 3,
+    "question": "What is the smallest country in the world?",
+    "responses": ["Vatican City", "Monaco", "Nauru", "San Marino"]
+  },
+  {
+    "theme_name": "improbable",
+    "priority": 4,
+    "question": "How many bones are in the human body?",
+    "responses": ["206", "195", "210", "220"]
+  },
+  {
+    "theme_name": "improbable",
+    "priority": 3,
+    "question": "What is the longest river in the world?",
+    "responses": ["Nile", "Amazon", "Yangtze", "Mississippi"]
+  },
+  {
+    "theme_name": "informatics",
+    "priority": 3,
     "question": "What is polymorphism?",
-    "reponse_correcte": "A concept in OOP where an entity can have multiple forms.",
-    "reponses_fausses": ["A way to store multiple variables", "A method to encrypt passwords", "A machine learning model"]
+    "responses": ["A concept in OOP where an entity can have multiple forms.", "A way to store multiple variables", "A method to encrypt passwords", "A machine learning model"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 2,
+    "theme_name": "informatics",
+    "priority": 2,
     "question": "What is the primary programming language for Android apps?",
-    "reponse_correcte": "Java",
-    "reponses_fausses": ["Python", "Swift", "C++"]
+    "responses": ["Java", "Python", "Swift", "C++"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 2,
+    "theme_name": "informatics",
+    "priority": 2,
     "question": "What part of web development deals with UI/UX?",
-    "reponse_correcte": "Front end",
-    "reponses_fausses": ["Back end", "Database", "Server-side"]
+    "responses": ["Front end", "Back end", "Database", "Server-side"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 2,
+    "theme_name": "informatics",
+    "priority": 2,
     "question": "What is RAM?",
-    "reponse_correcte": "Random Access Memory",
-    "reponses_fausses": ["Hard Drive", "Cache", "ROM"]
+    "responses": ["Random Access Memory", "Hard Drive", "Cache", "ROM"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 3,
+    "theme_name": "informatics",
+    "priority": 3,
     "question": "What is a DDOS attack?",
-    "reponse_correcte": "An attack overwhelming a server with requests.",
-    "reponses_fausses": ["SQL Injection", "Brute Force", "Phishing"]
+    "responses": ["An attack overwhelming a server with requests.", "SQL Injection", "Brute Force", "Phishing"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 3,
+    "theme_name": "informatics",
+    "priority": 3,
     "question": "What does HTML stand for?",
-    "reponse_correcte": "HyperText Markup Language",
-    "reponses_fausses": ["High Tech Machine Learning", "HyperTransfer Markup Language", "Home Tool Markup Language"]
+    "responses": ["HyperText Markup Language", "High Tech Machine Learning", "HyperTransfer Markup Language", "Home Tool Markup Language"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 2,
+    "theme_name": "informatics",
+    "priority": 2,
     "question": "What is the function of an IP address?",
-    "reponse_correcte": "Identify a device on a network",
-    "reponses_fausses": ["Store website data", "Encrypt messages", "Speed up browsing"]
+    "responses": ["Identify a device on a network", "Store website data", "Encrypt messages", "Speed up browsing"]
   },
   {
-    "nom_theme": "informatics",
-    "priorite": 3,
+    "theme_name": "informatics",
+    "priority": 3,
     "question": "What is the purpose of a firewall?",
-    "reponse_correcte": "To protect networks from unauthorized access",
-    "reponses_fausses": ["To increase internet speed", "To store passwords", "To block ads"]
+    "responses": ["To protect networks from unauthorized access", "To increase internet speed", "To store passwords", "To block ads"]
   },
-
   {
-    "nom_theme": "education",
-    "priorite": 1,
+    "theme_name": "informatics",
+    "priority": 2,
+    "question": "What is a compiler?",
+    "responses": ["A program that translates code into machine language", "A type of database", "A network protocol", "A web server"]
+  },
+  {
+    "theme_name": "informatics",
+    "priority": 3,
+    "question": "What is an API?",
+    "responses": ["Application Programming Interface", "Automated Process Integration", "Advanced Programming Instruction", "Application Protocol Interface"]
+  },
+  {
+    "theme_name": "informatics",
+    "priority": 4,
+    "question": "What is the main function of an operating system?",
+    "responses": ["Manage computer hardware and software resources", "Store user data", "Provide internet access", "Run antivirus programs"]
+  },
+  {
+    "theme_name": "informatics",
+    "priority": 3,
+    "question": "What is the difference between HTTP and HTTPS?",
+    "responses": ["HTTPS is secure, HTTP is not", "HTTP is faster", "HTTPS is a newer version", "There is no difference"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 2,
+    "question": "Who directed the movie 'Inception'?",
+    "responses": ["Christopher Nolan", "Steven Spielberg", "James Cameron", "Quentin Tarantino"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the highest-grossing film of all time?",
+    "responses": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars: The Force Awakens"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 4,
+    "question": "Who is known as the 'King of Pop'?",
+    "responses": ["Michael Jackson", "Elvis Presley", "Prince", "Madonna"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the longest-running TV show?",
+    "responses": ["The Simpsons", "Friends", "Game of Thrones", "Breaking Bad"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 2,
+    "question": "Who wrote the 'Harry Potter' series?",
+    "responses": ["J.K. Rowling", "J.R.R. Tolkien", "George R.R. Martin", "Stephen King"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the name of the fictional city in 'Batman'?",
+    "responses": ["Gotham", "Metropolis", "Star City", "Central City"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 4,
+    "question": "Who played the character of Jack in 'Titanic'?",
+    "responses": ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Johnny Depp"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the name of the coffee shop in 'Friends'?",
+    "responses": ["Central Perk", "Monk's Cafe", "MacLaren's Pub", "The Drunken Clam"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 2,
+    "question": "Who is the lead singer of the band 'Queen'?",
+    "responses": ["Freddie Mercury", "Mick Jagger", "David Bowie", "Elton John"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the name of the dragon in 'The Hobbit'?",
+    "responses": ["Smaug", "Drogon", "Falkor", "Toothless"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 4,
+    "question": "Who won the first season of 'American Idol'?",
+    "responses": ["Kelly Clarkson", "Carrie Underwood", "Jennifer Hudson", "Adam Lambert"]
+  },
+  {
+    "theme_name": "entertainment",
+    "priority": 3,
+    "question": "What is the name of the kingdom in 'Frozen'?",
+    "responses": ["Arendelle", "Narnia", "Westeros", "Hogwarts"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 1,
     "question": "When did humans first walk on the moon?",
-    "reponse_correcte": "1969",
-    "reponses_fausses": ["1955", "1972", "1980"]
+    "responses": ["1969", "1955", "1972", "1980"]
   },
   {
-    "nom_theme": "education",
-    "priorite": 2,
+    "theme_name": "education",
+    "priority": 2,
     "question": "Who fought against racism in South Africa?",
-    "reponse_correcte": "Nelson Mandela",
-    "reponses_fausses": ["Martin Luther King Jr.", "Barack Obama", "Mahatma Gandhi"]
+    "responses": ["Nelson Mandela", "Martin Luther King Jr.", "Barack Obama", "Mahatma Gandhi"]
   },
   {
-    "nom_theme": "education",
-    "priorite": 4,
+    "theme_name": "education",
+    "priority": 4,
     "question": "What was the result of Charles Quint's expedition against Algiers?",
-    "reponse_correcte": "Failure due to a storm and resistance",
-    "reponses_fausses": ["Victory", "A peace treaty", "No significant impact"]
+    "responses": ["Failure due to a storm and resistance", "Victory", "A peace treaty", "No significant impact"]
   },
   {
-    "nom_theme": "education",
-    "priorite": 1,
+    "theme_name": "education",
+    "priority": 1,
     "question": "What is the largest country in Africa?",
-    "reponse_correcte": "Algeria",
-    "reponses_fausses": ["Nigeria", "Egypt", "South Africa"]
+    "responses": ["Algeria", "Nigeria", "Egypt", "South Africa"]
   },
   {
-    "nom_theme": "education",
-    "priorite": 1,
+    "theme_name": "education",
+    "priority": 1,
     "question": "Who was the first president of the USA?",
-    "reponse_correcte": "George Washington",
-    "reponses_fausses": ["Abraham Lincoln", "Thomas Jefferson", "John Adams"]
+    "responses": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"]
   },
   {
-    "nom_theme": "education",
-    "priorite": 1,
+    "theme_name": "education",
+    "priority": 1,
     "question": "What is the capital of Norway?",
-    "reponse_correcte": "Oslo",
-    "reponses_fausses": ["Stockholm", "Copenhagen", "Helsinki"]
+    "responses": ["Oslo", "Stockholm", "Copenhagen", "Helsinki"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 2,
+    "question": "What is the chemical symbol for water?",
+    "responses": ["H2O", "O2", "CO2", "H2"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 3,
+    "question": "Who wrote 'To Kill a Mockingbird'?",
+    "responses": ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 4,
+    "question": "What is the powerhouse of the cell?",
+    "responses": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 3,
+    "question": "Who developed the theory of relativity?",
+    "responses": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 2,
+    "question": "What is the largest planet in our solar system?",
+    "responses": ["Jupiter", "Saturn", "Earth", "Mars"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 3,
+    "question": "Who painted the Mona Lisa?",
+    "responses": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"]
+  },
+  {
+    "theme_name": "education",
+    "priority": 4,
+    "question": "What is the longest river in Africa?",
+    "responses": ["Nile", "Congo", "Niger", "Zambezi"]
   }
 ]

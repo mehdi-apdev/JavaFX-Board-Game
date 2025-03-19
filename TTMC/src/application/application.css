@@ -99,7 +99,7 @@ Circle{
 
 /* Décoration jungle */
 #questionCard::before {
-    -fx-background-image: url(../../ressources/images/feuilleJungle.png); /* Ajoutez votre image décorative */
+    -fx-background-image: url(file:ressources/images/feuilleJungle.png); /* Ajoutez votre image décorative */
     -fx-background-position: top right;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 0.5;

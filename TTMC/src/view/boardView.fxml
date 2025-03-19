@@ -150,7 +150,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Label fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="Thème de la q" textAlignment="CENTER" visible="false" />
+                  <Label fx:id="themeLabel" id="themeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="Thème de la q" textAlignment="CENTER" visible="false" />
                   <Label fx:id="questionLabel2" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                   <Label fx:id="questionLabel3" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                   <Label fx:id="questionLabel1" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />

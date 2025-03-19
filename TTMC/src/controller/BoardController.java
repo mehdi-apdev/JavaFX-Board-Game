@@ -24,14 +24,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import models.Game;
+import models.JsonQuestionFactory;
 import models.Player;
+import models.Question;
+import models.QuestionCard;
+import models.QuestionCardFactory;
 import models.Space;
 import view.PlayerView;
 import view.SpaceView;
 import java.util.Random;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class BoardController{
 	
@@ -47,6 +54,24 @@ public class BoardController{
 		@FXML
 		private ImageView volumeImage;
 		private Sound touchSound = new Sound();
+		
+		
+
+		@FXML
+		private VBox questionsContainer;
+		@FXML
+		private Label themeLabel;
+		@FXML
+		private Label questionLabel1;
+		@FXML
+		private Label questionLabel2;
+		@FXML
+		private Label questionLabel3;
+		@FXML
+		private Label questionLabel4;
+
+		private List<QuestionCard> questionCards;
+		private int currentCardIndex = 0;
 
 		
 	    @FXML
@@ -89,6 +114,7 @@ public class BoardController{
 	        // Add mouse click event handler to move the player
 	        board.setOnMouseClicked(this::onBoardClicked);
 	        
+	
 	        //do a shared class to avoid repetition
 	        if (Main.mainSound.isMuted()== true) {
 	        	musicCheckBox.setSelected(false);;
@@ -103,6 +129,14 @@ public class BoardController{
 	        
 	        // Add key event handler to the scene
 	        board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+	        
+	        
+	        // Load the questions from the JSON file
+	        JsonQuestionFactory jsonQuestionFactory = new JsonQuestionFactory();
+	        jsonQuestionFactory.loadQuestions("ressources/questions/questions.json");
+	        // Create the question cards
+	        QuestionCardFactory questionCardFactory = new QuestionCardFactory(jsonQuestionFactory);
+	        questionCards = questionCardFactory.createQuestionCards();
 	    }
 
 	    @FXML
@@ -197,16 +231,44 @@ public class BoardController{
 			}
 		}
 	    
-	    //Method to handle key press event to show/hide question card 'Letter P'
+	    //Method to handle key press event to show/hide question card 'Letter
 	    private void handleKeyPress(KeyEvent event) {
 	        if (event.getCode() == KeyCode.P) {
 	        	if(questionCard.isVisible()) {
 	        		questionCard.setVisible(false);
+	        		questionsContainer.setVisible(false);
 	        	}else {
 	        		questionCard.setVisible(true);
+	        		questionsContainer.setVisible(true);
 	        	}
 	        }
+			if (event.getCode() == KeyCode.O) {
+				displayNextQuestionCard();
+			}
 	        
+	    }
+	    
+	    //Method to display the next question card
+	    private void displayNextQuestionCard() {
+	        if (currentCardIndex < questionCards.size()) {
+	            QuestionCard card = questionCards.get(currentCardIndex);
+	            themeLabel.setText("Theme: " + card.getTheme().toString());
+	            List<Question> questions = card.getQuestions();
+	            questionLabel1.setText(questions.get(0).getTexte());
+	            questionLabel2.setText(questions.get(1).getTexte());
+	            questionLabel3.setText(questions.get(2).getTexte());
+	            questionLabel4.setText(questions.get(3).getTexte());
+
+	            questionCard.setVisible(true);
+	            questionsContainer.setVisible(true);
+	            themeLabel.setVisible(true);
+	            questionLabel1.setVisible(true);
+	            questionLabel2.setVisible(true);
+	            questionLabel3.setVisible(true);
+	            questionLabel4.setVisible(true);
+
+	            currentCardIndex++;
+	        }
 	    }
 		
     

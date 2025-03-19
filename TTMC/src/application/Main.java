@@ -1,5 +1,6 @@
 package application;
 
+import java.util.List;
 import java.util.Optional;
 
 import controller.Sound;
@@ -15,6 +16,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import models.JsonQuestionFactory;
+import models.Question;
+import models.QuestionCard;
+import models.QuestionCardFactory;
 
 public class Main extends Application {
 	
@@ -64,6 +69,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+
+		
+		
 	}
 	
 	public static void main(String[] args) {
@@ -71,3 +80,15 @@ public class Main extends Application {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

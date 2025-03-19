@@ -52,6 +52,7 @@ public class PlayerView {
     // Method to animate the player
     public void animate() {
     	sound.playMedia("tap.wav", 0.5);
+    	
     }
     
     //Getter of spaces

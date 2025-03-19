@@ -5,6 +5,7 @@ Circle{
 }
 
 
+
 /* Style CSS pour l'AnchorPane de questions - Thème Jungle */
 
 /* Carte de question */
@@ -15,7 +16,7 @@ Circle{
     -fx-border-color: #5C3D2E; /* Couleur bois */
     -fx-border-width: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 5);
-    -fx-padding: 15px;
+    -fx-padding: 10px;
 }
 
 /* Titre de la question */
@@ -24,7 +25,7 @@ Circle{
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #1a472a; /* Vert jungle foncé */
-    -fx-padding: 10px;
+    -fx-padding: 8px;
     -fx-background-color: rgba(46, 139, 87, 0.2); /* Vert jungle clair transparent */
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
@@ -98,7 +99,7 @@ Circle{
 
 /* Décoration jungle */
 #questionCard::before {
-    -fx-background-image: url('feuille-jungle.png'); /* Ajoutez votre image décorative */
+    -fx-background-image: url(../../ressources/images/feuilleJungle.png); /* Ajoutez votre image décorative */
     -fx-background-position: top right;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 0.5;
@@ -108,3 +109,21 @@ Button{
     -fx-background-radius: 8px; 
         -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 2); 
 }
+
+/* Label de thème/question en haut */
+#themeLabel, #questionSelectionneeLabel {
+    -fx-font-family: "Papyrus", "Fantasy", "System";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a472a;
+    -fx-padding: 12px;
+    -fx-background-color: rgba(46, 139, 87, 0.2);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #2e8b57;
+    -fx-border-width: 2px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+    -fx-alignment: center;
+    -fx-wrap-text: true;
+}
+

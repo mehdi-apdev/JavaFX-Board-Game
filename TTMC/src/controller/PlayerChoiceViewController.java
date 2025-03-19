@@ -1,10 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,194 +15,210 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import models.Game;
-import models.Player;
-import view.PlayerView;
 
+/**
+ * Controller for the player choice view where players can select their color.
+ * This class handles the player color selection and navigation between views.
+ */
 public class PlayerChoiceViewController {
-	
-	public enum colorEnum{
-		RED, ORANGE, YELLOW, BLUE
-	}
-	
-
-	@FXML
-	private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext; 
-	private Game game; //game object
-	private PlayerView playerView; //player view object
-	@FXML
-	private CheckBox musicCheckBox;
-	@FXML
-	private Circle playerColor;
-	private colorEnum playerColorEnum; 
-	@FXML
-	private ImageView volumeImage;
-	private Sound touchSound = new Sound(); 
-	
-	
-	 @FXML
-	    public void initialize() {
-		 
-		 //initialize the First color 
-		 playerColorEnum = colorEnum.RED;
-	     
-		 //do a shared class to avoid repetition
-		 if (Main.mainSound.isMuted()== true) {
-	        	musicCheckBox.setSelected(false);;
-	        	Image noVolume = new Image("file:ressources/images/noVolume.png"); 
-				volumeImage.setImage(noVolume);
-			}else {
-				musicCheckBox.setSelected(true);
-				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
-				volumeImage.setImage(maxVolume);
-			}
-
-	    }
-
-	
-	@FXML
+    
+    /**
+     * Enum representing available player colors
+     */
+    public enum PlayerColor {
+        RED(Color.RED),
+        ORANGE(Color.ORANGE),
+        YELLOW(Color.YELLOW),
+        BLUE(Color.BLUE);
+        
+        private final Color color;
+        
+        PlayerColor(Color color) {
+            this.color = color;
+        }
+        
+        public Color getColor() {
+            return color;
+        }
+        
+        public PlayerColor next() {
+            PlayerColor[] values = PlayerColor.values();
+            return values[(this.ordinal() + 1) % values.length];
+        }
+        
+        public PlayerColor previous() {
+            PlayerColor[] values = PlayerColor.values();
+            return values[(this.ordinal() + values.length - 1) % values.length];
+        }
+    }
+    
+    // Constants
+    private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
+    private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
+    private static final String CLICK_SOUND = "click.wav";
+    private static final String CONFIRM_SOUND = "click2.wav";
+    private static final double SOUND_VOLUME = 0.5;
+    
+    // FXML elements
+    @FXML private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext;
+    @FXML private CheckBox musicCheckBox;
+    @FXML private Circle playerColor;
+    @FXML private ImageView volumeImage;
+    
+    // Controller state
+    private PlayerColor currentPlayerColor;
+    private final Sound touchSound = new Sound();
+    private static Paint selectedColor = Color.RED; // default color
+    
+    /**
+     * Initializes the controller.
+     * Sets up the initial player color and sound settings.
+     */
+    @FXML
+    public void initialize() {
+        // Initialize the first color
+        currentPlayerColor = PlayerColor.RED;
+        playerColor.setFill(currentPlayerColor.getColor());
+        
+        // Initialize sound settings
+        updateSoundDisplay();
+    }
+    
+    /**
+     * Updates the sound icon based on the current mute state.
+     */
+    private void updateSoundDisplay() {
+        boolean isMuted = Main.mainSound.isMuted();
+        musicCheckBox.setSelected(!isMuted);
+        volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
+    }
+    
+    /**
+     * Handles the back button click event.
+     * Returns to the main menu.
+     * 
+     * @param event The action event
+     */
+    @FXML
     protected void onButtonBackClicked(ActionEvent event) {
-        try {
-        	
-        	//Play sound
-			touchSound.playMedia("click2.wav", 0.5);
-            // Load the FXML file of the new interface
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
-            Pane root = fxmlLoader.load();
-
-            // Create a new scene with the loaded content
-            Scene scene = new Scene(root);
-
-            // Get the current scene and the current stage (window)
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-
-            // Show the new scene
-            stage.show();
-            
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        navigateToView("../view/menuView.fxml", event, CONFIRM_SOUND);
     }
-	
-	@FXML
+    
+    /**
+     * Handles the play button click event.
+     * Navigates to the game board.
+     * 
+     * @param event The action event
+     */
+    @FXML
     protected void onButtonPlayClicked(ActionEvent event) {
+        selectedColor = playerColor.getFill();
+        navigateToView("../view/boardView.fxml", event, CONFIRM_SOUND);
+    }
+    
+    /**
+     * Handles navigation to a different view.
+     * 
+     * @param fxmlPath The path to the FXML file
+     * @param event The action event that triggered the navigation
+     * @param soundFile The sound file to play during navigation
+     */
+    private void navigateToView(String fxmlPath, ActionEvent event, String soundFile) {
         try {
-        	
-        	//Play sound
-			touchSound.playMedia("click2.wav", 0.5);
+            // Play sound
+            touchSound.playMedia(soundFile, SOUND_VOLUME);
+            
             // Load the FXML file of the new interface
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/boardView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Pane root = fxmlLoader.load();
-
+            
             // Create a new scene with the loaded content
             Scene scene = new Scene(root);
-
-            // Get the current scene and the current stage (window)
+            
+            // Get the current stage (window)
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             
             scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-
+            
             // Set the new scene on the current stage
             stage.setScene(scene);
-
-            // Show the new scene
             stage.show();
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-	
-	@FXML
-	protected void onChecked(ActionEvent event) {
-		
-		// Check the current mute status and toggle it
-		if (Main.mainSound.isMuted()) { 
-			Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
-			volumeImage.setImage(maxVolume);
-			Main.mainSound.unMuteMedia(); //method to unmute the media
-		} else {
-			Main.mainSound.muteMedia(); //method to mute the media
-			Image noVolume = new Image("file:ressources/images/noVolume.png"); 
-			volumeImage.setImage(noVolume);
-		}
-	}
-	
-	@FXML
-	protected void onButtonPreviousClicked(ActionEvent event) {
-		//Play sound
-		touchSound.playMedia("click.wav", 0.5);
-		
-		//Switch to change color
-		switch (playerColorEnum) {
-	    case RED:
-	        playerColorEnum = colorEnum.YELLOW;
-	        playerColor.setFill(Color.YELLOW);
-	        break;
-	    case YELLOW:
-	        playerColorEnum = colorEnum.ORANGE;
-	        playerColor.setFill(Color.ORANGE);
-	        break;
-	    case ORANGE:
-	        playerColorEnum = colorEnum.BLUE;
-	        playerColor.setFill(Color.BLUE);
-	        break;
-	    case BLUE:
-	        playerColorEnum = colorEnum.RED;
-	        playerColor.setFill(Color.RED);
-	        break;
-	}
-	}
-	
-	@FXML
-	protected void onButtonNextClicked(ActionEvent event) {
-		//Play sound
-		touchSound.playMedia("click.wav", 0.5);
-		
-		//Switch to change color
-		switch (playerColorEnum) {
-        case colorEnum.RED:
-        	playerColorEnum = colorEnum.BLUE;
-        	playerColor.setFill(Color.BLUE);
-        	break;
-        case colorEnum.BLUE:
-        	playerColorEnum = colorEnum.ORANGE;
-        	playerColor.setFill(Color.ORANGE);
-            break;
-        case colorEnum.ORANGE:
-        	playerColorEnum = colorEnum.YELLOW;
-        	playerColor.setFill(Color.YELLOW);
-            break;
-        case colorEnum.YELLOW:
-        	playerColorEnum = colorEnum.RED;
-        	playerColor.setFill(Color.RED);
-           break;
-		}
-		
-	}
-		
-	
-	
-	@FXML
-	protected void onButtonOkClicked(ActionEvent event) {
-		//Play sound
-		touchSound.playMedia("click2.wav", 0.5);
-		
-	}
-	
-	//Return the color
-	public Paint getColor() {
-		return playerColor.getFill();
-	}
-	
-	
-
+    
+    /**
+     * Handles the music checkbox toggle event.
+     * Mutes or unmutes the game sound.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onChecked(ActionEvent event) {
+        if (Main.mainSound.isMuted()) {
+            Main.mainSound.unMuteMedia();
+        } else {
+            Main.mainSound.muteMedia();
+        }
+        updateSoundDisplay();
+    }
+    
+    /**
+     * Handles the previous button click event.
+     * Cycles to the previous player color.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onButtonPreviousClicked(ActionEvent event) {
+        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+        currentPlayerColor = currentPlayerColor.previous();
+        playerColor.setFill(currentPlayerColor.getColor());
+    }
+    
+    /**
+     * Handles the next button click event.
+     * Cycles to the next player color.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onButtonNextClicked(ActionEvent event) {
+        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+        currentPlayerColor = currentPlayerColor.next();
+        playerColor.setFill(currentPlayerColor.getColor());
+    }
+    
+    /**
+     * Handles the OK button click event.
+     * Confirms the current color selection.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onButtonOkClicked(ActionEvent event) {
+        touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+        selectedColor = playerColor.getFill();
+    }
+    
+    /**
+     * Returns the currently selected player color.
+     * 
+     * @return The selected Paint color
+     */
+    public Paint getColor() {
+        return playerColor.getFill();
+    }
+    
+    /**
+     * Returns the statically stored selected color.
+     * This can be accessed from other controllers.
+     * 
+     * @return The selected Paint color
+     */
+    public static Paint getSelectedColor() {
+        return selectedColor;
+    }
 }

@@ -1,6 +1,8 @@
 package controller;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -50,6 +52,12 @@ public class Sound {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
+    }
+    
+    public void resetMedia() {
+    	 if (mediaPlayer != null) {
+    		 mediaPlayer.seek(Duration.ZERO); // Repositionne au début
+         }
     }
     
     //Method to loop 

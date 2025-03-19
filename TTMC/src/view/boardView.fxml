@@ -128,9 +128,21 @@
       <Rectangle id="rec1_7" arcHeight="5.0" arcWidth="5.0" fill="#868686" height="60.0" layoutX="449.0" layoutY="166.0" opacity="0.09" rotate="-45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec1_10" arcHeight="5.0" arcWidth="5.0" fill="#868686" height="60.0" layoutX="612.0" layoutY="262.0" opacity="0.09" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec1_13" arcHeight="5.0" arcWidth="5.0" fill="#868686" height="60.0" layoutX="732.0" layoutY="425.0" opacity="0.09" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      
+      <CheckBox fx:id="musicCheckBox" layoutX="1334.0" layoutY="788.0" mnemonicParsing="false" onAction="#onChecked" prefHeight="54.0" prefWidth="202.0" selected="true" text="Music">
+         <font>
+            <Font name="Eras Bold ITC" size="20.0" />
+         </font>
+      </CheckBox>
+      <ImageView fx:id="volumeImage" fitHeight="73.0" fitWidth="130.0" layoutX="1435.0" layoutY="779.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ressources/images/maxVolume.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="924.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" />
       <AnchorPane id="questionCard" fx:id="questionCard" layoutX="319.0" layoutY="85.0" prefHeight="535.0" prefWidth="447.0" stylesheets="@../application/application.css" visible="false">
          <children>
-            <VBox alignment="CENTER" layoutX="57.0" layoutY="78.0" prefHeight="355.0" prefWidth="371.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
+            <VBox fx:id="questionBox" alignment="CENTER" layoutX="57.0" layoutY="78.0" prefHeight="355.0" prefWidth="371.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
                <children>
                   <Label fx:id="questionSelectionneeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="La question" textAlignment="CENTER" />
                   <RadioButton fx:id="response1" mnemonicParsing="false" prefHeight="59.0" prefWidth="342.0" text="RadioButton">
@@ -150,27 +162,15 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <Label fx:id="themeLabel" id="themeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="Thème de la q" textAlignment="CENTER" visible="false" />
+                  <Label id="themeLabel" fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="Thème de la q" textAlignment="CENTER" visible="false" />
+                  <Label fx:id="questionLabel1" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                   <Label fx:id="questionLabel2" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                   <Label fx:id="questionLabel3" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
-                  <Label fx:id="questionLabel1" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                   <Label fx:id="questionLabel4" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
                </children>
             </VBox>
-            <Button fx:id="validerButton" layoutX="140.0" layoutY="481.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="168.0" text="Valider" />
+            <Button fx:id="validerButton" layoutX="140.0" layoutY="481.0" mnemonicParsing="false" onAction="#onButtonValiderClicked" prefHeight="42.0" prefWidth="168.0" text="Valider" />
          </children>
       </AnchorPane>
-      
-      <CheckBox fx:id="musicCheckBox" layoutX="1334.0" layoutY="788.0" mnemonicParsing="false" onAction="#onChecked" prefHeight="54.0" prefWidth="202.0" selected="true" text="Music">
-         <font>
-            <Font name="Eras Bold ITC" size="20.0" />
-         </font>
-      </CheckBox>
-      <ImageView fx:id="volumeImage" fitHeight="73.0" fitWidth="130.0" layoutX="1435.0" layoutY="779.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../ressources/images/maxVolume.png" />
-         </image>
-      </ImageView>
-      <VBox layoutX="924.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </Pane>

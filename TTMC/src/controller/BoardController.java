@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.Game;
 import models.JsonQuestionFactory;
 import models.Player;
@@ -43,7 +48,7 @@ import javafx.scene.control.Label;
 public class BoardController{
 	
 		@FXML
-		private Button btnBack;  //back button
+		private Button btnBack, validerButton;  //back button
 		@FXML 
 		private Pane board; //visual representation of the board
 		private Game game; //game object
@@ -53,22 +58,12 @@ public class BoardController{
 		@FXML private AnchorPane questionCard;
 		@FXML
 		private ImageView volumeImage;
-		private Sound touchSound = new Sound();
+		private Sound sound = new Sound();
+		@FXML
+		private VBox questionsContainer, questionBox;
+		@FXML
+		private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
 		
-		
-
-		@FXML
-		private VBox questionsContainer;
-		@FXML
-		private Label themeLabel;
-		@FXML
-		private Label questionLabel1;
-		@FXML
-		private Label questionLabel2;
-		@FXML
-		private Label questionLabel3;
-		@FXML
-		private Label questionLabel4;
 
 		private List<QuestionCard> questionCards;
 		private int currentCardIndex = 0;
@@ -144,7 +139,7 @@ public class BoardController{
 	        try {
 	        	
 	        	//Play sound
-				touchSound.playMedia("click2.wav", 0.5);
+	        	sound.playMedia("click2.wav", 0.5);
 	            // Load the FXML file of the new interface
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
 	            Pane root = fxmlLoader.load();
@@ -237,9 +232,12 @@ public class BoardController{
 	        	if(questionCard.isVisible()) {
 	        		questionCard.setVisible(false);
 	        		questionsContainer.setVisible(false);
+	        		
 	        	}else {
 	        		questionCard.setVisible(true);
 	        		questionsContainer.setVisible(true);
+	        		playTransition(questionCard, false);
+	        		
 	        	}
 	        }
 			if (event.getCode() == KeyCode.O) {
@@ -266,10 +264,64 @@ public class BoardController{
 	            questionLabel2.setVisible(true);
 	            questionLabel3.setVisible(true);
 	            questionLabel4.setVisible(true);
+	            
+	         // Utiliser SequentialTransition pour les enchaîner
+	            SequentialTransition sequentialTransition = new SequentialTransition();
+	            sequentialTransition.getChildren().addAll(
+	            		playTransitionLabel(themeLabel), 
+	            		playTransitionLabel(questionLabel1),  
+	            		playTransitionLabel(questionLabel2),  
+	            		playTransitionLabel(questionLabel3),  
+	            		playTransitionLabel(questionLabel4)
+	            );
+
+	            sequentialTransition.play();
+	            
 
 	            currentCardIndex++;
 	        }
 	    }
+	    
+	    private void playTransition(Pane container, boolean isOpen) {
+	       
+	    	int setFromx = 0 , setFromY = 0, setToX = 1, setToY = 1;
+	    	
+	    	if (isOpen) {
+	    		setFromx = 1; 
+	    		setFromY = 1;
+	    		setToX = 0;
+	    		setToY = 0;
+	    	}
+	    	// Créer une ScaleTransition pour agrandir le Pane
+	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
+	        scaleTransition.setFromX(setFromx); 
+	        scaleTransition.setFromY(setFromY); 
+	        scaleTransition.setToX(setToX);   
+	        scaleTransition.setToY(setToY); 
+	        sound.playMedia("zoom.wav", 0.5);
+	        scaleTransition.play();      
+         
+	    }
+	    
+	    private ScaleTransition playTransitionLabel (Label container) {
+		    
+	    	// Créer une ScaleTransition pour agrandir le Pane
+	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
+	        scaleTransition.setFromX(0); 
+	        scaleTransition.setFromY(0); 
+	        scaleTransition.setToX(1);   
+	        scaleTransition.setToY(1);
+	        sound.playMedia("nextQst.wav", 0.3);
+	        sound.resetMedia();
+
+	        return scaleTransition;
+	    }
+	    
+	    @FXML
+	    protected void onButtonValiderClicked(ActionEvent event) {
+	    	sound.playMedia("click2.wav", 0.5);
+	    }
+
 		
     
 }

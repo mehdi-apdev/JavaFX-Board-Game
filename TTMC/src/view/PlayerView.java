@@ -25,7 +25,6 @@ public class PlayerView {
         // Create the circle
         this.circle = new Circle(12, color);
 
-
         // Set the initial position of the circle
         updatePosition();
     }

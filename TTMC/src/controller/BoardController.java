@@ -222,13 +222,10 @@ public class BoardController {
     protected void onButtonClicked(ActionEvent event) {
     	 touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
     	 boolean result;
-    	 result = showConfirmationDialog("QUIT GAME", "Are you sure you want to leave the game ?");
+    	 result = showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game ?");
          if (result) {
         	 navigateToView("../view/menuView.fxml", event);
-        	 players.clear();
-        	 playersHints.clear();
-        	 playersNames.clear();
-        	 nbPlayers = 0;
+        	 quitGame();
          }
     }
     
@@ -492,13 +489,14 @@ public class BoardController {
     
     private void playTimer() {
         int[] duration = {60}; // Using a table to represent time
+        timerSound.resetMedia();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> {
                     if (duration[0] > 0) {
                         timerLabel.setText((duration[0]--) + "");
                     } else {
                         timerLabel.setText("0");
-                        timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
+                        //timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
                     }
                 })
         );
@@ -507,6 +505,14 @@ public class BoardController {
         Main.mainSound.muteMedia();
         timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME);
         timerSound.loop();
+    }
+    
+    private void quitGame() {
+    	 players.clear();
+    	 playersHints.clear();
+    	 playersNames.clear();
+    	 timerSound.stopMedia();
+    	 nbPlayers = 0;
     }
 
 }

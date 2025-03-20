@@ -1,14 +1,23 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -60,16 +69,21 @@ public class PlayerChoiceViewController {
     private static final String CONFIRM_SOUND = "click2.wav";
     private static final double SOUND_VOLUME = 0.5;
     
+    
     // FXML elements
     @FXML private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext;
     @FXML private CheckBox musicCheckBox;
     @FXML private Circle playerColor;
     @FXML private ImageView volumeImage;
+    @FXML private TextField playerName;
+    @FXML private Pane playerChoicePane;
     
     // Controller state
     private PlayerColor currentPlayerColor;
     private final Sound touchSound = new Sound();
     private static Paint selectedColor = Color.RED; // default color
+    private static List<String> selectedListPlayersNames = new ArrayList<>() ;
+    private List<String>listPlayersNames = new ArrayList<>();
     
     /**
      * Initializes the controller.
@@ -80,6 +94,8 @@ public class PlayerChoiceViewController {
         // Initialize the first color
         currentPlayerColor = PlayerColor.RED;
         playerColor.setFill(currentPlayerColor.getColor());
+      
+
         
         // Initialize sound settings
         updateSoundDisplay();
@@ -113,7 +129,13 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonPlayClicked(ActionEvent event) {
+    	touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+    	if (listPlayersNames.size() < 2 ) {
+    		showDialog("HEADS UP !", "You need more players to start the adventure !");
+    		return;
+    	}
         selectedColor = playerColor.getFill();
+        selectedListPlayersNames = getListPlayersNames();
         navigateToView("../view/boardView.fxml", event, CONFIRM_SOUND);
     }
     
@@ -165,6 +187,7 @@ public class PlayerChoiceViewController {
         updateSoundDisplay();
     }
     
+    
     /**
      * Handles the previous button click event.
      * Cycles to the previous player color.
@@ -200,8 +223,38 @@ public class PlayerChoiceViewController {
     @FXML
     protected void onButtonOkClicked(ActionEvent event) {
         touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
-        selectedColor = playerColor.getFill();
+        
+
+        
+        if(listPlayersNames.size() >= 4 ){
+        	showDialog("OOPS!", "The game is already full! No more players can join.");
+            return;
+
+        }
+        
+       if(playerName.getText().equals("")) {
+    	   showDialog("HOLD UP!", "You need to enter a name to join the game!");
+    	    return;
+       }
+       
+       	selectedColor = playerColor.getFill();
+        listPlayersNames.add(playerName.getText());
+        System.out.println(listPlayersNames);
+        showDialog("SUCESS!", "Player " + playerName.getText() + " has joined the game! Get ready to play!");
+        playerName.setText("");
     }
+    
+    //Method to show alerts
+    private void showDialog(String title, String text) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+       
+        alert.setHeaderText(title);
+        alert.setContentText(text);
+        alert.getDialogPane().setStyle("");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+        alert.showAndWait();
+    }
+
     
     /**
      * Returns the currently selected player color.
@@ -211,6 +264,14 @@ public class PlayerChoiceViewController {
     public Paint getColor() {
         return playerColor.getFill();
     }
+    
+   public List<String> getListPlayersNames() {
+	   return listPlayersNames;
+   }
+   
+   public static List<String> getSelectedListPlayersNames() {
+	return selectedListPlayersNames;
+}
     
     /**
      * Returns the statically stored selected color.

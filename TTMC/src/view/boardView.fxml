@@ -184,55 +184,55 @@
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer3" layoutX="629.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
+            <Label fx:id="namePlayer3" layoutX="615.0" layoutY="15.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer4" layoutX="944.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
+            <Label fx:id="namePlayer4" layoutX="916.0" layoutY="15.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
             <Label layoutX="172.0" layoutY="18.0" />
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="539.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="538.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="846.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="853.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="1132.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="1158.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="251.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="241.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <Label layoutX="230.0" layoutY="13.0" text="0">
+            <Label fx:id="playerHint1" layoutX="172.0" layoutY="15.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="22.0" />
+                  <Font name="Eras Bold ITC" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="524.0" layoutY="13.0" text="0">
+            <Label fx:id="playerHint2" layoutX="476.0" layoutY="15.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="22.0" />
+                  <Font name="Eras Bold ITC" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="824.0" layoutY="13.0" text="0">
+            <Label fx:id="playerHint3" layoutX="784.0" layoutY="16.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="22.0" />
+                  <Font name="Eras Bold ITC" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="1117.0" layoutY="15.0" text="0">
+            <Label fx:id="playerHint4" layoutX="1082.0" layoutY="15.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="22.0" />
+                  <Font name="Eras Bold ITC" size="18.0" />
                </font>
             </Label>
          </children>

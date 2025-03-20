@@ -18,6 +18,34 @@ Circle{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 5);
     -fx-padding: 10px;
 }
+/* Style pour DialogPane */
+.dialog-pane {
+    -fx-background-color: rgba(245, 245, 220, 0.9); /* Beige transparent */
+    -fx-background-radius: 15px; /* Coins arrondis */
+   
+    -fx-border-color: #5C3D2E; /* Couleur bois */
+    -fx-border-width: 4px; /* Largeur de la bordure */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 5); /* Ombre portée */
+    -fx-padding: 10px; /* Espacement interne */
+}
+
+/* Style pour le contenu du DialogPane */
+.dialog-pane .content, .header{
+    -fx-text-fill: #5C3D2E; /* Couleur du texte - assortie au style bois */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-font-family: Arial;
+    -fx-alignment: center;
+}
+
+/* Style pour le panneau d'en-tête */
+.dialog-pane .header-panel {
+    -fx-background-color: rgba(245, 245, 220, 0.8); /* Une légère transparence */
+    -fx-font-size: 16px; /* Taille de la police pour l'en-tête */
+    -fx-text-fill: #5C3D2E; /* Couleur du texte d'en-tête */
+    -fx-background-radius: 15px; /* Coins arrondis */
+    -fx-border-radius: 15px; /* Arrondi assorti à l'ensemble */
+       -fx-alignment: center;
+}
 
 /* Titre de la question */
 #questionLabel1,#questionLabel2,#questionLabel3,#questionLabel4  {

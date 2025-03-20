@@ -3,20 +3,26 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import controller.PlayerChoiceViewController;
 import application.Main;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -50,6 +56,15 @@ public class BoardController {
     private static final int MAX_DICE_VALUE = 4;
     private static final int MIN_DICE_VALUE = 1;
     private static final int ANIMATION_DURATION = 1;
+    private static final String CLICK_SOUND = "click2.wav";
+    private static final double SOUND_VOLUME = 0.5;
+    private static int nbPlayers = 0;
+    private static List<Player>players;
+    private static List<Label> playersNames;
+    private static List<Label> playersHints;
+   
+ // Sound effect for button interactions
+    private final Sound touchSound = new Sound();
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
@@ -58,7 +73,8 @@ public class BoardController {
     @FXML private ImageView volumeImage;
     @FXML private VBox questionsContainer, questionBox;
     @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
-    
+    @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4;
+    @FXML private Label playerHint1, playerHint2, playerHint3, playerHint4;
     private Game game;
     private PlayerView playerView;
     private Sound sound = new Sound();
@@ -83,8 +99,15 @@ public class BoardController {
      * Initializes the game with a single player.
      */
     private void initializeGame() {
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("Player 1"));
+    	initializePlayersName();
+        players = new ArrayList<>();
+        
+        for(int i = 1; i<= nbPlayers ; i++) {
+        	players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
+        	System.out.println(players);
+        }
+        initializeHints();
+        
         game = new Game(players);
     }
     
@@ -121,6 +144,53 @@ public class BoardController {
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
+    private void initializeHints() {
+    	
+    	playersHints = new ArrayList<>();
+    	playersHints.add(playerHint1);
+    	playersHints.add(playerHint2);
+    	playersHints.add(playerHint3);
+    	playersHints.add(playerHint4);
+    	
+    	int i = 1 ;
+    	for (Label hint: playersHints) {
+    		
+    		if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
+    			hint.setText(players.get(i-1).getHint()+"left(s)");
+    		}else{
+    			hint.setText("/");
+    		}
+    		i++;
+		}
+    }
+    
+    
+    /**
+     * Initializes Players'names
+     */
+    private int initializePlayersName() {
+    	playersNames = new ArrayList<>();
+    	playersNames.add(namePlayer1);
+    	playersNames.add(namePlayer2);
+    	playersNames.add(namePlayer3);
+    	playersNames.add(namePlayer4);
+    	
+    	int i = 1 ;
+    	for (Label playerName : playersNames) {
+    		
+    		if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
+    			playerName.setText(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1));
+    			nbPlayers++;
+    		}else {
+    			playerName.setText("/");
+    		}
+    	
+    		i++;
+		}
+    	
+    	return nbPlayers;
+    }
+    
     /**
      * Sets up event handlers for user interactions.
      */
@@ -147,20 +217,12 @@ public class BoardController {
      */
     @FXML
     protected void onButtonClicked(ActionEvent event) {
-        try {
-            sound.playMedia("click2.wav", 0.5);
-            
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
-            Pane root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	 touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	 boolean result;
+    	 result = showConfirmationDialog("QUIT GAME", "Are you sure you want to leave the game ?");
+         if (result) {
+        	 navigateToView("../view/menuView.fxml", event);
+         }
     }
     
     /**
@@ -253,7 +315,7 @@ public class BoardController {
         }
         
         if (event.getCode() == KeyCode.N) {
-           displayPlayerPane();
+           //displayPlayerPane();
         }
     }
     
@@ -303,14 +365,11 @@ public class BoardController {
     }
     
     private void displayPlayerPane() {
-    	if (playersContainer.isVisible()) {
-    		if (playersContainer.isVisible()) {
+    	
     	        // Lancer l'animation et définir la visibilité à false à la fin
     	        playTransitionPlayerPane(playersContainer).setOnFinished(e -> {
     	            playersContainer.setVisible(false);
     	        });
-    	    }
-    	}
     }
     /**
      * Creates and plays a scale transition animation for a pane.
@@ -354,12 +413,21 @@ public class BoardController {
     
     private TranslateTransition playTransitionPlayerPane(Pane container) {
     	
-        TranslateTransition transition = new TranslateTransition();
+    	
+    	double setFromY = container.getLayoutY(), setToY = -100;
+    	
+    	if(container.isVisible() == false) {
+    		setFromY = -100;
+    		setToY = container.getLayoutY();
+    		container.setVisible(true);
+    	}
+    	
+    	TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(2));
         transition.setNode(container);
-        transition.setFromY(container.getLayoutY()); // start position
-        transition.setToY(-100); //Final Position
-        transition.setCycleCount(1); 
+        transition.setFromY(setFromY); // start position
+        transition.setToY(setToY); //Final Position
+ 
       
         //Start transition
         transition.play();
@@ -374,5 +442,41 @@ public class BoardController {
     @FXML
     protected void onButtonValiderClicked(ActionEvent event) {
         sound.playMedia("click2.wav", 0.5);
+    }
+    
+ // Method to show confirmation alerts
+    private boolean showConfirmationDialog(String title, String text) {
+        // Créer un alert de type CONFIRMATION
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        
+        alert.setHeaderText(title);
+        alert.setContentText(text);
+        alert.getDialogPane().setStyle("");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+        ButtonType buttonYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonYes, buttonCancel);
+
+        // Afficher l'alerte et récupérer la réponse
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == buttonYes;
+    }
+    
+    private void navigateToView(String fxmlPath, ActionEvent event) {
+        try {
+            
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Pane root = fxmlLoader.load();
+            
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+            
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.ButtonBar;
 
 /**
  * Controller for the main menu of the application.
@@ -108,17 +109,10 @@ public class MenuController {
     @FXML
     protected void onButtonQuitClicked(ActionEvent event) {
         touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-        
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Exit Program");
-        alert.setHeaderText("Confirm Exit");
-        alert.setContentText("Are you sure that you want to exit the program?");
-        
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Platform.exit();
-        } else {
-            event.consume();
+        boolean result;
+        result = showConfirmationDialog("QUIT GAME", "Do you really want to leave the adventure?");
+        if (result) {
+        	Platform.exit();
         }
     }
     
@@ -146,4 +140,23 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+    
+ // Method to show confirmation alerts
+    private boolean showConfirmationDialog(String title, String text) {
+        // Créer un alert de type CONFIRMATION
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        
+        alert.setHeaderText(title);
+        alert.setContentText(text);
+        alert.getDialogPane().setStyle("");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+        ButtonType buttonYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonYes, buttonCancel);
+
+        // Afficher l'alerte et récupérer la réponse
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == buttonYes;
+    }
+
 }

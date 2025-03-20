@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerChoiceViewController">
+<Pane fx:id="playerChoicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerChoiceViewController">
    <children>
       <ImageView fitHeight="864.0" fitWidth="1536.0" opacity="0.85" pickOnBounds="true">
          <image>
@@ -20,7 +20,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5c705a" height="282.0" layoutX="-43.0" layoutY="634.0" rotate="3.8" stroke="BLACK" strokeType="INSIDE" width="1613.0" />
       <Pane layoutX="495.0" layoutY="130.0" prefHeight="452.0" prefWidth="560.0" style="-fx-background-color: #5c705a; -fx-border-color: BLAck;">
          <children>
-            <TextField layoutX="170.0" layoutY="50.0" prefHeight="27.0" prefWidth="232.0" promptText="Enter your name">
+            <TextField fx:id="playerName" layoutX="170.0" layoutY="50.0" prefHeight="27.0" prefWidth="232.0" promptText="Enter your name">
                <font>
                   <Font name="Comic Sans MS Bold" size="13.0" />
                </font>

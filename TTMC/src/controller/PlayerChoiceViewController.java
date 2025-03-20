@@ -227,7 +227,7 @@ public class PlayerChoiceViewController {
 
         
         if(listPlayersNames.size() >= 4 ){
-        	showDialog("OOPS!", "The game is already full! No more players can join.");
+        	showDialog("OOPS!", "The game is already full ! No more players can join.");
             return;
 
         }

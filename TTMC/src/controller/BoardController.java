@@ -7,8 +7,10 @@ import java.util.Optional;
 import java.util.Random;
 import controller.PlayerChoiceViewController;
 import application.Main;
+import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -73,7 +75,7 @@ public class BoardController {
     @FXML private ImageView volumeImage;
     @FXML private VBox questionsContainer, questionBox;
     @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
-    @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4;
+    @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4, timerLabel;
     @FXML private Label playerHint1, playerHint2, playerHint3, playerHint4;
     private Game game;
     private PlayerView playerView;
@@ -312,6 +314,7 @@ public class BoardController {
             toggleQuestionCardVisibility();
         } else if (event.getCode() == KeyCode.O) {
             displayNextQuestionCard();
+            playTimer();
         }
         
         if (event.getCode() == KeyCode.N) {
@@ -479,4 +482,20 @@ public class BoardController {
             e.printStackTrace();
         }
     }
+    
+    private void playTimer() {
+        int[] duration = {60}; // Using a table to represent time
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    if (duration[0] > 0) {
+                        timerLabel.setText((duration[0]--) + "");
+                    } else {
+                        timerLabel.setText("0");
+                    }
+                })
+        );
+        timeline.setCycleCount(duration[0] + 1); // Nombre de cycles
+        timeline.play();
+    }
+
 }

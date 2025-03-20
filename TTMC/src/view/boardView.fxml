@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -174,22 +175,22 @@
       </AnchorPane>
       <Pane fx:id="playersContainer" layoutX="181.0" layoutY="-9.0" prefHeight="54.0" prefWidth="1210.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-color: #5C3D2E; -fx-border-radius: 15px; -fx-border-width: 4px; -fx-background-radius: 15px;">
          <children>
-            <Label fx:id="namePlayer1" layoutX="24.0" layoutY="17.0" prefHeight="17.0" prefWidth="100.0" text="Player 1">
+            <Label fx:id="namePlayer1" layoutX="14.0" layoutY="19.0" prefHeight="17.0" prefWidth="100.0" text="Player 1">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer2" layoutX="327.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player 2">
+            <Label fx:id="namePlayer2" layoutX="314.0" layoutY="17.0" prefHeight="17.0" prefWidth="100.0" text="Player 2">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer3" layoutX="615.0" layoutY="15.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
+            <Label fx:id="namePlayer3" layoutX="595.0" layoutY="19.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer4" layoutX="916.0" layoutY="15.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
+            <Label fx:id="namePlayer4" layoutX="910.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
                <font>
                   <Font name="Eras Bold ITC" size="17.0" />
                </font>
@@ -235,7 +236,20 @@
                   <Font name="Eras Bold ITC" size="18.0" />
                </font>
             </Label>
+            <Line endX="98.0" endY="-27.19999885559082" layoutX="207.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
+            <Line endX="98.0" endY="-27.19999885559082" layoutX="488.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
+            <Line endX="98.0" endY="-27.19999885559082" layoutX="803.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
          </children>
       </Pane>
+      <ImageView fx:id="timerImage" fitHeight="96.0" fitWidth="130.0" layoutX="1438.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ressources/images/timer.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="timerLabel" layoutX="1379.0" layoutY="52.0" text="60" textFill="#fffdfd">
+         <font>
+            <Font name="Eras Bold ITC" size="50.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

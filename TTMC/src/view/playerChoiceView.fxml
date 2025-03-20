@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,7 +26,7 @@
                   <Font name="Comic Sans MS Bold" size="13.0" />
                </font>
             </TextField>
-            <Button fx:id="btnOk" layoutX="173.0" layoutY="321.0" mnemonicParsing="false" onAction="#onButtonOkClicked" prefHeight="74.0" prefWidth="226.0" text="OK">
+            <Button fx:id="btnOk" layoutX="7.0" layoutY="321.0" mnemonicParsing="false" onAction="#onButtonOkClicked" prefHeight="79.0" prefWidth="544.0" text="CREATE">
                <font>
                   <Font name="Eras Bold ITC" size="42.0" />
                </font>
@@ -41,6 +42,11 @@
                   <Font name="Eras Bold ITC" size="24.0" />
                </font>
             </Button>
+            <Label layoutX="132.0" layoutY="14.0" text="CREATE YOUR PAWN">
+               <font>
+                  <Font name="Eras Bold ITC" size="27.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <ImageView fitHeight="530.0" fitWidth="527.0" layoutX="1027.0" layoutY="119.0" opacity="0.92" pickOnBounds="true" preserveRatio="true">

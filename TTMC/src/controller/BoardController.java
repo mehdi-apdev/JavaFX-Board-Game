@@ -295,6 +295,12 @@ public class BoardController {
      */
     @FXML
     protected void onChecked(ActionEvent event) {
+    	
+    	if (touchSound.isPlaying()) {
+    		
+    		return;
+    	}
+    	
         if (Main.mainSound.isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
             Main.mainSound.unMuteMedia();
@@ -332,7 +338,8 @@ public class BoardController {
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
         timerSound.stopMedia();
-        Main.mainSound.unMuteMedia();
+        musicCheckBox.setDisable(false);
+        initializeSound();
         
         if (!isVisible) {
             playTransition(questionCard, false);
@@ -503,8 +510,10 @@ public class BoardController {
         timeline.setCycleCount(duration[0] + 1); // Nombre de cycles
         timeline.play();
         Main.mainSound.muteMedia();
+        initializeSound();
         timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME);
         timerSound.loop();
+        musicCheckBox.setDisable(true);
     }
     
     private void quitGame() {

@@ -12,7 +12,8 @@ public class Sound {
 
     private List<File> sounds;
     private MediaPlayer mediaPlayer;
-    private boolean isMuted; 
+    private boolean isMuted;
+    private boolean isPlaying;
 
     // Constructor to initialize media files
     public Sound() {
@@ -39,6 +40,7 @@ public class Sound {
                 mediaPlayer.play();
                 mediaPlayer.setVolume(volume);
                 fileFound = true;
+                isPlaying = true;
                 break;
             }
         }
@@ -51,6 +53,7 @@ public class Sound {
     public void stopMedia() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
+            isPlaying = false;
         }
     }
     
@@ -84,6 +87,10 @@ public class Sound {
         	isMuted = false;
             mediaPlayer.setVolume(0.1);
         }
+    }
+    
+    public boolean isPlaying() {
+    	return isPlaying;
     }
 
 

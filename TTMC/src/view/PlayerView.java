@@ -6,6 +6,7 @@ import java.util.List;
 import controller.Sound;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -18,7 +19,7 @@ public class PlayerView {
     private List<Rectangle> spaces; // visual representation of the spaces
     private Sound sound = new Sound(); 
     // Constructor
-    public PlayerView(Player player, Color color, List<Rectangle> spaces) {
+    public PlayerView(Player player, Paint color, List<Rectangle> spaces) {
         this.player = player;
         this.spaces = spaces;
 

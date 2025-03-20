@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+import controller.PlayerChoiceViewController;
 import application.Main;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
@@ -98,7 +98,12 @@ public class BoardController {
         
         List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
         
-        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, selectedSpaces);
+        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
+        
+        playerView = new PlayerView(game.getCurrentPlayer(), 
+                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
+                selectedSpaces);
+        
         playerView.updatePosition();
         board.getChildren().add(playerView.getCircle());
     }

@@ -158,7 +158,7 @@ public class BoardController {
     	for (Label hint: playersHints) {
     		
     		if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
-    			hint.setText(players.get(i-1).getHint()+"left(s)");
+    			hint.setText(players.get(i-1).getHint()+" left(s)");
     		}else{
     			hint.setText("/");
     		}
@@ -224,6 +224,10 @@ public class BoardController {
     	 result = showConfirmationDialog("QUIT GAME", "Are you sure you want to leave the game ?");
          if (result) {
         	 navigateToView("../view/menuView.fxml", event);
+        	 players.clear();
+        	 playersHints.clear();
+        	 playersNames.clear();
+        	 nbPlayers = 0;
          }
     }
     

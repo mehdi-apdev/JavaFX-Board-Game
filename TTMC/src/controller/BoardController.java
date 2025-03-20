@@ -67,6 +67,7 @@ public class BoardController {
    
  // Sound effect for button interactions
     private final Sound touchSound = new Sound();
+    private final Sound timerSound = new Sound();
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
@@ -333,6 +334,8 @@ public class BoardController {
         boolean isVisible = questionCard.isVisible();
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
+        timerSound.stopMedia();
+        Main.mainSound.unMuteMedia();
         
         if (!isVisible) {
             playTransition(questionCard, false);
@@ -495,11 +498,15 @@ public class BoardController {
                         timerLabel.setText((duration[0]--) + "");
                     } else {
                         timerLabel.setText("0");
+                        timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
                     }
                 })
         );
         timeline.setCycleCount(duration[0] + 1); // Nombre de cycles
         timeline.play();
+        Main.mainSound.muteMedia();
+        timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME);
+        timerSound.loop();
     }
 
 }

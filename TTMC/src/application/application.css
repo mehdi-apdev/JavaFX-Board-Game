@@ -127,3 +127,13 @@ Button{
     -fx-wrap-text: true;
 }
 
+/* Effet au survol pour les labels de questions */
+#questionLabel1:hover, #questionLabel2:hover, #questionLabel3:hover, #questionLabel4:hover {
+    -fx-background-color: rgba(46, 139, 87, 0.4); /* Vert jungle plus opaque */
+    -fx-border-color: #DA723C; /* Couleur fleur */
+    -fx-border-width: 2.5px;
+    -fx-cursor: hand; /* Curseur main */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+
+}
+

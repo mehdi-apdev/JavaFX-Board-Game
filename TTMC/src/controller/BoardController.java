@@ -2,25 +2,20 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.Random;
 
 import application.Main;
-import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -38,290 +33,308 @@ import models.Player;
 import models.Question;
 import models.QuestionCard;
 import models.QuestionCardFactory;
-import models.Space;
 import view.PlayerView;
-import view.SpaceView;
-import java.util.Random;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
-public class BoardController{
-	
-		@FXML
-		private Button btnBack, validerButton;  //back button
-		@FXML 
-		private Pane board; //visual representation of the board
-		private Game game; //game object
-		private PlayerView playerView; //player view object
-		@FXML
-		private CheckBox musicCheckBox;
-		@FXML private AnchorPane questionCard;
-		@FXML
-		private ImageView volumeImage;
-		private Sound sound = new Sound();
-		@FXML
-		private VBox questionsContainer, questionBox;
-		@FXML
-		private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
-		
-
-		private List<QuestionCard> questionCards;
-		private int currentCardIndex = 0;
-
-		
-	    @FXML
-	    public void initialize() {
-	        // Create a list of players with one player
-	        List<Player> players = new ArrayList<>();
-	        players.add(new Player("Player 1"));
-	
-	        // Initialize the game with the list of players
-	        game = new Game(players);
-
-			// Initialize all the spaces (rectangles) on the board
-			List<Rectangle> allSpaces = new ArrayList<>();
-			addAllSpaces(allSpaces, board);
-			
-			// Initialize the spaces (rectangles) on the board
-	        List<Rectangle> spaces1 = addSpaces(allSpaces,1);
-	        List<Rectangle> spaces2 = addSpaces(allSpaces,2);
-	        List<Rectangle> spaces3 = addSpaces(allSpaces,3);
-	        List<Rectangle> spaces4 = addSpaces(allSpaces,4);
-	        
-	        //Create a list of all space lists
-	        List<List<Rectangle>> allSpacesList = new ArrayList<>();
-	        allSpacesList.add(spaces1);
-	        allSpacesList.add(spaces2);
-	        allSpacesList.add(spaces3);	
-	        allSpacesList.add(spaces4);
-
-            // Select a random list of spaces
-	        Random random = new Random();
-            List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size())); // Get a random list of spaces
-	       
-           
-	       //Initialize the player view with the current player and spaces
-            playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, selectedSpaces);
-	        playerView.updatePosition();
-	        // Add the player's circle to the board
-	        board.getChildren().add(playerView.getCircle());
-
-	        // Add mouse click event handler to move the player
-	        board.setOnMouseClicked(this::onBoardClicked);
-	        
-	
-	        //do a shared class to avoid repetition
-	        if (Main.mainSound.isMuted()== true) {
-	        	musicCheckBox.setSelected(false);;
-	        	Image noVolume = new Image("file:ressources/images/noVolume.png"); 
-				volumeImage.setImage(noVolume);
-			}else {
-				musicCheckBox.setSelected(true);
-				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
-				volumeImage.setImage(maxVolume);
-			}
-	        
-	        
-	        // Add key event handler to the scene
-	        board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
-	        
-	        
-	        // Load the questions from the JSON file
-	        JsonQuestionFactory jsonQuestionFactory = new JsonQuestionFactory();
-	        jsonQuestionFactory.loadQuestions("ressources/questions/questions.json");
-	        // Create the question cards
-	        QuestionCardFactory questionCardFactory = new QuestionCardFactory(jsonQuestionFactory);
-	        questionCards = questionCardFactory.createQuestionCards();
-	    }
-
-	    @FXML
-	    protected void onButtonClicked(ActionEvent event) {
-	        try {
-	        	
-	        	//Play sound
-	        	sound.playMedia("click2.wav", 0.5);
-	            // Load the FXML file of the new interface
-	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
-	            Pane root = fxmlLoader.load();
-
-	            // Create a new scene with the loaded content
-	            Scene scene = new Scene(root);
-
-	            // Get the current scene and the current stage (window)
-	            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	            
-	            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-
-	            // Set the new scene on the current stage
-	            stage.setScene(scene);
-
-	            // Show the new scene
-	            stage.show();
-	            
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-
-		private void onBoardClicked(MouseEvent event) {
-			// Move the player to a random number of steps between 1 and 4
-		    Random rd = new Random();
-		    int steps = rd.nextInt(4) + 1;
-		
-		    int currentPosition = game.getCurrentPlayer().getPosition();
-		    int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
-		
-		    // If the number of steps is greater than the remaining steps, move to the last space
-		    if (steps > remainingSteps) {
-		        steps = remainingSteps;
-		    }
-		
-		    // Move the player
-		    game.getCurrentPlayer().move(steps);
-		    playerView.updatePosition();
-		    playerView.animate();
-		}
-
-	    //Method to add all the rectangles from the pane
-	    private void addAllSpaces(List<Rectangle> allSpaces, Pane board){
-	    	
-	    	for (Node rec : board.getChildren()) {
-	    		if (rec instanceof Rectangle) {
-	    			allSpaces.add((Rectangle)rec);
-	    		}	
-			}
-	    }
-	    
-	    //Method to filter rectangles
-	    private List<Rectangle> addSpaces(List<Rectangle> allSpaces, int path){
-	    	List<Rectangle> spacesTmp = new ArrayList<>();
-			String expectedId;
-	   
-	    	for (int i = 1; i<= 24; i++) {
-	    		expectedId = "rec"+path+"_"+i;
-	    		for (Rectangle rec : allSpaces) {
-					if (expectedId.equals(rec.getId())) {
-						spacesTmp.add(rec);
-						//System.out.println(rec);
-					}
-				}
-	    	}
-	    	return spacesTmp;
-	    }
-	    
-	    @FXML
-		protected void onChecked(ActionEvent event) {
-			
-			// Check the current mute status and toggle it
-			if (Main.mainSound.isMuted()) { 
-				Image maxVolume = new Image("file:ressources/images/maxVolume.png"); 
-				volumeImage.setImage(maxVolume);
-				Main.mainSound.unMuteMedia(); //method to unmute the media
-			} else {
-				Main.mainSound.muteMedia(); //method to mute the media
-				Image noVolume = new Image("file:ressources/images/noVolume.png"); 
-				volumeImage.setImage(noVolume);
-			}
-		}
-	    
-	    //Method to handle key press event to show/hide question card 'Letter
-	    private void handleKeyPress(KeyEvent event) {
-	        if (event.getCode() == KeyCode.P) {
-	        	if(questionCard.isVisible()) {
-	        		questionCard.setVisible(false);
-	        		questionsContainer.setVisible(false);
-	        		
-	        	}else {
-	        		questionCard.setVisible(true);
-	        		questionsContainer.setVisible(true);
-	        		playTransition(questionCard, false);
-	        		
-	        	}
-	        }
-			if (event.getCode() == KeyCode.O) {
-				displayNextQuestionCard();
-			}
-	        
-	    }
-	    
-	    //Method to display the next question card
-	    private void displayNextQuestionCard() {
-	        if (currentCardIndex < questionCards.size()) {
-	            QuestionCard card = questionCards.get(currentCardIndex);
-	            themeLabel.setText("Theme: " + card.getTheme().toString());
-	            List<Question> questions = card.getQuestions();
-	            questionLabel1.setText(questions.get(0).getTexte());
-	            questionLabel2.setText(questions.get(1).getTexte());
-	            questionLabel3.setText(questions.get(2).getTexte());
-	            questionLabel4.setText(questions.get(3).getTexte());
-
-	            questionCard.setVisible(true);
-	            questionsContainer.setVisible(true);
-	            themeLabel.setVisible(true);
-	            questionLabel1.setVisible(true);
-	            questionLabel2.setVisible(true);
-	            questionLabel3.setVisible(true);
-	            questionLabel4.setVisible(true);
-	            
-	         // Utiliser SequentialTransition pour les enchaîner
-	            SequentialTransition sequentialTransition = new SequentialTransition();
-	            sequentialTransition.getChildren().addAll(
-	            		playTransitionLabel(themeLabel), 
-	            		playTransitionLabel(questionLabel1),  
-	            		playTransitionLabel(questionLabel2),  
-	            		playTransitionLabel(questionLabel3),  
-	            		playTransitionLabel(questionLabel4)
-	            );
-
-	            sequentialTransition.play();
-	            
-
-	            currentCardIndex++;
-	        }
-	    }
-	    
-	    private void playTransition(Pane container, boolean isOpen) {
-	       
-	    	int setFromx = 0 , setFromY = 0, setToX = 1, setToY = 1;
-	    	
-	    	if (isOpen) {
-	    		setFromx = 1; 
-	    		setFromY = 1;
-	    		setToX = 0;
-	    		setToY = 0;
-	    	}
-	    	// Créer une ScaleTransition pour agrandir le Pane
-	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
-	        scaleTransition.setFromX(setFromx); 
-	        scaleTransition.setFromY(setFromY); 
-	        scaleTransition.setToX(setToX);   
-	        scaleTransition.setToY(setToY); 
-	        sound.playMedia("zoom.wav", 0.5);
-	        scaleTransition.play();      
-         
-	    }
-	    
-	    private ScaleTransition playTransitionLabel (Label container) {
-		    
-	    	// Créer une ScaleTransition pour agrandir le Pane
-	        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
-	        scaleTransition.setFromX(0); 
-	        scaleTransition.setFromY(0); 
-	        scaleTransition.setToX(1);   
-	        scaleTransition.setToY(1);
-	        sound.playMedia("nextQst.wav", 0.3);
-	        sound.resetMedia();
-
-	        return scaleTransition;
-	    }
-	    
-	    @FXML
-	    protected void onButtonValiderClicked(ActionEvent event) {
-	    	sound.playMedia("click2.wav", 0.5);
-	    }
-
-		
+/**
+ * Controller class for the game board interface.
+ * Manages player movement, question cards display, and game interactions.
+ */
+public class BoardController {
     
+    private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
+    private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
+    private static final int MAX_DICE_VALUE = 4;
+    private static final int MIN_DICE_VALUE = 1;
+    private static final int ANIMATION_DURATION = 1;
+    
+    @FXML private Button btnBack, validerButton;
+    @FXML private Pane board;
+    @FXML private CheckBox musicCheckBox;
+    @FXML private AnchorPane questionCard;
+    @FXML private ImageView volumeImage;
+    @FXML private VBox questionsContainer, questionBox;
+    @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
+    
+    private Game game;
+    private PlayerView playerView;
+    private Sound sound = new Sound();
+    private List<QuestionCard> questionCards;
+    private int currentCardIndex = 0;
+    private Random random = new Random();
+    
+    /**
+     * Initializes the controller.
+     * This method is automatically called after the FXML file has been loaded.
+     */
+    @FXML
+    public void initialize() {
+        initializeGame();
+        initializeBoard();
+        initializeSound();
+        initializeEventHandlers();
+        loadQuestions();
+    }
+    
+    /**
+     * Initializes the game with a single player.
+     */
+    private void initializeGame() {
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("Player 1"));
+        game = new Game(players);
+    }
+    
+    /**
+     * Initializes the game board with spaces and player representation.
+     */
+    private void initializeBoard() {
+        List<Rectangle> allSpaces = new ArrayList<>();
+        addAllSpaces(allSpaces, board);
+        
+        List<List<Rectangle>> allSpacesList = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            allSpacesList.add(addSpaces(allSpaces, i));
+        }
+        
+        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
+        
+        playerView = new PlayerView(game.getCurrentPlayer(), javafx.scene.paint.Color.RED, selectedSpaces);
+        playerView.updatePosition();
+        board.getChildren().add(playerView.getCircle());
+    }
+    
+    /**
+     * Initializes sound settings based on the current mute state.
+     */
+    private void initializeSound() {
+        boolean isMuted = Main.mainSound.isMuted();
+        musicCheckBox.setSelected(!isMuted);
+        volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
+    }
+    
+    /**
+     * Sets up event handlers for user interactions.
+     */
+    private void initializeEventHandlers() {
+        board.setOnMouseClicked(this::onBoardClicked);
+        board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+    }
+    
+    /**
+     * Loads question cards from the JSON file.
+     */
+    private void loadQuestions() {
+        JsonQuestionFactory jsonQuestionFactory = new JsonQuestionFactory();
+        jsonQuestionFactory.loadQuestions("ressources/questions/questions.json");
+        QuestionCardFactory questionCardFactory = new QuestionCardFactory(jsonQuestionFactory);
+        questionCards = questionCardFactory.createQuestionCards();
+    }
+    
+    /**
+     * Handles the back button click event.
+     * Returns to the main menu.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onButtonClicked(ActionEvent event) {
+        try {
+            sound.playMedia("click2.wav", 0.5);
+            
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/menuView.fxml"));
+            Pane root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Handles board click events to move the player.
+     * Moves the player a random number of steps (1-4).
+     * 
+     * @param event The mouse event
+     */
+    private void onBoardClicked(MouseEvent event) {
+        int steps = random.nextInt(MAX_DICE_VALUE) + MIN_DICE_VALUE;
+        
+        int currentPosition = game.getCurrentPlayer().getPosition();
+        int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+        
+        if (steps > remainingSteps) {
+            steps = remainingSteps;
+        }
+        
+        game.getCurrentPlayer().move(steps);
+        playerView.updatePosition();
+        playerView.animate();
+    }
+    
+    /**
+     * Collects all Rectangle objects from the board pane.
+     * 
+     * @param allSpaces List to store the rectangles
+     * @param board The board pane containing rectangles
+     */
+    private void addAllSpaces(List<Rectangle> allSpaces, Pane board) {
+        for (Node node : board.getChildren()) {
+            if (node instanceof Rectangle) {
+                allSpaces.add((Rectangle) node);
+            }
+        }
+    }
+    
+    /**
+     * Filters rectangles for a specific path.
+     * 
+     * @param allSpaces List of all rectangles
+     * @param path Path identifier (1-4)
+     * @return List of rectangles for the specified path
+     */
+    private List<Rectangle> addSpaces(List<Rectangle> allSpaces, int path) {
+        List<Rectangle> spacesTmp = new ArrayList<>();
+        
+        for (int i = 1; i <= 24; i++) {
+            String expectedId = "rec" + path + "_" + i;
+            for (Rectangle rec : allSpaces) {
+                if (expectedId.equals(rec.getId())) {
+                    spacesTmp.add(rec);
+                    break;
+                }
+            }
+        }
+        
+        return spacesTmp;
+    }
+    
+    /**
+     * Handles the music checkbox toggle event.
+     * Mutes or unmutes the game sound.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onChecked(ActionEvent event) {
+        if (Main.mainSound.isMuted()) {
+            volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
+            Main.mainSound.unMuteMedia();
+        } else {
+            Main.mainSound.muteMedia();
+            volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
+        }
+    }
+    
+    /**
+     * Handles keyboard input events.
+     * P key toggles question card visibility.
+     * O key displays the next question card.
+     * 
+     * @param event The key event
+     */
+    private void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.P) {
+            toggleQuestionCardVisibility();
+        } else if (event.getCode() == KeyCode.O) {
+            displayNextQuestionCard();
+        }
+    }
+    
+    /**
+     * Toggles the visibility of the question card.
+     */
+    private void toggleQuestionCardVisibility() {
+        boolean isVisible = questionCard.isVisible();
+        questionCard.setVisible(!isVisible);
+        questionsContainer.setVisible(!isVisible);
+        
+        if (!isVisible) {
+            playTransition(questionCard, false);
+        }
+    }
+    
+    /**
+     * Displays the next question card with animation.
+     */
+    private void displayNextQuestionCard() {
+        if (currentCardIndex < questionCards.size()) {
+            QuestionCard card = questionCards.get(currentCardIndex);
+            themeLabel.setText("Theme: " + card.getTheme().toString());
+            
+            List<Question> questions = card.getQuestions();
+            Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
+            
+            for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
+                labels[i].setText(questions.get(i).getTexte());
+                labels[i].setVisible(true);
+            }
+            
+            questionCard.setVisible(true);
+            questionsContainer.setVisible(true);
+            themeLabel.setVisible(true);
+            
+            SequentialTransition sequentialTransition = new SequentialTransition();
+            sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
+            
+            for (Label label : labels) {
+                sequentialTransition.getChildren().add(playTransitionLabel(label));
+            }
+            
+            sequentialTransition.play();
+            currentCardIndex++;
+        }
+    }
+    
+    /**
+     * Creates and plays a scale transition animation for a pane.
+     * 
+     * @param container The pane to animate
+     * @param isOpen Whether the animation is for opening (true) or closing (false)
+     */
+    private void playTransition(Pane container, boolean isOpen) {
+        int fromScale = isOpen ? 1 : 0;
+        int toScale = isOpen ? 0 : 1;
+        
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(ANIMATION_DURATION), container);
+        scaleTransition.setFromX(fromScale);
+        scaleTransition.setFromY(fromScale);
+        scaleTransition.setToX(toScale);
+        scaleTransition.setToY(toScale);
+        
+        sound.playMedia("zoom.wav", 0.5);
+        scaleTransition.play();
+    }
+    
+    /**
+     * Creates a scale transition animation for a label.
+     * 
+     * @param container The label to animate
+     * @return The configured scale transition
+     */
+    private ScaleTransition playTransitionLabel(Label container) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(ANIMATION_DURATION), container);
+        scaleTransition.setFromX(0);
+        scaleTransition.setFromY(0);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+        
+        sound.playMedia("nextQst.wav", 0.3);
+        sound.resetMedia();
+        
+        return scaleTransition;
+    }
+    
+    /**
+     * Handles the validate button click event.
+     * 
+     * @param event The action event
+     */
+    @FXML
+    protected void onButtonValiderClicked(ActionEvent event) {
+        sound.playMedia("click2.wav", 0.5);
+    }
 }

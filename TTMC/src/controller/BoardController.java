@@ -107,7 +107,7 @@ public class BoardController {
         
         for(int i = 1; i<= nbPlayers ; i++) {
         	players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
-        	System.out.println(players);
+        	System.out.println(players.get(i-1).getName());
         }
         initializeHints();
         
@@ -126,16 +126,19 @@ public class BoardController {
             allSpacesList.add(addSpaces(allSpaces, i));
         }
         
-        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
-        
-        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
-        
-        playerView = new PlayerView(game.getCurrentPlayer(), 
-                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
-                selectedSpaces);
-        
-        playerView.updatePosition();
-        board.getChildren().add(playerView.getCircle());
+        //for (int i = 0;i <nbPlayers; i++ ) {
+        	
+	        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
+	        
+	        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
+	        
+	        playerView = new PlayerView(game.getCurrentPlayer(), 
+	                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
+	                selectedSpaces);
+	        System.out.println("Liste des joueurs"+game.getPlayers());
+	        playerView.updatePosition();
+	        board.getChildren().add(playerView.getCircle());
+        //}
     }
     
     /**
@@ -340,6 +343,7 @@ public class BoardController {
         timerSound.stopMedia();
         musicCheckBox.setDisable(false);
         initializeSound();
+      
         
         if (!isVisible) {
             playTransition(questionCard, false);

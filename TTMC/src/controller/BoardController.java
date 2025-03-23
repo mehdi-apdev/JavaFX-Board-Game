@@ -64,6 +64,7 @@ public class BoardController {
     private static List<Player>players;
     private static List<Label> playersNames;
     private static List<Label> playersHints;
+    private Timeline timeline; 
    
  // Sound effect for button interactions
     private final Sound touchSound = new Sound();
@@ -499,27 +500,34 @@ public class BoardController {
     }
     
     private void playTimer() {
-        int[] duration = {60}; // Using a table to represent time
-        timerSound.resetMedia();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), event -> {
-                    if (duration[0] > 0) {
-                        timerLabel.setText((duration[0]--) + "");
-                    } else {
-                        timerLabel.setText("0");
-                        //timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
-                    }
-                })
+        // If a timer already exists, stop it and clean up
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        int[] duration = {60}; // Reset the duration
+        timerSound.resetMedia(); // Reset the media sound
+
+        timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                if (duration[0] > 0) {
+                    timerLabel.setText((duration[0]--) + ""); // Update the label
+                } else {
+                    timerLabel.setText("End");
+                    //timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
+                }
+            })
         );
-        timeline.setCycleCount(duration[0] + 1); // Nombre de cycles
-        timeline.play();
-        Main.mainSound.muteMedia();
-        initializeSound();
-        timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME);
-        timerSound.loop();
-        musicCheckBox.setDisable(true);
+
+        timeline.setCycleCount(duration[0] + 1); // Set the cycle count
+        timeline.play(); // Start the new timer
+
+        Main.mainSound.muteMedia(); // Mute the main sound
+        initializeSound(); // Reset the sound parameters
+        timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME); // Play the timer music
+        timerSound.loop(); // Loop the music
+        musicCheckBox.setDisable(true); // Disable the checkbox
     }
-    
     private void quitGame() {
     	 players.clear();
     	 playersHints.clear();

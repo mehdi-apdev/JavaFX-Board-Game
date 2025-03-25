@@ -275,6 +275,7 @@ public class BoardController {
         playerView.animate();
 
         displayQuestionCardBasedOnPosition();
+        Main.mainSound.muteMedia();
     }
     
     /**
@@ -709,7 +710,6 @@ public class BoardController {
         }
     }
     
-
 
     private void quitGame() {
         players.clear();

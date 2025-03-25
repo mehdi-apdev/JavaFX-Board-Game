@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -72,7 +73,6 @@ public class PlayerChoiceViewController {
     
     // FXML elements
     @FXML private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext;
-    @FXML private CheckBox musicCheckBox;
     @FXML private Circle playerColor;
     @FXML private ImageView volumeImage;
     @FXML private TextField playerName;
@@ -106,7 +106,6 @@ public class PlayerChoiceViewController {
      */
     private void updateSoundDisplay() {
         boolean isMuted = Main.mainSound.isMuted();
-        musicCheckBox.setSelected(!isMuted);
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -172,14 +171,14 @@ public class PlayerChoiceViewController {
     }
     
     /**
-     * Handles the music checkbox toggle event.
+     * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
      * 
      * @param event The action event
      */
     @FXML
-    protected void onChecked(ActionEvent event) {
-        if (Main.mainSound.isMuted()) {
+    protected void onVolumeClicked(MouseEvent event) {
+    	if (Main.mainSound.isMuted()) {
             Main.mainSound.unMuteMedia();
         } else {
             Main.mainSound.muteMedia();

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -29,12 +28,7 @@
             <Font name="Eras Bold ITC" size="39.0" />
          </font>
       </Button>
-      <CheckBox fx:id="musicCheckBox" layoutX="90.0" layoutY="778.0" mnemonicParsing="false" onAction="#onChecked" prefHeight="54.0" prefWidth="202.0" selected="true" text="Music">
-         <font>
-            <Font name="Eras Bold ITC" size="20.0" />
-         </font>
-      </CheckBox>
-      <ImageView fx:id="volumeImage" fitHeight="73.0" fitWidth="130.0" layoutX="178.0" layoutY="769.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="volumeImage" fitHeight="73.0" fitWidth="130.0" layoutX="1419.0" layoutY="777.0" onMouseClicked="#onVolumeClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../ressources/images/maxVolume.png" />
          </image>

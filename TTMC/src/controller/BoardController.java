@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -77,7 +78,6 @@ public class BoardController {
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
-    @FXML private CheckBox musicCheckBox;
     @FXML private AnchorPane questionCard;
     @FXML private ImageView volumeImage;
     @FXML private VBox questionsContainer, questionBox;
@@ -88,6 +88,7 @@ public class BoardController {
     @FXML private Label questionSelectionneeLabel;
     @FXML private ToggleGroup reponse;
     @FXML private ImageView timerImage;
+    
     
     /**
      * Initializes the controller.
@@ -161,7 +162,6 @@ public class BoardController {
      */
     private void initializeSound() {
         boolean isMuted = Main.mainSound.isMuted();
-        musicCheckBox.setSelected(!isMuted);
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -285,7 +285,6 @@ public class BoardController {
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
         timerSound.stopMedia();
-        musicCheckBox.setDisable(false);
         initializeSound();
         
         if (!isVisible) {
@@ -331,17 +330,20 @@ public class BoardController {
     }
     
     /**
-     * Handles the music checkbox toggle event.
+     * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
      * 
      * @param event The action event
      */
-    @FXML
-    protected void onChecked(ActionEvent event) {
-        if (touchSound.isPlaying()) {
-            return;
-        }
-        
+
+    @FXML    
+    protected void onVolumeClicked(MouseEvent event) {
+    	if (touchSound.isPlaying()) {
+    		
+    		return;
+    	}
+    	
+
         if (Main.mainSound.isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
             Main.mainSound.unMuteMedia();
@@ -352,6 +354,39 @@ public class BoardController {
     }
     
 
+    
+    
+    /**
+     * Displays the next question card with animation.
+     */
+    private void displayNextQuestionCard() {
+        if (currentCardIndex < questionCards.size()) {
+            QuestionCard card = questionCards.get(currentCardIndex);
+            themeLabel.setText("Theme: " + card.getTheme().toString());
+            
+            List<Question> questions = card.getQuestions();
+            Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
+            
+            for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
+                labels[i].setText(questions.get(i).getTexte());
+                labels[i].setVisible(true);
+            }
+            
+            questionCard.setVisible(true);
+            questionsContainer.setVisible(true);
+            themeLabel.setVisible(true);
+            
+            SequentialTransition sequentialTransition = new SequentialTransition();
+            sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
+            
+            for (Label label : labels) {
+                sequentialTransition.getChildren().add(playTransitionLabel(label));
+            }
+            
+            sequentialTransition.play();
+            currentCardIndex++;
+        }
+    }
     
     /**
      * Creates and plays a scale transition animation for a pane.
@@ -674,9 +709,8 @@ public class BoardController {
         }
     }
     
-    /**
-     * Cleans up resources when quitting the game.
-     */
+
+
     private void quitGame() {
         players.clear();
         playersHints.clear();

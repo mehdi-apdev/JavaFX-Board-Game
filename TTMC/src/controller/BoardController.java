@@ -72,7 +72,6 @@ public class BoardController {
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
-    @FXML private CheckBox musicCheckBox;
     @FXML private AnchorPane questionCard;
     @FXML private ImageView volumeImage;
     @FXML private VBox questionsContainer, questionBox;
@@ -147,7 +146,6 @@ public class BoardController {
      */
     private void initializeSound() {
         boolean isMuted = Main.mainSound.isMuted();
-        musicCheckBox.setSelected(!isMuted);
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -292,14 +290,13 @@ public class BoardController {
     }
     
     /**
-     * Handles the music checkbox toggle event.
+     * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
      * 
      * @param event The action event
      */
     @FXML
-    protected void onChecked(ActionEvent event) {
-    	
+    protected void onVolumeClicked(MouseEvent event) {
     	if (touchSound.isPlaying()) {
     		
     		return;

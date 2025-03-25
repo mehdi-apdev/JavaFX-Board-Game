@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonBar;
@@ -38,7 +39,6 @@ public class MenuController {
     @FXML private Button btnPlay, btnOption, btnQuit;
     @FXML private Pane menuBoard;
     @FXML private Label label;
-    @FXML private CheckBox musicCheckBox;
     @FXML private ImageView volumeImage;
     
     // Sound effect for button interactions
@@ -58,7 +58,6 @@ public class MenuController {
      */
     private void updateSoundDisplay() {
         boolean isMuted = Main.mainSound.isMuted();
-        musicCheckBox.setSelected(!isMuted);
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -85,14 +84,14 @@ public class MenuController {
     }
     
     /**
-     * Handles the music checkbox toggle event.
+     * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
      * 
      * @param event The action event
      */
     @FXML
-    protected void onChecked(ActionEvent event) {
-        if (Main.mainSound.isMuted()) {
+    protected void onVolumeClicked(MouseEvent event) {
+    	if (Main.mainSound.isMuted()) {
             Main.mainSound.unMuteMedia();
         } else {
             Main.mainSound.muteMedia();

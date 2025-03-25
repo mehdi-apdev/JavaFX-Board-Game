@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import controller.PlayerChoiceViewController;
 import application.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -24,12 +23,13 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -42,33 +42,38 @@ import models.Player;
 import models.Question;
 import models.QuestionCard;
 import models.QuestionCardFactory;
+import models.Topic;
 import view.PlayerView;
+import javafx.scene.paint.Color;
 
-
-	   
 /**
  * Controller class for the game board interface.
  * Manages player movement, question cards display, and game interactions.
  */
 public class BoardController {
-
-    
     private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
     private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
     private static final int MAX_DICE_VALUE = 4;
     private static final int MIN_DICE_VALUE = 1;
-    private static final int ANIMATION_DURATION = 1;
+    private static final double ANIMATION_DURATION = 0.6;
     private static final String CLICK_SOUND = "click2.wav";
     private static final double SOUND_VOLUME = 0.5;
+    private static final double USE_COMPUTED_SIZE = -1;
+    
+    
     private static int nbPlayers = 0;
-    private static List<Player>players;
+    private static List<Player> players;
     private static List<Label> playersNames;
     private static List<Label> playersHints;
     private Timeline timeline; 
-   
- // Sound effect for button interactions
     private final Sound touchSound = new Sound();
     private final Sound timerSound = new Sound();
+    private Game game;
+    private PlayerView playerView;
+    private Sound sound = new Sound();
+    private List<QuestionCard> questionCards;
+    private int currentCardIndex = 0;
+    private Random random = new Random();
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
@@ -79,12 +84,10 @@ public class BoardController {
     @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
     @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4, timerLabel;
     @FXML private Label playerHint1, playerHint2, playerHint3, playerHint4;
-    private Game game;
-    private PlayerView playerView;
-    private Sound sound = new Sound();
-    private List<QuestionCard> questionCards;
-    private int currentCardIndex = 0;
-    private Random random = new Random();
+    @FXML private RadioButton response1, response2, response3, response4;
+    @FXML private Label questionSelectionneeLabel;
+    @FXML private ToggleGroup reponse;
+    @FXML private ImageView timerImage;
     
     /**
      * Initializes the controller.
@@ -100,15 +103,14 @@ public class BoardController {
     }
     
     /**
-     * Initializes the game with a single player.
+     * Initializes the game with players.
      */
     private void initializeGame() {
-    	initializePlayersName();
+        initializePlayersName();
         players = new ArrayList<>();
         
-        for(int i = 1; i<= nbPlayers ; i++) {
-        	players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
-        	System.out.println(players.get(i-1).getName());
+        for(int i = 1; i <= nbPlayers; i++) {
+            players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
         }
         initializeHints();
         
@@ -122,24 +124,36 @@ public class BoardController {
         List<Rectangle> allSpaces = new ArrayList<>();
         addAllSpaces(allSpaces, board);
         
+     // Initialiser les couleurs des rectangles
+        initializeRectangleColors(allSpaces);
+        
         List<List<Rectangle>> allSpacesList = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
             allSpacesList.add(addSpaces(allSpaces, i));
         }
         
-        //for (int i = 0;i <nbPlayers; i++ ) {
-        	
-	        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
-	        
-	        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
-	        
-	        playerView = new PlayerView(game.getCurrentPlayer(), 
-	                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
-	                selectedSpaces);
-	        System.out.println("Liste des joueurs"+game.getPlayers());
-	        playerView.updatePosition();
-	        board.getChildren().add(playerView.getCircle());
-        //}
+        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
+        
+        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
+        
+        playerView = new PlayerView(game.getCurrentPlayer(), 
+                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
+                selectedSpaces);
+        playerView.updatePosition();
+        
+        
+       // board.getChildren().add(questionCard);
+        board.getChildren().add(playerView.getCircle());
+    }
+    
+    private void initializeRectangleColors(List<Rectangle> allSpaces) {
+        Color[] colors = {Color.web("#611a44"), Color.web("#c19632"), Color.web("#0084ff"), Color.web("#7aa823")};
+        int colorIndex = 0;
+
+        for (Rectangle rect : allSpaces) {
+            rect.setFill(colors[colorIndex]);
+            colorIndex = (colorIndex + 1) % colors.length;
+        }
     }
     
     /**
@@ -151,59 +165,58 @@ public class BoardController {
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
+    /**
+     * Initializes player hints display.
+     */
     private void initializeHints() {
-    	
-    	playersHints = new ArrayList<>();
-    	playersHints.add(playerHint1);
-    	playersHints.add(playerHint2);
-    	playersHints.add(playerHint3);
-    	playersHints.add(playerHint4);
-    	
-    	int i = 1 ;
-    	for (Label hint: playersHints) {
-    		
-    		if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
-    			hint.setText(players.get(i-1).getHint()+" left(s)");
-    		}else{
-    			hint.setText("/");
-    		}
-    		i++;
-		}
+        playersHints = new ArrayList<>();
+        playersHints.add(playerHint1);
+        playersHints.add(playerHint2);
+        playersHints.add(playerHint3);
+        playersHints.add(playerHint4);
+        
+        int i = 1;
+        for (Label hint: playersHints) {
+            if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
+                hint.setText(players.get(i-1).getHint()+" left(s)");
+            } else {
+                hint.setText("/");
+            }
+            i++;
+        }
     }
     
-    
     /**
-     * Initializes Players'names
+     * Initializes player names display and counts total players.
+     * @return Number of players
      */
     private int initializePlayersName() {
-    	playersNames = new ArrayList<>();
-    	playersNames.add(namePlayer1);
-    	playersNames.add(namePlayer2);
-    	playersNames.add(namePlayer3);
-    	playersNames.add(namePlayer4);
-    	
-    	int i = 1 ;
-    	for (Label playerName : playersNames) {
-    		
-    		if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
-    			playerName.setText(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1));
-    			nbPlayers++;
-    		}else {
-    			playerName.setText("/");
-    		}
-    	
-    		i++;
-		}
-    	
-    	return nbPlayers;
+        playersNames = new ArrayList<>();
+        playersNames.add(namePlayer1);
+        playersNames.add(namePlayer2);
+        playersNames.add(namePlayer3);
+        playersNames.add(namePlayer4);
+        
+        int i = 1;
+        for (Label playerName : playersNames) {
+            if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
+                playerName.setText(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1));
+                nbPlayers++;
+            } else {
+                playerName.setText("/");
+            }
+            i++;
+        }
+        
+        return nbPlayers;
     }
     
     /**
-     * Sets up event handlers for user interactions.
+     * Initializes event handlers and displays the first question card.
      */
     private void initializeEventHandlers() {
-        board.setOnMouseClicked(this::onBoardClicked);
         board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+        Platform.runLater(this::displayQuestionCardBasedOnPosition);
     }
     
     /**
@@ -218,40 +231,66 @@ public class BoardController {
     
     /**
      * Handles the back button click event.
-     * Returns to the main menu.
+     * Returns to the main menu after confirmation.
      * 
      * @param event The action event
      */
     @FXML
     protected void onButtonClicked(ActionEvent event) {
-    	 touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-    	 boolean result;
-    	 result = showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game ?");
-         if (result) {
-        	 navigateToView("../view/menuView.fxml", event);
-        	 quitGame();
-         }
+        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+        boolean result = showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game?");
+        if (result) {
+            navigateToView("../view/menuView.fxml", event);
+            quitGame();
+        }
     }
     
     /**
-     * Handles board click events to move the player.
-     * Moves the player a random number of steps (1-4).
+     * Handles keyboard input events.
      * 
-     * @param event The mouse event
+     * @param event The key event
      */
-    private void onBoardClicked(MouseEvent event) {
+    private void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.P) {
+            toggleQuestionCardVisibility();
+        }  else if (event.getCode() == KeyCode.A) {
+            movePlayerRandomSteps();
+        }
+    }
+    
+    /**
+     * Moves the player a random number of steps.
+     */
+    private void movePlayerRandomSteps() {
         int steps = random.nextInt(MAX_DICE_VALUE) + MIN_DICE_VALUE;
-        
         int currentPosition = game.getCurrentPlayer().getPosition();
         int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
-        
+
         if (steps > remainingSteps) {
             steps = remainingSteps;
         }
-        
+
         game.getCurrentPlayer().move(steps);
         playerView.updatePosition();
         playerView.animate();
+
+        displayQuestionCardBasedOnPosition();
+    }
+    
+    /**
+     * Toggles the visibility of the question card.
+     */
+    private void toggleQuestionCardVisibility() {
+        boolean isVisible = questionCard.isVisible();
+        questionCard.setVisible(!isVisible);
+        questionsContainer.setVisible(!isVisible);
+        timerSound.stopMedia();
+        musicCheckBox.setDisable(false);
+        initializeSound();
+        
+        if (!isVisible) {
+            playTransition(questionCard, false);
+        }
     }
     
     /**
@@ -299,12 +338,10 @@ public class BoardController {
      */
     @FXML
     protected void onChecked(ActionEvent event) {
-    	
-    	if (touchSound.isPlaying()) {
-    		
-    		return;
-    	}
-    	
+        if (touchSound.isPlaying()) {
+            return;
+        }
+        
         if (Main.mainSound.isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
             Main.mainSound.unMuteMedia();
@@ -314,82 +351,8 @@ public class BoardController {
         }
     }
     
-    /**
-     * Handles keyboard input events.
-     * P key toggles question card visibility.
-     * O key displays the next question card.
-     * 
-     * @param event The key event
-     */
-    private void handleKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.P) {
-            toggleQuestionCardVisibility();
-        } else if (event.getCode() == KeyCode.O) {
-            displayNextQuestionCard();
-            playTimer();
-        }
-        
-        if (event.getCode() == KeyCode.N) {
-           //displayPlayerPane();
-        }
-    }
+
     
-    /**
-     * Toggles the visibility of the question card.
-     */
-    private void toggleQuestionCardVisibility() {
-        boolean isVisible = questionCard.isVisible();
-        questionCard.setVisible(!isVisible);
-        questionsContainer.setVisible(!isVisible);
-        timerSound.stopMedia();
-        musicCheckBox.setDisable(false);
-        initializeSound();
-      
-        
-        if (!isVisible) {
-            playTransition(questionCard, false);
-        }
-    }
-    
-    /**
-     * Displays the next question card with animation.
-     */
-    private void displayNextQuestionCard() {
-        if (currentCardIndex < questionCards.size()) {
-            QuestionCard card = questionCards.get(currentCardIndex);
-            themeLabel.setText("Theme: " + card.getTheme().toString());
-            
-            List<Question> questions = card.getQuestions();
-            Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
-            
-            for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
-                labels[i].setText(questions.get(i).getTexte());
-                labels[i].setVisible(true);
-            }
-            
-            questionCard.setVisible(true);
-            questionsContainer.setVisible(true);
-            themeLabel.setVisible(true);
-            
-            SequentialTransition sequentialTransition = new SequentialTransition();
-            sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
-            
-            for (Label label : labels) {
-                sequentialTransition.getChildren().add(playTransitionLabel(label));
-            }
-            
-            sequentialTransition.play();
-            currentCardIndex++;
-        }
-    }
-    
-    private void displayPlayerPane() {
-    	
-    	        // Lancer l'animation et définir la visibilité à false à la fin
-    	        playTransitionPlayerPane(playersContainer).setOnFinished(e -> {
-    	            playersContainer.setVisible(false);
-    	        });
-    }
     /**
      * Creates and plays a scale transition animation for a pane.
      * 
@@ -413,57 +376,91 @@ public class BoardController {
     /**
      * Creates a scale transition animation for a label.
      * 
-     * @param container The label to animate
+     * @param label The label to animate
      * @return The configured scale transition
      */
-    private ScaleTransition playTransitionLabel (Label container) {
-	    
-    	//Create a ScaleTransition to enlarge the Pane
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), container);
-        scaleTransition.setFromX(0); 
-        scaleTransition.setFromY(0); 
-        scaleTransition.setToX(1);   
+    private ScaleTransition playTransitionLabel(Label label) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(ANIMATION_DURATION), label);
+        scaleTransition.setFromX(0);
+        scaleTransition.setFromY(0);
+        scaleTransition.setToX(1);
         scaleTransition.setToY(1);
-        sound.playMedia("nextQst.wav", 0.3);
-        sound.resetMedia();
-
         return scaleTransition;
     }
     
-    private TranslateTransition playTransitionPlayerPane(Pane container) {
-    	
-    	
-    	double setFromY = container.getLayoutY(), setToY = -100;
-    	
-    	if(container.isVisible() == false) {
-    		setFromY = -100;
-    		setToY = container.getLayoutY();
-    		container.setVisible(true);
-    	}
-    	
-    	TranslateTransition transition = new TranslateTransition();
-        transition.setDuration(Duration.seconds(2));
-        transition.setNode(container);
-        transition.setFromY(setFromY); // start position
-        transition.setToY(setToY); //Final Position
- 
-      
-        //Start transition
-        transition.play();
-        return transition;
-    }
+    
+
     
     /**
-     * Handles the validate button click event.
+     * Handles the validate button click to check the selected answer.
      * 
      * @param event The action event
      */
     @FXML
-    protected void onButtonValiderClicked(ActionEvent event) {
-        sound.playMedia("click2.wav", 0.5);
+    private void onButtonValiderClicked(ActionEvent event) {
+        sound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+
+        Question currentQuestion = (Question) validerButton.getUserData();
+
+        if (reponse.getSelectedToggle() == null) {
+            showAlert("No answer selected", "Please select an answer.");
+            return;
+        }
+
+        int selectedResponseIndex = (int) reponse.getSelectedToggle().getUserData();
+        boolean isCorrect = currentQuestion.isCorrectResponse(selectedResponseIndex);
+
+        if (isCorrect) {
+            int stepsToMove = currentQuestion.getDifficulty();
+            movePlayerForward(stepsToMove);
+            showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+        } else {
+            showAlert("Incorrect answer", "You stay at your current position.");
+        }
+
+        questionCard.setVisible(false);
+        stopTimer();
     }
     
- // Method to show confirmation alerts
+    /**
+     * Moves the player forward a specified number of steps.
+     * 
+     * @param steps Number of steps to move forward
+     */
+    private void movePlayerForward(int steps) {
+        int currentPosition = game.getCurrentPlayer().getPosition();
+        int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+
+        if (steps > remainingSteps) {
+            steps = remainingSteps;
+        }
+
+        game.getCurrentPlayer().move(steps);
+        playerView.updatePosition();
+        playerView.animate();
+    }
+    
+    /**
+     * Displays an alert dialog with the specified title and message.
+     * 
+     * @param title The title of the alert
+     * @param message The message to display
+     */
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    /**
+     * Shows a confirmation dialog with the specified title and text.
+     * 
+     * @param title The title of the dialog
+     * @param text The message text
+     * @return true if the user confirmed, false otherwise
+     */
     private boolean showConfirmationDialog(String title, String text) {
         // Créer un alert de type CONFIRMATION
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -481,9 +478,187 @@ public class BoardController {
         return result.isPresent() && result.get() == buttonYes;
     }
     
+    
+    /**
+     * Displays a question card based on the player's current position.
+     * The theme is determined by the color of the rectangle where the player is located.
+     */
+    private void displayQuestionCardBasedOnPosition() {
+        int position = game.getCurrentPlayer().getPosition();
+        Rectangle currentRectangle = playerView.getSpaces().get(position);
+
+        String fillColor = currentRectangle.getFill().toString();
+        Topic theme;
+
+        if (fillColor.contains("0x611a44") || fillColor.contains("purple") || fillColor.contains("mauve")) {
+            theme = Topic.IMPROBABLE;
+        } else if (fillColor.contains("0xc19632") || fillColor.contains("orange")) {
+            theme = Topic.ENTERTAINMENT;
+        } else if (fillColor.contains("0x0084ff") || fillColor.contains("blue") || fillColor.contains("DODGERBLUE")) {
+            theme = Topic.INFORMATICS;
+        } else if (fillColor.contains("0x7aa823") || fillColor.contains("green")) {
+            theme = Topic.EDUCATION;
+        } else {
+            theme = Topic.GENERAL;
+        }
+
+        QuestionCard selectedCard = null;
+        for (QuestionCard card : questionCards) {
+            if (card.getTheme() == theme) {
+                selectedCard = card;
+                break;
+            }
+        }
+
+        if (selectedCard == null && !questionCards.isEmpty()) {
+            selectedCard = questionCards.get(random.nextInt(questionCards.size()));
+        }
+
+        if (selectedCard != null) {
+            displayQuestionCard(selectedCard);
+        }
+    }
+
+    /**
+     * Displays the question card with properly formatted content.
+     * Adjusts the AnchorPane to fit the content and ensures text is fully visible.
+     *
+     * @param card The question card to display
+     */
+    private void displayQuestionCard(QuestionCard card) {
+        themeLabel.setText("Theme: " + card.getTheme().toString());
+
+        List<Question> questions = card.getQuestions();
+        Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
+
+        for (Label label : labels) {
+            label.setVisible(false);
+            label.setWrapText(true);
+            label.setMaxWidth(342.0);
+            label.setPrefHeight(USE_COMPUTED_SIZE);
+        }
+
+        for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
+            final int questionIndex = i;
+            labels[i].setText(questions.get(i).getTexte());
+            labels[i].setVisible(true);
+
+            labels[i].setOnMouseClicked(event -> {
+                sound.playMedia("click2.wav", 0.5);
+                displaySelectedQuestion(questions.get(questionIndex));
+            });
+        }
+
+        questionCard.setVisible(true);
+        questionsContainer.setVisible(true);
+        questionBox.setVisible(false);
+        themeLabel.setVisible(true);
+
+        questionCard.setPrefHeight(USE_COMPUTED_SIZE);
+        questionsContainer.setPrefHeight(USE_COMPUTED_SIZE);
+
+        SequentialTransition sequentialTransition = new SequentialTransition();
+        sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
+
+        for (Label label : labels) {
+            if (label.isVisible()) {
+                sequentialTransition.getChildren().add(playTransitionLabel(label));
+            }
+        }
+
+        sequentialTransition.play();
+    }
+    
+    /**
+     * Displays the selected question with its possible answers.
+     * 
+     * @param question The question to display
+     */
+    private void displaySelectedQuestion(Question question) {
+        questionsContainer.setVisible(false);
+        questionBox.setVisible(true);
+    
+        questionSelectionneeLabel.setText(question.getTexte());
+    
+        reponse.selectToggle(null);
+    
+        List<String> responses = question.getResponse();
+    
+        RadioButton[] responseButtons = {response1, response2, response3, response4};
+        for (int i = 0; i < Math.min(responses.size(), responseButtons.length); i++) {
+            responseButtons[i].setText(responses.get(i));
+            responseButtons[i].setVisible(true);
+            responseButtons[i].setUserData(i);
+        }
+    
+        for (int i = responses.size(); i < responseButtons.length; i++) {
+            responseButtons[i].setVisible(false);
+        }
+    
+        validerButton.setUserData(question);
+        startTimer();
+    }
+    
+
+    
+    /**
+     * Starts a countdown timer for answering questions.
+     */
+    private void startTimer() {
+        int seconds = 60;
+        timerLabel.setText(String.valueOf(seconds));
+        timerLabel.setVisible(true);
+        timerImage.setVisible(true);
+
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        timeline = new Timeline();
+        timeline.setCycleCount(seconds);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+            int timeLeft = Integer.parseInt(timerLabel.getText());
+            timeLeft--;
+            timerLabel.setText(String.valueOf(timeLeft));
+
+            if (timeLeft <= 10) {
+                timerLabel.setStyle("-fx-text-fill: red;");
+            }
+
+            if (timeLeft <= 0) {
+                stopTimer();
+                questionCard.setVisible(false);
+            }
+
+            if (timeLeft == seconds - 1) {
+                timerSound.stopMedia();
+                timerSound.playMedia("timerMusic.mp3", 0.3);
+            }
+        }));
+        timeline.play();
+    }
+
+    /**
+     * Stops the countdown timer.
+     */
+    private void stopTimer() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timerSound.stopMedia();
+        timerLabel.setStyle("-fx-text-fill: white;");
+        timerLabel.setVisible(false);
+        timerImage.setVisible(false);
+    }
+    
+    /**
+     * Navigates to another view.
+     * 
+     * @param fxmlPath Path to the FXML file
+     * @param event The action event
+     */
     private void navigateToView(String fxmlPath, ActionEvent event) {
         try {
-            
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Pane root = fxmlLoader.load();
             
@@ -499,41 +674,15 @@ public class BoardController {
         }
     }
     
-    private void playTimer() {
-        // If a timer already exists, stop it and clean up
-        if (timeline != null) {
-            timeline.stop();
-        }
-
-        int[] duration = {60}; // Reset the duration
-        timerSound.resetMedia(); // Reset the media sound
-
-        timeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
-                if (duration[0] > 0) {
-                    timerLabel.setText((duration[0]--) + ""); // Update the label
-                } else {
-                    timerLabel.setText("End");
-                    //timerSound.playMedia("timerEnd.wav", SOUND_VOLUME);
-                }
-            })
-        );
-
-        timeline.setCycleCount(duration[0] + 1); // Set the cycle count
-        timeline.play(); // Start the new timer
-
-        Main.mainSound.muteMedia(); // Mute the main sound
-        initializeSound(); // Reset the sound parameters
-        timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME); // Play the timer music
-        timerSound.loop(); // Loop the music
-        musicCheckBox.setDisable(true); // Disable the checkbox
-    }
+    /**
+     * Cleans up resources when quitting the game.
+     */
     private void quitGame() {
-    	 players.clear();
-    	 playersHints.clear();
-    	 playersNames.clear();
-    	 timerSound.stopMedia();
-    	 nbPlayers = 0;
+        players.clear();
+        playersHints.clear();
+        playersNames.clear();
+        timerSound.stopMedia();
+        nbPlayers = 0;
     }
-
 }
+

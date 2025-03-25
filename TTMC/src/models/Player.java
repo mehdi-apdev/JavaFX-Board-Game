@@ -49,6 +49,10 @@ public class Player {
 		return this.hint;
 	}
 	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
 	
 	// method to set the name of the player
 	public void setName(String name) {

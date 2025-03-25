@@ -241,12 +241,12 @@
             <Line endX="98.0" endY="-27.19999885559082" layoutX="803.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
          </children>
       </Pane>
-      <ImageView fx:id="timerImage" fitHeight="96.0" fitWidth="130.0" layoutX="1438.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="timerImage" fitHeight="96.0" fitWidth="130.0" layoutX="1438.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../../ressources/images/timer.png" />
          </image>
       </ImageView>
-      <Label fx:id="timerLabel" layoutX="1379.0" layoutY="52.0" text="60" textFill="#fffdfd">
+      <Label fx:id="timerLabel" layoutX="1379.0" layoutY="52.0" text="60" textFill="#fffdfd" visible="false">
          <font>
             <Font name="Eras Bold ITC" size="50.0" />
          </font>

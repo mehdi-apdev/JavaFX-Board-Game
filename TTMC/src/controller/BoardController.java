@@ -339,7 +339,6 @@ public class BoardController {
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
         timerSound.stopMedia();
-        musicCheckBox.setDisable(false);
         initializeSound();
       
         
@@ -523,7 +522,6 @@ public class BoardController {
         initializeSound(); // Reset the sound parameters
         timerSound.playMedia("timerMusic.mp3", SOUND_VOLUME); // Play the timer music
         timerSound.loop(); // Loop the music
-        musicCheckBox.setDisable(true); // Disable the checkbox
     }
     private void quitGame() {
     	 players.clear();

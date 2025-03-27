@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.DialogWindow;
 import javafx.scene.control.ButtonBar;
 
 /**
@@ -41,8 +42,10 @@ public class MenuController {
     @FXML private Label label;
     @FXML private ImageView volumeImage;
     
-    // Sound effect for button interactions
+    //Sound effect for button interactions
     private final Sound touchSound = new Sound();
+    //Windows for aletts
+    private DialogWindow dialog = new DialogWindow();
     
     /**
      * Initializes the controller.
@@ -109,7 +112,7 @@ public class MenuController {
     protected void onButtonQuitClicked(ActionEvent event) {
         touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
         boolean result;
-        result = showConfirmationDialog("QUIT GAME", "Do you really want to leave the adventure?");
+        result = dialog.showConfirmationDialog("QUIT GAME", "Do you really want to leave the adventure?");
         if (result) {
         	Platform.exit();
         }
@@ -140,22 +143,4 @@ public class MenuController {
         }
     }
     
- // Method to show confirmation alerts
-    private boolean showConfirmationDialog(String title, String text) {
-        // Créer un alert de type CONFIRMATION
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        
-        alert.setHeaderText(title);
-        alert.setContentText(text);
-        alert.getDialogPane().setStyle("");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-        ButtonType buttonYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonYes, buttonCancel);
-
-        // Afficher l'alerte et récupérer la réponse
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.isPresent() && result.get() == buttonYes;
-    }
-
 }

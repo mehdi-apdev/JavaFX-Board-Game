@@ -5,7 +5,9 @@ Circle{
 }
 
 
-
+#malus{
+ -fx-background-color: #9c1e1e; 
+}
 /* Style CSS pour l'AnchorPane de questions - Thème Jungle */
 
 /* Carte de question */
@@ -75,6 +77,7 @@ Circle{
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
 }
+
 
 .radio-button:hover {
     -fx-background-color: rgba(218, 114, 60, 0.3); /* Couleur fleur transparente */

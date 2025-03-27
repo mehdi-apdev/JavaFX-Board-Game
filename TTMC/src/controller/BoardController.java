@@ -37,6 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.DialogWindow;
 import models.Game;
 import models.JsonQuestionFactory;
 import models.Player;
@@ -75,6 +76,8 @@ public class BoardController {
     private List<QuestionCard> questionCards;
     private int currentCardIndex = 0;
     private Random random = new Random();
+    //Windows for aletts
+    private DialogWindow dialog = new DialogWindow();
     
     @FXML private Button btnBack, validerButton;
     @FXML private Pane board, playersContainer;
@@ -238,7 +241,7 @@ public class BoardController {
     @FXML
     protected void onButtonClicked(ActionEvent event) {
         touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-        boolean result = showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game?");
+        boolean result = dialog.showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game?");
         if (result) {
             navigateToView("../view/menuView.fxml", event);
             quitGame();
@@ -343,8 +346,6 @@ public class BoardController {
     		
     		return;
     	}
-    	
-
         if (Main.mainSound.isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
             Main.mainSound.unMuteMedia();
@@ -353,9 +354,6 @@ public class BoardController {
             volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
         }
     }
-    
-
-    
     
     /**
      * Displays the next question card with animation.
@@ -439,7 +437,7 @@ public class BoardController {
         Question currentQuestion = (Question) validerButton.getUserData();
 
         if (reponse.getSelectedToggle() == null) {
-            showAlert("No answer selected", "Please select an answer.");
+            dialog.showAlert("No answer selected", "Please select an answer.");
             return;
         }
 
@@ -449,9 +447,9 @@ public class BoardController {
         if (isCorrect) {
             int stepsToMove = currentQuestion.getDifficulty();
             movePlayerForward(stepsToMove);
-            showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+            dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
         } else {
-            showAlert("Incorrect answer", "You stay at your current position.");
+            dialog.showAlert("Incorrect answer", "You stay at your current position.");
         }
 
         questionCard.setVisible(false);
@@ -475,45 +473,6 @@ public class BoardController {
         playerView.updatePosition();
         playerView.animate();
     }
-    
-    /**
-     * Displays an alert dialog with the specified title and message.
-     * 
-     * @param title The title of the alert
-     * @param message The message to display
-     */
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    
-    /**
-     * Shows a confirmation dialog with the specified title and text.
-     * 
-     * @param title The title of the dialog
-     * @param text The message text
-     * @return true if the user confirmed, false otherwise
-     */
-    private boolean showConfirmationDialog(String title, String text) {
-        // Créer un alert de type CONFIRMATION
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        
-        alert.setHeaderText(title);
-        alert.setContentText(text);
-        alert.getDialogPane().setStyle("");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-        ButtonType buttonYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonYes, buttonCancel);
-
-        // Afficher l'alerte et récupérer la réponse
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.isPresent() && result.get() == buttonYes;
-    }
-    
     
     /**
      * Displays a question card based on the player's current position.

@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import models.DialogWindow;
 
 /**
  * Controller for the player choice view where players can select their color.
@@ -84,6 +85,8 @@ public class PlayerChoiceViewController {
     private static Paint selectedColor = Color.RED; // default color
     private static List<String> selectedListPlayersNames = new ArrayList<>() ;
     private List<String>listPlayersNames = new ArrayList<>();
+    //Windows for aletts
+    private DialogWindow dialog = new DialogWindow();
     
     /**
      * Initializes the controller.
@@ -130,7 +133,7 @@ public class PlayerChoiceViewController {
     protected void onButtonPlayClicked(ActionEvent event) {
     	touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
     	if (listPlayersNames.size() < 2 ) {
-    		showDialog("HEADS UP !", "You need more players to start the adventure !");
+    		dialog.showAlert("HEADS UP !", "You need more players to start the adventure !");
     		return;
     	}
         selectedColor = playerColor.getFill();
@@ -223,37 +226,23 @@ public class PlayerChoiceViewController {
     protected void onButtonOkClicked(ActionEvent event) {
         touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
         
-
-        
         if(listPlayersNames.size() >= 4 ){
-        	showDialog("OOPS!", "The game is already full ! No more players can join.");
+        	dialog.showAlert("OOPS!", "The game is already full ! No more players can join.");
             return;
 
         }
         
        if(playerName.getText().equals("")) {
-    	   showDialog("HOLD UP!", "You need to enter a name to join the game!");
+    	   dialog.showAlert("HOLD UP!", "You need to enter a name to join the game!");
     	    return;
        }
        
        	selectedColor = playerColor.getFill();
         listPlayersNames.add(playerName.getText());
         System.out.println(listPlayersNames);
-        showDialog("SUCESS!", "Player " + playerName.getText() + " has joined the game! Get ready to play!");
+        dialog.showAlert("SUCESS!", "Player " + playerName.getText() + " has joined the game! Get ready to play!");
         playerName.setText("");
     }
-    
-    //Method to show alerts
-    private void showDialog(String title, String text) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-       
-        alert.setHeaderText(title);
-        alert.setContentText(text);
-        alert.getDialogPane().setStyle("");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-        alert.showAndWait();
-    }
-
     
     /**
      * Returns the currently selected player color.

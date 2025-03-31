@@ -19,13 +19,14 @@ public class PlayerView {
     private List<Rectangle> spaces; // visual representation of the spaces
     private Sound sound = new Sound(); 
     // Constructor
-    public PlayerView(Player player, Paint color, List<Rectangle> spaces) {
+    public PlayerView(Player player, /*Circle circle,*/ Paint color, List<Rectangle> spaces) {
         this.player = player;
         this.spaces = spaces;
 
         // Create the circle
         this.circle = new Circle(12, color);
-
+        //this.circle = circle;
+       
         // Set the initial position of the circle
         updatePosition();
     }

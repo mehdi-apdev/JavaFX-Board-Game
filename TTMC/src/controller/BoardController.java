@@ -34,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -70,7 +71,7 @@ public class BoardController {
     private Timeline timeline; 
     private final Sound touchSound = new Sound();
     private final Sound timerSound = new Sound();
-    private Game game;
+    private static Game game;
     private PlayerView playerView;
     private Sound sound = new Sound();
     private List<QuestionCard> questionCards;
@@ -91,6 +92,7 @@ public class BoardController {
     @FXML private Label questionSelectionneeLabel;
     @FXML private ToggleGroup reponse;
     @FXML private ImageView timerImage;
+    @FXML private Circle circlePlayer1;
     
     
     /**
@@ -135,19 +137,27 @@ public class BoardController {
         for (int i = 1; i <= 4; i++) {
             allSpacesList.add(addSpaces(allSpaces, i));
         }
-        
-        List<Rectangle> selectedSpaces = allSpacesList.get(random.nextInt(allSpacesList.size()));
-        
-        javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
-        
-        playerView = new PlayerView(game.getCurrentPlayer(), 
-                playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
-                selectedSpaces);
-        playerView.updatePosition();
-        
+        /*List<Circle> allCircles = new ArrayList<>();
+        for (Node node : board.getChildren()) {
+            if (node instanceof Circle) {
+                allCircles.add((Circle) node);
+                System.out.println(node);
+            }
+        }*/
+        //for (int i = 0; i < nbPlayers; i++) {
+        	List<Rectangle> selectedSpaces = allSpacesList.get(0);
+            javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
+            
+            playerView = new PlayerView(game.getCurrentPlayer(),
+                    playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
+                    selectedSpaces);
+            playerView.updatePosition();
+            board.getChildren().add(playerView.getCircle());
+            //game.nextPlayer();
+        //}
         
        // board.getChildren().add(questionCard);
-        board.getChildren().add(playerView.getCircle());
+       //board.getChildren().add(playerView.getCircle());
     }
     
     private void initializeRectangleColors(List<Rectangle> allSpaces) {
@@ -278,7 +288,7 @@ public class BoardController {
         playerView.animate();
 
         displayQuestionCardBasedOnPosition();
-        Main.mainSound.muteMedia();
+       
     }
     
     /**
@@ -447,13 +457,25 @@ public class BoardController {
         if (isCorrect) {
             int stepsToMove = currentQuestion.getDifficulty();
             movePlayerForward(stepsToMove);
+            timerSound.stopMedia();
+            sound.playMedia("good.wav", SOUND_VOLUME);
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
         } else {
+        	timerSound.stopMedia();
+        	sound.playMedia("wrong.wav", SOUND_VOLUME);
             dialog.showAlert("Incorrect answer", "You stay at your current position.");
         }
-
+        volumeImage.setDisable(false);
+        Image img = volumeImage.getImage();
+        
+       if(img.getUrl().equals(VOLUME_OFF_IMAGE)) {
+    	   Main.mainSound.muteMedia();
+       }else {
+    	   Main.mainSound.unMuteMedia();
+       }
         questionCard.setVisible(false);
         stopTimer();
+        
     }
     
     /**
@@ -479,6 +501,8 @@ public class BoardController {
      * The theme is determined by the color of the rectangle where the player is located.
      */
     private void displayQuestionCardBasedOnPosition() {
+    	
+    	
         int position = game.getCurrentPlayer().getPosition();
         Rectangle currentRectangle = playerView.getSpaces().get(position);
 
@@ -512,6 +536,7 @@ public class BoardController {
         if (selectedCard != null) {
             displayQuestionCard(selectedCard);
         }
+        
     }
 
     /**
@@ -521,6 +546,9 @@ public class BoardController {
      * @param card The question card to display
      */
     private void displayQuestionCard(QuestionCard card) {
+    	
+    	volumeImage.setDisable(true);
+    	sound.playMedia("zoom.wav", SOUND_VOLUME);
         themeLabel.setText("Theme: " + card.getTheme().toString());
 
         List<Question> questions = card.getQuestions();
@@ -560,7 +588,7 @@ public class BoardController {
                 sequentialTransition.getChildren().add(playTransitionLabel(label));
             }
         }
-
+        Main.mainSound.muteMedia();
         sequentialTransition.play();
     }
     
@@ -628,6 +656,7 @@ public class BoardController {
             if (timeLeft == seconds - 1) {
                 timerSound.stopMedia();
                 timerSound.playMedia("timerMusic.mp3", 0.3);
+                timerSound.loop();
             }
         }));
         timeline.play();
@@ -639,8 +668,10 @@ public class BoardController {
     private void stopTimer() {
         if (timeline != null) {
             timeline.stop();
+            //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         }
         timerSound.stopMedia();
+        //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         timerLabel.setStyle("-fx-text-fill: white;");
         timerLabel.setVisible(false);
         timerImage.setVisible(false);

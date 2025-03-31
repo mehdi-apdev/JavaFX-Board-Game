@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -244,5 +245,9 @@
             <Font name="Eras Bold ITC" size="50.0" />
          </font>
       </Label>
+      <Circle fx:id="circlePlayer1" fill="WHITE" layoutX="104.0" layoutY="205.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="circlePlayer2" fill="WHITE" layoutX="102.0" layoutY="374.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="circlePlayer3" fill="WHITE" layoutX="114.0" layoutY="581.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="circlePlayer4" fill="WHITE" layoutX="114.0" layoutY="800.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </Pane>

@@ -19,16 +19,16 @@ public class PlayerView {
     private List<Rectangle> spaces; // visual representation of the spaces
     private Sound sound = new Sound(); 
     // Constructor
-    public PlayerView(Player player, /*Circle circle,*/ Paint color, List<Rectangle> spaces) {
+    public PlayerView(Player player, Circle circle , List<Rectangle> spaces) {
         this.player = player;
         this.spaces = spaces;
 
         // Create the circle
-        this.circle = new Circle(12, color);
-        //this.circle = circle;
+        //this.circle = new Circle(12, color);
+        this.circle = circle;
        
         // Set the initial position of the circle
-        updatePosition();
+        //updatePosition();
     }
 
     // Getter for circle
@@ -45,8 +45,8 @@ public class PlayerView {
             Rectangle rect = spaces.get(position);
 
             // Center the circle in the middle of the rectangle
-            circle.setCenterX(rect.getLayoutX() + rect.getWidth() / 2);
-            circle.setCenterY(rect.getLayoutY() + rect.getHeight() / 2);
+            circle.setLayoutX(rect.getLayoutX() + rect.getWidth() / 2);
+            circle.setLayoutY(rect.getLayoutY() + rect.getHeight() / 2);
         }
     }
 

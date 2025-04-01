@@ -48,6 +48,7 @@ import models.QuestionCardFactory;
 import models.Topic;
 import view.PlayerView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 /**
  * Controller class for the game board interface.
@@ -92,7 +93,9 @@ public class BoardController {
     @FXML private Label questionSelectionneeLabel;
     @FXML private ToggleGroup reponse;
     @FXML private ImageView timerImage;
-    @FXML private Circle circlePlayer1;
+    @FXML private Circle circlePlayer1, circlePlayer2, circlePlayer3, circlePlayer4;
+    
+    private List<PlayerView> playerViews;
     
     
     /**
@@ -144,15 +147,35 @@ public class BoardController {
                 System.out.println(node);
             }
         }*/
-        //for (int i = 0; i < nbPlayers; i++) {
-        	List<Rectangle> selectedSpaces = allSpacesList.get(0);
-            javafx.scene.paint.Paint playerColor = PlayerChoiceViewController.getSelectedColor(); 
-            
-            playerView = new PlayerView(game.getCurrentPlayer(),
-                    playerColor != null ? playerColor : javafx.scene.paint.Color.RED, 
-                    selectedSpaces);
+        
+        List<Circle> allCircles = new ArrayList<>();
+        allCircles.add(circlePlayer1);
+        allCircles.add(circlePlayer2);
+        allCircles.add(circlePlayer3);
+        allCircles.add(circlePlayer4);
+        
+        
+        playerViews = new ArrayList<>();
+        List<Paint> selectedColors = PlayerChoiceViewController.getSelectedColors();
+        
+        
+        for (int i = 0; i < nbPlayers; i++) {
+        	List<Rectangle> selectedSpaces = allSpacesList.get(i);
+        	//System.out.println(allSpacesList.get(i));
+            Paint playerColor = selectedColors.get(i); 
+            allCircles.get(i).setVisible(true);
+            allCircles.get(i).setFill(playerColor);
+            playerView = new PlayerView(players.get(i), allCircles.get(i), selectedSpaces);
             playerView.updatePosition();
-            board.getChildren().add(playerView.getCircle());
+            playerViews.add(playerView);
+            
+            System.out.println("Player " + (i + 1) + " Circle: " + allCircles.get(i).getId());
+        }
+           //circlePlayer1.setVisible(true);
+            //circlePlayer1.setFill(playerColor);
+            //playerView = new PlayerView(game.getCurrentPlayer(), circlePlayer1, selectedSpaces);
+           //playerView.updatePosition();
+           // board.getChildren().add(playerView.getCircle());
             //game.nextPlayer();
         //}
         
@@ -276,19 +299,30 @@ public class BoardController {
      */
     private void movePlayerRandomSteps() {
         int steps = random.nextInt(MAX_DICE_VALUE) + MIN_DICE_VALUE;
-        int currentPosition = game.getCurrentPlayer().getPosition();
-        int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+        
+        
+        Player currentPlayer = game.getCurrentPlayer();
+        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+        
+        
+        int currentPosition = currentPlayer.getPosition();
+        int remainingSteps = currentPlayerView.getSpaces().size() - currentPosition - 1;
+        
+        
+        
 
         if (steps > remainingSteps) {
             steps = remainingSteps;
         }
 
-        game.getCurrentPlayer().move(steps);
-        playerView.updatePosition();
-        playerView.animate();
+        currentPlayer.move(steps);
+        currentPlayerView.updatePosition();
+        currentPlayerView.animate();
 
         displayQuestionCardBasedOnPosition();
+        game.nextPlayer();
        
+        System.out.println(game.getCurrentPlayer().getName() + " moved " + steps + " spaces.");
     }
     
     /**
@@ -475,6 +509,8 @@ public class BoardController {
        }
         questionCard.setVisible(false);
         stopTimer();
+        game.nextPlayer();
+        reponse.selectToggle(null);
         
     }
     
@@ -484,16 +520,20 @@ public class BoardController {
      * @param steps Number of steps to move forward
      */
     private void movePlayerForward(int steps) {
-        int currentPosition = game.getCurrentPlayer().getPosition();
-        int remainingSteps = playerView.getSpaces().size() - currentPosition - 1;
+    	
+    	Player currentPlayer = game.getCurrentPlayer();
+        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+
+        int currentPosition = currentPlayer.getPosition();
+        int remainingSteps = currentPlayerView.getSpaces().size() - currentPosition - 1;
 
         if (steps > remainingSteps) {
             steps = remainingSteps;
         }
 
-        game.getCurrentPlayer().move(steps);
-        playerView.updatePosition();
-        playerView.animate();
+        currentPlayer.move(steps);
+        currentPlayerView.updatePosition();
+        currentPlayerView.animate();
     }
     
     /**

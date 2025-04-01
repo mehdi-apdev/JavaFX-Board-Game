@@ -70,6 +70,7 @@ public class PlayerChoiceViewController {
     private static final String CLICK_SOUND = "click.wav";
     private static final String CONFIRM_SOUND = "click2.wav";
     private static final double SOUND_VOLUME = 0.5;
+	private static List<Paint> selectedColors = new ArrayList<>();
     
     
     // FXML elements
@@ -223,26 +224,59 @@ public class PlayerChoiceViewController {
      * @param event The action event
      */
     @FXML
-    protected void onButtonOkClicked(ActionEvent event) {
-        touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
-        
-        if(listPlayersNames.size() >= 4 ){
-        	dialog.showAlert("OOPS!", "The game is already full ! No more players can join.");
-            return;
 
-        }
-        
-       if(playerName.getText().equals("")) {
-    	   dialog.showAlert("HOLD UP!", "You need to enter a name to join the game!");
-    	    return;
-       }
-       
-       	selectedColor = playerColor.getFill();
-        listPlayersNames.add(playerName.getText());
-        System.out.println(listPlayersNames);
-        dialog.showAlert("SUCESS!", "Player " + playerName.getText() + " has joined the game! Get ready to play!");
-        playerName.setText("");
-    }
+	protected void onButtonOkClicked(ActionEvent event) {
+		touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+
+
+		if (listPlayersNames.size() >= 4) {
+			dialog.showAlert("OOPS!", "The game is already full! No more players can join.");
+			return;
+		}
+
+		String name = playerName.getText().trim();
+		if (name.isEmpty()) {
+			dialog.showAlert("HOLD UP!", "You need to enter a name to join the game!");
+			return;
+		}
+
+		if (name.length() < 3 || name.length() > 15) {
+			dialog.showAlert("HOLD UP!", "The name must be between 3 and 15 characters!");
+			playerName.setText("");
+			return;
+		}
+
+		if (!name.matches("[a-zA-Z0-9éèièêëôöûüçîï]+")) {
+			dialog.showAlert("HOLD UP!", "The name can only contain letters and numbers! Please choose another one.");
+			playerName.setText("");
+			return;
+		}
+
+		for (String existingName : listPlayersNames) {
+			if (existingName.equalsIgnoreCase(name)) {
+				dialog.showAlert("HOLD UP!", "This name is already taken! Please choose another one.");
+				playerName.setText("");
+				return;
+			}
+		}
+		
+		// Verification if the color is already taken
+		for (Paint existingColor : selectedColors) {
+			if (existingColor.equals(playerColor.getFill())) {
+				dialog.showAlert("HOLD UP!", "This color is already taken! Please choose another one.");
+				return;
+			}
+		}
+
+		selectedColor = playerColor.getFill();
+		listPlayersNames.add(name);
+		selectedColors.add(selectedColor);
+		dialog.showAlert("SUCCESS!", "Player " + name + " has joined the game! Get ready to play!");
+		playerName.setText("");
+		
+		System.out.println("Player name: " + name);
+
+	}
     
     /**
      * Returns the currently selected player color.
@@ -270,4 +304,12 @@ public class PlayerChoiceViewController {
     public static Paint getSelectedColor() {
         return selectedColor;
     }
+	/**
+	 * Returns the list of selected colors.
+	 * 
+	 * @return The list of selected Paint colors
+	 */
+        public static List<Paint> getSelectedColors() {
+        	return selectedColors;
+        }
 }

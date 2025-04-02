@@ -745,6 +745,7 @@ public class BoardController {
         players.clear();
         playersHints.clear();
         playersNames.clear();
+        PlayerChoiceViewController.getSelectedColors().clear();
         timerSound.stopMedia();
         nbPlayers = 0;
     }

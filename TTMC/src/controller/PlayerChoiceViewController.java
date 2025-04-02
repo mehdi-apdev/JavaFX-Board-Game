@@ -121,7 +121,14 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonBackClicked(ActionEvent event) {
-        navigateToView("../view/menuView.fxml", event, CONFIRM_SOUND);
+    	 touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+    	 boolean result = dialog.showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the menu?");
+         if (result) {
+             navigateToView("../view/menuView.fxml", event, null);
+             selectedColors.clear();
+             selectedListPlayersNames.clear();
+             listPlayersNames.clear();
+         }
     }
     
     /**

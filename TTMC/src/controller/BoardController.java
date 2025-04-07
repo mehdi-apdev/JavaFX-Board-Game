@@ -75,7 +75,7 @@ public class BoardController {
     private static final int MIN_DICE_VALUE = 1;
     private static final double ANIMATION_DURATION = 0.6;
     private static final String CLICK_SOUND = "click2.wav";
-    private static final double SOUND_VOLUME = 0.5;
+    private static final double SOUND_VOLUME = 0.1;
     private static final double USE_COMPUTED_SIZE = -1;
     
     
@@ -377,7 +377,7 @@ private void loadQuestions() {
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
         timerSound.stopMedia();
-        initializeSound();
+        //initializeSound();
         
         if (!isVisible) {
             playTransition(questionCard, false);
@@ -428,6 +428,7 @@ private void loadQuestions() {
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
+    	sound.playMedia("hint.wav", SOUND_VOLUME);
         currentPlayer.useHint();
         currentPlayer.setUsedHintThisRound(true);
         dialog.showAlert("Hint used", "You have " + currentPlayer.getHint() + " hint(s) left.");
@@ -446,8 +447,7 @@ private void updateHintsDisplay() {
 
 
     
-    
-    
+   
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
@@ -518,7 +518,7 @@ private void updateHintsDisplay() {
         scaleTransition.setToX(toScale);
         scaleTransition.setToY(toScale);
         
-        sound.playMedia("zoom.wav", 0.5);
+        sound.playMedia("zoom.wav", SOUND_VOLUME);
         scaleTransition.play();
     }
     
@@ -547,8 +547,7 @@ private void updateHintsDisplay() {
      */
     @FXML
     private void onButtonValiderClicked(ActionEvent event) {
-        sound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-
+    	
         Question currentQuestion = (Question) validerButton.getUserData();
 
         if (reponse.getSelectedToggle() == null) {
@@ -561,6 +560,8 @@ private void updateHintsDisplay() {
         Player currentPlayer = game.getCurrentPlayer();
 
         if (isCorrect) {
+        	stopTimer();
+        	sound.playMedia("good.wav",SOUND_VOLUME);
             currentPlayer.increaseScore();
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
@@ -572,11 +573,15 @@ private void updateHintsDisplay() {
                 currentPlayer.resetStreak();
             }
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+            
         } else {
+        	stopTimer();
+        	sound.playMedia("wrong.mp3",SOUND_VOLUME);
             currentPlayer.resetStreak();
             dialog.showAlert("Wrong answer!", "Better luck next time!");
+            stopTimer();
         }
-
+        stopTimer();
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
 
@@ -598,11 +603,11 @@ private void updateHintsDisplay() {
 		        // Reset the timer
 		        stopTimer();
 		       
-
+                
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
-        if (img.getUrl().equals(VOLUME_OFF_IMAGE)) {
-            Main.mainSound.muteMedia();
+        if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
+            Main.mainSound.unMuteMedia();
         }
     }
 
@@ -716,7 +721,7 @@ private void displayQuestionCardBasedOnPosition() {
      */
     private void displayQuestionCard(QuestionCard card) {
     	
-    	volumeImage.setDisable(true);
+    	//volumeImage.setDisable(true);
     	sound.playMedia("zoom.wav", SOUND_VOLUME);
         themeLabel.setText("Theme: " + card.getTheme().toString());
 
@@ -736,7 +741,7 @@ private void displayQuestionCardBasedOnPosition() {
             labels[i].setVisible(true);
 
             labels[i].setOnMouseClicked(event -> {
-                sound.playMedia("click2.wav", 0.5);
+                sound.playMedia("click2.wav", SOUND_VOLUME);
                 displaySelectedQuestion(questions.get(questionIndex));
             });
         }
@@ -757,7 +762,7 @@ private void displayQuestionCardBasedOnPosition() {
                 sequentialTransition.getChildren().add(playTransitionLabel(label));
             }
         }
-        Main.mainSound.muteMedia();
+       
         sequentialTransition.play();
     }
     
@@ -786,7 +791,8 @@ private void displayQuestionCardBasedOnPosition() {
         for (int i = responses.size(); i < responseButtons.length; i++) {
             responseButtons[i].setVisible(false);
         }
-    
+        
+        Main.mainSound.muteMedia();
         validerButton.setUserData(question);
         startTimer();
     }
@@ -797,6 +803,7 @@ private void displayQuestionCardBasedOnPosition() {
      * Starts a countdown timer for answering questions.
      */
     private void startTimer() {
+    	volumeImage.setDisable(true);
         int seconds = 60;
         timerLabel.setText(String.valueOf(seconds));
         timerLabel.setVisible(true);
@@ -824,7 +831,7 @@ private void displayQuestionCardBasedOnPosition() {
 
             if (timeLeft == seconds - 1) {
                 timerSound.stopMedia();
-                timerSound.playMedia("timerMusic.mp3", 0.3);
+                timerSound.playMedia("timerMusic.mp3", 0.1);
                 timerSound.loop();
             }
         }));
@@ -844,6 +851,7 @@ private void displayQuestionCardBasedOnPosition() {
         timerLabel.setStyle("-fx-text-fill: white;");
         timerLabel.setVisible(false);
         timerImage.setVisible(false);
+        volumeImage.setDisable(true);
     }
     
     /**

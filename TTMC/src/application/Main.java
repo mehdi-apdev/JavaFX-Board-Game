@@ -40,7 +40,7 @@ public class Main extends Application {
 				primaryStage.setScene(scene);
 				
 				//play music
-				mainSound.playMedia("georgeTheme.mp3", 0.1);
+				mainSound.playMedia("georgeTheme.mp3", 0.05);
 				mainSound.loop();
 		
 				primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

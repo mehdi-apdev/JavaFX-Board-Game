@@ -28,6 +28,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import models.DialogWindow;
 
+
 /**
  * Controller for the player choice view where players can select their color.
  * This class handles the player color selection and navigation between views.
@@ -69,7 +70,7 @@ public class PlayerChoiceViewController {
     private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
     private static final String CLICK_SOUND = "click.wav";
     private static final String CONFIRM_SOUND = "click2.wav";
-    private static final double SOUND_VOLUME = 0.5;
+    private static final double SOUND_VOLUME = 0.1;
 	private static List<Paint> selectedColors = new ArrayList<>();
     
     

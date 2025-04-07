@@ -34,7 +34,7 @@ public class MenuController {
     private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
     private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
     private static final String CLICK_SOUND = "click2.wav";
-    private static final double SOUND_VOLUME = 0.5;
+    private static final double SOUND_VOLUME = 0.1;
     
     // FXML annotated UI components
     @FXML private Button btnPlay, btnOption, btnQuit;

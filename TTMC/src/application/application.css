@@ -141,6 +141,8 @@ Button{
         -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 2); 
 }
 
+
+
 /* Label de thème/question en haut */
 #themeLabel, #questionSelectionneeLabel {
     -fx-font-family: "Papyrus", "Fantasy", "System";
@@ -148,7 +150,7 @@ Button{
     -fx-font-weight: bold;
     -fx-text-fill: #1a472a;
     -fx-padding: 12px;
-    -fx-background-color: rgba(46, 139, 87, 0.2);
+    -fx-background-color: #829e7d;
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
     -fx-border-color: #2e8b57;
@@ -167,4 +169,31 @@ Button{
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
 
 }
+
+
+
+#hintButton {
+    -fx-background-color: #95ac54; /* Vert jungle clair */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #1a472a; /* Vert jungle foncé */
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 2);
+}
+
+#hintButton:hover {
+    -fx-background-color: #45a049; /* Change this to a slightly darker shade of your desired color */
+}
+
+#hintButton:pressed {
+    -fx-background-color: #3e8e41; /* Change this to an even darker shade of your desired color */
+}
+
+
+
+
 

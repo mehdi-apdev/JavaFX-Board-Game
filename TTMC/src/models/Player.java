@@ -6,12 +6,14 @@ public class Player {
 	private int position;
 	private int score;
 	private int hint; // Number of hints left, default 3
+    private boolean usedHintThisRound;
 	
 	public Player(String name) {
 		setName(name);
 		this.position = 0;
 		this.score = 0;
 		this.hint = 3;
+		 this.usedHintThisRound = false;
 	}
 	
 	// method to move the player
@@ -24,10 +26,11 @@ public class Player {
 		this.score += points;
 	}
 	
-	// method to use a hint
-	public void useHint() {
-		this.hint--;
-	}
+    public void useHint() {
+        if (hint > 0) {
+            hint--;
+        }
+    }
 	
 	// method to get the name of the player
 	public String getName() {
@@ -63,6 +66,15 @@ public class Player {
 			System.out.println("Invalid name");
 		}
 	}
+
+		
+	    public boolean hasUsedHintThisRound() {
+	        return usedHintThisRound;
+	    }
+
+	    public void setUsedHintThisRound(boolean usedHintThisRound) {
+	        this.usedHintThisRound = usedHintThisRound;
+	    }
 	
 
 	

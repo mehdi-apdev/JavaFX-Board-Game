@@ -377,6 +377,33 @@ public class BoardController {
         return spacesTmp;
     }
     
+    
+
+
+@FXML
+private void onHintButtonClicked(ActionEvent event) {
+    Player currentPlayer = game.getCurrentPlayer();
+    if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
+        currentPlayer.useHint();
+        currentPlayer.setUsedHintThisRound(true);
+        dialog.showAlert("Hint used", "You have " + currentPlayer.getHint() + " hint(s) left.");
+        // Logic to provide a hint to the player
+    } else {
+        dialog.showAlert("No hints left", "You have no hints left or have already used a hint this round.");
+    }
+    updateHintsDisplay();
+}
+
+private void updateHintsDisplay() {
+    for (int i = 0; i < players.size(); i++) {
+        playersHints.get(i).setText(players.get(i).getHint() + " left(s)");
+    }
+}
+
+
+    
+    
+    
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.

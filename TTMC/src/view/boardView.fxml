@@ -66,7 +66,7 @@
       <Rectangle id="rec1_4" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="255.0" layoutY="125.0" rotate="-8.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle id="rec3_9" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="422.0" layoutY="217.0" rotate="-72.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
       <Rectangle id="rec3_2" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="146.0" layoutY="543.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
-      <Rectangle id="rec4_4"  arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="268.0" layoutY="729.0" rotate="-27.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle id="rec4_4" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="268.0" layoutY="729.0" rotate="-27.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec3_23" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1253.0" layoutY="119.0" rotate="-80.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="65.0" />
       <Rectangle id="rec1_21" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1089.0" layoutY="703.0" rotate="-178.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0">
          <rotationAxis>
@@ -139,38 +139,48 @@
       <Circle fx:id="circlePlayer2" fill="WHITE" layoutX="102.0" layoutY="374.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <Circle fx:id="circlePlayer3" fill="WHITE" layoutX="114.0" layoutY="581.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <Circle fx:id="circlePlayer4" fill="WHITE" layoutX="114.0" layoutY="800.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <AnchorPane id="questionCard" fx:id="questionCard" layoutX="543.0" layoutY="136.0" prefHeight="535.0" prefWidth="447.0" stylesheets="@../application/application.css" visible="false">
-         <children>
-            <VBox fx:id="questionBox" alignment="CENTER" layoutX="57.0" layoutY="78.0" prefHeight="355.0" prefWidth="371.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
-               <children>
-                  <Label fx:id="questionSelectionneeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="La question" textAlignment="CENTER" />
-                  <RadioButton fx:id="response1" mnemonicParsing="false" prefHeight="59.0" prefWidth="342.0" text="RadioButton">
-                     <toggleGroup>
+      
+      
+
+
+<AnchorPane id="questionCard" fx:id="questionCard" layoutX="367.0" layoutY="144.0" prefHeight="599.0" prefWidth="800.0" stylesheets="@../application/application.css">
+    <children>
+        <VBox fx:id="questionBox" alignment="CENTER" layoutX="57.0" layoutY="78.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
+            <children>
+                <Label fx:id="questionSelectionneeLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="theme-label" text="Thème" textAlignment="CENTER" wrapText="true" />
+                <RadioButton fx:id="response1" maxWidth="Infinity" mnemonicParsing="false" text="RadioButton" wrapText="true">
+                    <toggleGroup>
                         <ToggleGroup fx:id="reponse" />
-                     </toggleGroup></RadioButton>
-                  <RadioButton fx:id="response2" mnemonicParsing="false" prefHeight="59.0" prefWidth="342.0" text="RadioButton" toggleGroup="$reponse" />
-                  <RadioButton fx:id="response3" mnemonicParsing="false" prefHeight="59.0" prefWidth="342.0" text="RadioButton" toggleGroup="$reponse" />
-                  <RadioButton fx:id="response4" mnemonicParsing="false" prefHeight="59.0" prefWidth="342.0" text="RadioButton" toggleGroup="$reponse" />
-               </children>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </VBox>
-            <VBox fx:id="questionsContainer" alignment="CENTER" layoutX="57.0" layoutY="78.0" prefHeight="355.0" prefWidth="371.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-               <children>
-                  <Label id="themeLabel" fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="331.0" text="Thème de la q" textAlignment="CENTER" visible="false" />
-                  <Label fx:id="questionLabel1" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
-                  <Label fx:id="questionLabel2" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
-                  <Label fx:id="questionLabel3" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
-                  <Label fx:id="questionLabel4" alignment="CENTER" prefHeight="59.0" prefWidth="342.0" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
-               </children>
-            </VBox>
-            <Button fx:id="validerButton" layoutX="140.0" layoutY="481.0" mnemonicParsing="false" onAction="#onButtonValiderClicked" prefHeight="42.0" prefWidth="168.0" text="Valider" />
-         </children>
-      </AnchorPane>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="response2" maxWidth="Infinity" mnemonicParsing="false" text="RadioButton" toggleGroup="$reponse" wrapText="true" />
+                <RadioButton fx:id="response3" maxWidth="Infinity" mnemonicParsing="false" text="RadioButton" toggleGroup="$reponse" wrapText="true" />
+                <RadioButton fx:id="response4" maxWidth="Infinity" mnemonicParsing="false" text="RadioButton" toggleGroup="$reponse" wrapText="true" />
+                <Button fx:id="hintButton" mnemonicParsing="false" onAction="#onHintButtonClicked" styleClass="hint-button" text="Hints" />
+                <Button fx:id="validerButton" mnemonicParsing="false" onAction="#onButtonValiderClicked" text="Valider" />
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+        <VBox fx:id="questionsContainer" alignment="CENTER" layoutX="57.0" layoutY="78.0" spacing="15.0" visible="false" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="33.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <Label id="themeLabel" fx:id="themeLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="theme-label" text="Thème de la q" textAlignment="CENTER" visible="false" />
+                <Label fx:id="questionLabel1" alignment="CENTER" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
+                <Label fx:id="questionLabel2" alignment="CENTER" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
+                <Label fx:id="questionLabel3" alignment="CENTER" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
+                <Label fx:id="questionLabel4" alignment="CENTER" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
+
+
+      
+      
       <Pane fx:id="playersContainer" layoutX="181.0" layoutY="-9.0" prefHeight="54.0" prefWidth="1210.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-color: #5C3D2E; -fx-border-radius: 15px; -fx-border-width: 4px; -fx-background-radius: 15px;">
          <children>
             <Label fx:id="namePlayer1" layoutX="14.0" layoutY="19.0" prefHeight="17.0" prefWidth="100.0" text="Player 1">

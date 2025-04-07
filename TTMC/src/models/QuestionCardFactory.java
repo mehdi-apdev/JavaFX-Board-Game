@@ -6,15 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class QuestionCardFactory {
-
-	private JsonQuestionFactory jsonQuestionFactory;
-
-	public QuestionCardFactory(JsonQuestionFactory jsonQuestionFactory) {
-		this.jsonQuestionFactory = jsonQuestionFactory;
-	}
-
-	public List<QuestionCard> createQuestionCards() {
-		Map<Topic, List<Question>> questions = jsonQuestionFactory.getQuestions();
+	public List<QuestionCard> createQuestionCards(Map<Topic, List<Question>> questions) {
 		List<QuestionCard> questionCards = new ArrayList<>();
 
 		for (Map.Entry<Topic, List<Question>> entry : questions.entrySet()) {

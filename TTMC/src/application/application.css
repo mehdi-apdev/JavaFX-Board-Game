@@ -193,6 +193,52 @@ Button{
     -fx-background-color: #3e8e41; /* Change this to an even darker shade of your desired color */
 }
 
+.Malus{
+	-fx-fill: red;
+}
+
+.First{
+	-fx-fill: white;
+}
+
+.Combat{
+	-fx-fill: yellow;
+}
+
+
+
+/* Add to application.css */
+#playersContainer {
+    -fx-background-color: rgba(245, 245, 220, 0.9);
+    -fx-border-color: #5C3D2E;
+    -fx-border-radius: 15px;
+    -fx-border-width: 4px;
+    -fx-background-radius: 15px;
+}
+
+.player-info {
+    -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 17px;
+}
+
+.player-score {
+    -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.player-streak {
+    -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #5C3D2E;
+}
+
+.streak-active {
+    -fx-text-fill: #c19632;
+    -fx-font-weight: bold;
+}
+
 
 
 

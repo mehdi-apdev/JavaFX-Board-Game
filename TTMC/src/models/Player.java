@@ -3,16 +3,14 @@ package models;
 public class Player {
 	
 	private String name;
-	private int position;
-	private int score;
-	private int hint; // Number of hints left, default 3
+	private int position = 0; // Player's position on the board;
+	private int score = 0;
+	private int hint = 3; // Number of hints left, default 3
     private boolean usedHintThisRound;
+    private int streak = 0; // Number of consecutive correct answers
 	
 	public Player(String name) {
 		setName(name);
-		this.position = 0;
-		this.score = 0;
-		this.hint = 3;
 		 this.usedHintThisRound = false;
 	}
 	
@@ -22,8 +20,8 @@ public class Player {
 	}
 	
 	// method to increase the score
-	public void increaseScore(int points) {
-		this.score += points;
+	public void increaseScore() {
+		score++;
 	}
 	
     public void useHint() {
@@ -31,6 +29,22 @@ public class Player {
             hint--;
         }
     }
+    
+	public int getStreak() {
+		return streak;
+	}
+
+	public void increaseStreak() {
+		streak++;
+	}
+	
+	public void resetStreak() {
+		streak = 0;
+	}
+	
+	public boolean hasThreeStreaks() {
+		return streak >= 3;
+	}
 	
 	// method to get the name of the player
 	public String getName() {

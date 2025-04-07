@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import models.JsonQuestionFactory;
+import models.QuestionLoader;
 import models.Question;
 import models.QuestionCard;
 import models.QuestionCardFactory;

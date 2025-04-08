@@ -74,62 +74,62 @@
             <Image url="@../../ressources/images/maxVolume.png" />
          </image>
       </ImageView>
-      <Text layoutX="96.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rules : " wrappingWidth="140.0">
+      <Text fill="WHITE" layoutX="81.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rules : " wrappingWidth="140.0">
          <font>
             <Font name="Eras Bold ITC" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="22.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 2 to 4 players ">
+      <Text fill="WHITE" layoutX="22.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 2 to 4 players ">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="22.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Reach the end of the path ">
+      <Text fill="WHITE" layoutX="22.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Reach the end of the path ">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="387.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Tiles:" wrappingWidth="140.0">
+      <Text fill="WHITE" layoutX="387.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Tiles:" wrappingWidth="140.0">
          <font>
             <Font name="Eras Bold ITC" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="294.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Choose the correct answer from 4 options">
+      <Text fill="WHITE" layoutX="294.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Choose the correct answer from 4 options">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="294.0" layoutY="684.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- (Themes: Unlikely, Entertainment, Computer Science, Education).">
+      <Text fill="WHITE" layoutX="294.0" layoutY="684.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- (Themes: Unlikely, Entertainment, Computer Science, Education).">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="294.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ✅ Correct = move forward (1 to 3 tiles based on difficulty)">
+      <Text fill="WHITE" layoutX="294.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ✅ Correct = move forward (1 to 3 tiles based on difficulty)">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="294.0" layoutY="732.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ❌ Wrong = stay on the same tile">
+      <Text fill="WHITE" layoutX="294.0" layoutY="732.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ❌ Wrong = stay on the same tile">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="898.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points &amp; Hints :" wrappingWidth="140.0">
+      <Text fill="WHITE" layoutX="898.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points &amp; Hints :" wrappingWidth="140.0">
          <font>
             <Font name="Eras Bold ITC" size="16.0" />
          </font>
       </Text>
-      <Text layoutX="828.0" layoutY="692.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Each correct answer = +1 point">
+      <Text fill="WHITE" layoutX="828.0" layoutY="692.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Each correct answer = +1 point">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="828.0" layoutY="714.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 3 points = 1 hint (removes one wrong answer)">
+      <Text fill="WHITE" layoutX="828.0" layoutY="714.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 3 points = 1 hint (removes one wrong answer)">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="828.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Max 3 hints per player per game">
+      <Text fill="WHITE" layoutX="828.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Max 3 hints per player per game">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>

@@ -4,6 +4,14 @@ Circle{
 	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.5, 2, 2);
 }
 
+.button {
+    -fx-background-color:#42953a;
+    -fx-border-color: #2c4432;
+    -fx-border-width: 4px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+}
 
 #malus{
  -fx-background-color: #9c1e1e; 
@@ -194,7 +202,7 @@ Button{
 }
 
 .Malus{
-	-fx-fill: #FF0000;
+	-fx-fill: #8a1515;
 }
 
 .First{
@@ -204,8 +212,6 @@ Button{
 .Combat{
 	-fx-fill: yellow;
 }
-
-
 
 /* Add to application.css */
 #playersContainer {

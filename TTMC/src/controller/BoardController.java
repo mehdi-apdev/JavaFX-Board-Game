@@ -113,11 +113,18 @@ public class BoardController {
     @FXML private Circle circlePlayer1, circlePlayer2, circlePlayer3, circlePlayer4;
 	@FXML private Label scorePlayer1, scorePlayer2, scorePlayer3, scorePlayer4;
 	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4;
+	
+
+	private static final String purpleStr = "611a44";
+	private static final String yellowStr= "c19632";
+	private static final String blueStr = "0084ff";
+	private static final String greenStr = "7aa823";
+	private static final String redStr = "0x8a1515ff";
+	private static final String whiteStr = "ffffff";
+	
 	private List<Label> playersScores;
 	private List<Label> playersStreaks;
 	private List<QuestionCard> usedQuestionCards;
-
-    
     private List<PlayerView> playerViews;
     
     
@@ -214,7 +221,7 @@ public class BoardController {
     }
     
     private void initializeRectangleColors(List<Rectangle> allSpaces) {
-        Color[] colors = {Color.web("#611a44"), Color.web("#c19632"), Color.web("#0084ff"), Color.web("#7aa823")};
+        Color[] colors = { Color.web(purpleStr), Color.web(blueStr), Color.web(greenStr), Color.web(yellowStr)};
         int colorIndex = 0;
 
         for (Rectangle rect : allSpaces) {
@@ -683,7 +690,7 @@ private void displayQuestionCardBasedOnPosition() {
             System.out.println("Rectangle color at position " + position + ": " + fillColor);
 
             // Handle red rectangle (malus case)
-            if (fillColor.equalsIgnoreCase("0xff0000ff") || currentRectangle.getStyleClass().contains("malus")) {
+            if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
                 System.out.println("RED " + game.getCurrentPlayer().getName());
                 int stepsBack = Math.min(2, position);
                 currentPlayer.move(-stepsBack);
@@ -708,20 +715,20 @@ private void displayQuestionCardBasedOnPosition() {
             Topic theme;
 
             // Determine theme based on rectangle color
-            if (fillColor.equalsIgnoreCase("0xffffffff")) {
+            if (fillColor.equalsIgnoreCase(whiteStr)) {
                 Topic[] allThemes = Topic.values();
                 theme = allThemes[random.nextInt(allThemes.length)];
                 System.out.println("White " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains("611a44")) {
+            } else if (fillColor.contains(purpleStr)) {
                 theme = Topic.IMPROBABLE;
                 System.out.println("Mauve " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains("c19632")) {
+            } else if (fillColor.contains(yellowStr)) {
                 theme = Topic.ENTERTAINMENT;
                 System.out.println("Jaune " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains("0084ff")) {
+            } else if (fillColor.contains(blueStr)) {
                 theme = Topic.INFORMATICS;
                 System.out.println("Bleu " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains("7aa823")) {
+            } else if (fillColor.contains(greenStr)) {
                 theme = Topic.EDUCATION;
                 System.out.println("Vert " + game.getCurrentPlayer().getName());
             } else {

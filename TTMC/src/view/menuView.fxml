@@ -15,17 +15,17 @@
       </ImageView>
       <Button fx:id="btnPlay" layoutX="633.0" layoutY="327.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="105.0" prefWidth="290.0" text="NEW GAME">
          <font>
-            <Font name="Eras Bold ITC" size="39.0" />
+            <Font name="Eras Bold ITC" size="35.0" />
          </font>
       </Button>
       <Button fx:id="btnOption" layoutX="634.0" layoutY="450.0" mnemonicParsing="false" onAction="#onButtonOptionClicked" prefHeight="105.0" prefWidth="290.0" text="OPTIONS">
          <font>
-            <Font name="Eras Bold ITC" size="39.0" />
+            <Font name="Eras Bold ITC" size="35.0" />
          </font>
       </Button>
       <Button fx:id="btnQuit" layoutX="634.0" layoutY="571.0" mnemonicParsing="false" onAction="#onButtonQuitClicked" prefHeight="105.0" prefWidth="290.0" text="QUIT">
          <font>
-            <Font name="Eras Bold ITC" size="39.0" />
+            <Font name="Eras Bold ITC" size="35.0" />
          </font>
       </Button>
       <ImageView fx:id="volumeImage" fitHeight="73.0" fitWidth="130.0" layoutX="1419.0" layoutY="777.0" onMouseClicked="#onVolumeClicked" pickOnBounds="true" preserveRatio="true">

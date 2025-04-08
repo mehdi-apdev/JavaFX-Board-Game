@@ -24,7 +24,7 @@ import models.QuestionCardFactory;
 public class Main extends Application {
 	
 	//sound accessible to all class
-	public static Sound mainSound = new Sound();
+	private static Sound mainSound = new Sound();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -70,6 +70,11 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	
+	}
+	
+	
+	public static Sound getMainSound() {
+		return mainSound;
 	}
 	
 	public static void main(String[] args) {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import application.Main;
+import controller.MenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -83,7 +84,6 @@ public class PlayerChoiceViewController {
     
     // Controller state
     private PlayerColor currentPlayerColor;
-    private final Sound touchSound = new Sound();
     private static Paint selectedColor = Color.RED; // default color
     private static List<String> selectedListPlayersNames = new ArrayList<>() ;
     private List<String>listPlayersNames = new ArrayList<>();
@@ -110,7 +110,7 @@ public class PlayerChoiceViewController {
      * Updates the sound icon based on the current mute state.
      */
     private void updateSoundDisplay() {
-        boolean isMuted = Main.mainSound.isMuted();
+        boolean isMuted = Main.getMainSound().isMuted();
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -122,7 +122,7 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonBackClicked(ActionEvent event) {
-    	 touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+    	 
     	 boolean result = dialog.showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the menu?");
          if (result) {
              navigateToView("../view/menuView.fxml", event, null);
@@ -140,7 +140,7 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonPlayClicked(ActionEvent event) {
-    	touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+    	MenuController.getTouchSound().playMedia(CONFIRM_SOUND, SOUND_VOLUME);
     	if (listPlayersNames.size() < 2 ) {
     		dialog.showAlert("HEADS UP !", "You need more players to start the adventure !");
     		return;
@@ -160,7 +160,7 @@ public class PlayerChoiceViewController {
     private void navigateToView(String fxmlPath, ActionEvent event, String soundFile) {
         try {
             // Play sound
-            touchSound.playMedia(soundFile, SOUND_VOLUME);
+        	MenuController.getTouchSound().playMedia(soundFile, SOUND_VOLUME);
             
             // Load the FXML file of the new interface
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -190,10 +190,10 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onVolumeClicked(MouseEvent event) {
-    	if (Main.mainSound.isMuted()) {
-            Main.mainSound.unMuteMedia();
+    	if (Main.getMainSound().isMuted()) {
+            Main.getMainSound().unMuteMedia();
         } else {
-            Main.mainSound.muteMedia();
+            Main.getMainSound().muteMedia();
         }
         updateSoundDisplay();
     }
@@ -207,7 +207,7 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonPreviousClicked(ActionEvent event) {
-        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	MenuController.getTouchSound().playMedia(CLICK_SOUND, SOUND_VOLUME);
         currentPlayerColor = currentPlayerColor.previous();
         playerColor.setFill(currentPlayerColor.getColor());
     }
@@ -220,7 +220,7 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonNextClicked(ActionEvent event) {
-        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	MenuController.getTouchSound().playMedia(CLICK_SOUND, SOUND_VOLUME);
         currentPlayerColor = currentPlayerColor.next();
         playerColor.setFill(currentPlayerColor.getColor());
     }
@@ -234,7 +234,7 @@ public class PlayerChoiceViewController {
     @FXML
 
 	protected void onButtonOkClicked(ActionEvent event) {
-		touchSound.playMedia(CONFIRM_SOUND, SOUND_VOLUME);
+    	MenuController.getTouchSound().playMedia(CONFIRM_SOUND, SOUND_VOLUME);
 
 
 		if (listPlayersNames.size() >= 4) {

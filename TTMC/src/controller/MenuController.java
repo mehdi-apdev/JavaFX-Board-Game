@@ -42,9 +42,11 @@ public class MenuController {
     @FXML private Label label;
     @FXML private ImageView volumeImage;
     @FXML private Pane optionPane;
-    
-    //Sound effect for button interactions
-    private final Sound touchSound = new Sound();
+    @FXML private CheckBox timerSoundCheckBox, secondarySoundCheckBox;
+    //all Sounds effects
+    private static Sound touchSound = new Sound();
+    private static Sound timerSound = new Sound();
+    private static Sound secondarySound = new Sound();
     //Windows for aletts
     private DialogWindow dialog = new DialogWindow();
     
@@ -61,7 +63,7 @@ public class MenuController {
      * Updates the sound control UI elements based on the current mute state.
      */
     private void updateSoundDisplay() {
-        boolean isMuted = Main.mainSound.isMuted();
+        boolean isMuted = Main.getMainSound().isMuted();
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -92,6 +94,16 @@ public class MenuController {
     	} 
     }
     
+    @FXML
+    protected void onTimerSoundCheckBoxSelected(ActionEvent event) {
+    	 timerSound.muteMedia();
+    }
+    
+    @FXML
+    protected void onSecondarySoundCheckBoxSelected(ActionEvent event) {
+    	 secondarySound.muteMedia();
+    }
+    
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
@@ -100,10 +112,10 @@ public class MenuController {
      */
     @FXML
     protected void onVolumeClicked(MouseEvent event) {
-    	if (Main.mainSound.isMuted()) {
-            Main.mainSound.unMuteMedia();
+    	if (Main.getMainSound().isMuted()) {
+            Main.getMainSound().unMuteMedia();
         } else {
-            Main.mainSound.muteMedia();
+            Main.getMainSound().muteMedia();
         }
         updateSoundDisplay();
     }
@@ -148,5 +160,17 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+    
+    public static Sound getTimerSound() {
+		return timerSound;
+	}
+    
+    public static Sound getTouchSound() {
+		return touchSound;
+	}
+    
+    public static Sound getSecondarySound() {
+		return secondarySound;
+	}
     
 }

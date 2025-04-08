@@ -74,6 +74,8 @@ import javafx.scene.paint.Paint;
 public class BoardController {
     private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
     private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
+    private static final String MALUS_GIF = "file:ressources/images/georgeMalusGif.gif";
+    private static final String BONUS_GIF = "file:ressources/images/georgeBonusGif.gif";
     private static final int MAX_DICE_VALUE = 4;
     private static final int MIN_DICE_VALUE = 1;
     private static final double ANIMATION_DURATION = 0.6;
@@ -81,35 +83,30 @@ public class BoardController {
     private static final double SOUND_VOLUME = 0.1;
     private static final double USE_COMPUTED_SIZE = -1;
     
-    
     private static int nbPlayers = 0;
     private static List<Player> players;
     private static List<Label> playersNames;
     private static List<Label> playersHints;
     private Timeline timeline; 
-    private final Sound touchSound = new Sound();
-    private final Sound timerSound = new Sound();
     private static Game game;
     private PlayerView playerView;
-    private Sound sound = new Sound();
     private List<QuestionCard> questionCards;
     private int currentCardIndex = 0;
     private Random random = new Random();
+    
     //Windows for aletts
     private DialogWindow dialog = new DialogWindow();
     
     @FXML private Button btnBack, validerButton;
-    @FXML private Pane board, playersContainer;
+    @FXML private Pane board, playersContainer, georgeBonusGifPane;
     @FXML private AnchorPane questionCard;
-    @FXML private ImageView volumeImage;
+    @FXML private ImageView volumeImage, timerImage, bonusMalusImage;
     @FXML private VBox questionsContainer, questionBox;
-    @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4;
+    @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4,  questionSelectionneeLabel;
     @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4, timerLabel;
     @FXML private Label playerHint1, playerHint2, playerHint3, playerHint4;
     @FXML private RadioButton response1, response2, response3, response4;
-    @FXML private Label questionSelectionneeLabel;
     @FXML private ToggleGroup reponse;
-    @FXML private ImageView timerImage;
     @FXML private Circle circlePlayer1, circlePlayer2, circlePlayer3, circlePlayer4;
 	@FXML private Label scorePlayer1, scorePlayer2, scorePlayer3, scorePlayer4;
 	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4;
@@ -121,6 +118,7 @@ public class BoardController {
 	private static final String greenStr = "7aa823";
 	private static final String redStr = "0x8a1515ff";
 	private static final String whiteStr = "ffffff";
+	private static boolean isStreak;
 	
 	private List<Label> playersScores;
 	private List<Label> playersStreaks;
@@ -234,7 +232,7 @@ public class BoardController {
      * Initializes sound settings based on the current mute state.
      */
     private void initializeSound() {
-        boolean isMuted = Main.mainSound.isMuted();
+        boolean isMuted = Main.getMainSound().isMuted();
         volumeImage.setImage(new Image(isMuted ? VOLUME_OFF_IMAGE : VOLUME_ON_IMAGE));
     }
     
@@ -331,7 +329,7 @@ private void loadQuestions() {
      */
     @FXML
     protected void onButtonClicked(ActionEvent event) {
-        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	MenuController.getTouchSound().playMedia(CLICK_SOUND, SOUND_VOLUME);
         boolean result = dialog.showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the game?");
         if (result) {
             navigateToView("../view/menuView.fxml", event);
@@ -392,7 +390,7 @@ private void loadQuestions() {
         boolean isVisible = questionCard.isVisible();
         questionCard.setVisible(!isVisible);
         questionsContainer.setVisible(!isVisible);
-        timerSound.stopMedia();
+        MenuController.getTimerSound().stopMedia();
         //initializeSound();
         
         if (!isVisible) {
@@ -444,7 +442,7 @@ private void loadQuestions() {
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
-    	sound.playMedia("hint.wav", SOUND_VOLUME);
+    	MenuController.getSecondarySound().playMedia("hint.wav", SOUND_VOLUME);
         currentPlayer.useHint();
         currentPlayer.setUsedHintThisRound(true);
         dialog.showAlert("Hint used", "You have " + currentPlayer.getHint() + " hint(s) left.");
@@ -473,15 +471,15 @@ private void updateHintsDisplay() {
 
     @FXML    
     protected void onVolumeClicked(MouseEvent event) {
-    	if (touchSound.isPlaying()) {
-    		
+    	if (MenuController.getTimerSound().isPlaying()) {
     		return;
     	}
-        if (Main.mainSound.isMuted()) {
+    	
+        if (Main.getMainSound().isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
-            Main.mainSound.unMuteMedia();
+            Main.getMainSound().unMuteMedia();
         } else {
-            Main.mainSound.muteMedia();
+            Main.getMainSound().muteMedia();
             volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
         }
     }
@@ -534,7 +532,7 @@ private void updateHintsDisplay() {
         scaleTransition.setToX(toScale);
         scaleTransition.setToY(toScale);
         
-        sound.playMedia("zoom.wav", SOUND_VOLUME);
+        MenuController.getSecondarySound().playMedia("zoom.wav", SOUND_VOLUME);
         scaleTransition.play();
     }
     
@@ -579,7 +577,7 @@ private void updateHintsDisplay() {
 
         if (isCorrect) {
         	stopTimer();
-        	sound.playMedia("good.wav",SOUND_VOLUME);
+        	MenuController.getSecondarySound().playMedia("good.wav",SOUND_VOLUME);
             currentPlayer.increaseScore();
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
@@ -589,20 +587,22 @@ private void updateHintsDisplay() {
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
             
             
-           
+            
             if (currentPlayer.hasThreeStreaks()) {
               
                         dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
                         currentPlayer.resetStreak();
                         stepsToMove += 2;
+                        displayGif(BONUS_GIF);
+                        MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
             }
             
-            
-            movePlayerForward(stepsToMove);
+           
+    		movePlayerForward(stepsToMove);
             
         } else {
         	stopTimer();
-        	sound.playMedia("wrong.mp3",SOUND_VOLUME);
+        	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
             currentPlayer.resetStreak();
             dialog.showAlert("Wrong answer!", "Better luck next time!");
             stopTimer();
@@ -633,7 +633,7 @@ private void updateHintsDisplay() {
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
         if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
-            Main.mainSound.unMuteMedia();
+            Main.getMainSound().unMuteMedia();
         }
     }
 
@@ -697,6 +697,8 @@ private void displayQuestionCardBasedOnPosition() {
                 currentPlayerView.animateMovement(-stepsBack);
 
                 dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back 2 spaces.");
+                displayGif(MALUS_GIF);
+                MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
                 game.nextPlayer();
 
                 Player nextPlayer = game.getCurrentPlayer();
@@ -776,7 +778,7 @@ private void displayQuestionCardBasedOnPosition() {
      */
 
 private void displayQuestionCard(QuestionCard card) {
-    sound.playMedia("zoom.wav", SOUND_VOLUME);
+	MenuController.getSecondarySound().playMedia("zoom.wav", SOUND_VOLUME);
     themeLabel.setText("Theme: " + card.getTheme().toString());
 
     List<Question> questions = card.getQuestions();
@@ -803,7 +805,7 @@ private void displayQuestionCard(QuestionCard card) {
         labels[i].setVisible(true);
 
         labels[i].setOnMouseClicked(event -> {
-            sound.playMedia("click2.wav", SOUND_VOLUME);
+        	MenuController.getSecondarySound().playMedia("click2.wav", SOUND_VOLUME);
             displaySelectedQuestion(question);
         });
     }
@@ -864,7 +866,7 @@ private void displayQuestionCard(QuestionCard card) {
             responseButtons[i].setVisible(false);
         }
 
-        Main.mainSound.muteMedia();
+        Main.getMainSound().muteMedia();
         validerButton.setUserData(question);
         startTimer();
     }
@@ -876,7 +878,7 @@ private void displayQuestionCard(QuestionCard card) {
      */
     private void startTimer() {
     	volumeImage.setDisable(true);
-        int seconds = 60;
+        int seconds = 20;
         timerLabel.setText(String.valueOf(seconds));
         timerLabel.setVisible(true);
         timerImage.setVisible(true);
@@ -902,9 +904,9 @@ private void displayQuestionCard(QuestionCard card) {
             }
 
             if (timeLeft == seconds - 1) {
-                timerSound.stopMedia();
-                timerSound.playMedia("timerMusic.mp3", 0.1);
-                timerSound.loop();
+            	MenuController.getTimerSound().stopMedia();
+            	MenuController.getTimerSound().playMedia("timerMusic.mp3", 0.1);
+            	MenuController.getTimerSound().loop();
             }
         }));
         timeline.play();
@@ -918,7 +920,7 @@ private void displayQuestionCard(QuestionCard card) {
             timeline.stop();
             //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         }
-        timerSound.stopMedia();
+        MenuController.getTimerSound().stopMedia();
         //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         timerLabel.setStyle("-fx-text-fill: white;");
         timerLabel.setVisible(false);
@@ -1001,6 +1003,29 @@ private void waitForAnimation() {
     pause.play();
 }
 
+private void displayGif(String file) {
+	 bonusMalusImage.setImage(new Image(file));
+	 bonusMalusImage.setPreserveRatio(false);
+	 bonusMalusImage.setFitWidth(650); // Set desired width
+	 bonusMalusImage.setFitHeight(365); // Set desired height
+     georgeBonusGifPane.setVisible(true);
+     ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), georgeBonusGifPane);
+     scaleTransition.setFromX(0);
+     scaleTransition.setFromY(0);
+     scaleTransition.setToX(1);
+     scaleTransition.setToY(1);
+     scaleTransition.play();
+     
+     
+     //create transition
+     PauseTransition pause = new PauseTransition(Duration.seconds(3));
+     pause.setOnFinished(e -> {
+         
+     	georgeBonusGifPane.setVisible(false);
+     });
+     pause.play();  
+}
+
     
 
     private void quitGame() {
@@ -1008,7 +1033,7 @@ private void waitForAnimation() {
         playersHints.clear();
         playersNames.clear();
         PlayerChoiceViewController.getSelectedColors().clear();
-        timerSound.stopMedia();
+        MenuController.getTimerSound().stopMedia();
         nbPlayers = 0;
     }
 }

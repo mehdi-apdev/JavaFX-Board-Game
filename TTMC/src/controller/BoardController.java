@@ -2,6 +2,7 @@ package controller;
 
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 import application.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -112,6 +115,7 @@ public class BoardController {
 	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4;
 	private List<Label> playersScores;
 	private List<Label> playersStreaks;
+	private List<QuestionCard> usedQuestionCards;
 
     
     private List<PlayerView> playerViews;
@@ -123,12 +127,18 @@ public class BoardController {
      */
     @FXML
     public void initialize() {
+    	        usedQuestionCards = new ArrayList<>();
         initializeGame();
         initializeBoard();
         initializeSound();
         initializeScoreAndStreak();
-        initializeEventHandlers();
+       // initializeEventHandlers();
         loadQuestions();
+        
+		Platform.runLater(() -> {
+			// Display the first question card
+			displayQuestionCardBasedOnPosition();
+		});
     }
     
     /**
@@ -270,10 +280,7 @@ public class BoardController {
     /**
      * Initializes event handlers and displays the first question card.
      */
-    private void initializeEventHandlers() {
-        board.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
-        Platform.runLater(this::displayQuestionCardBasedOnPosition);
-    }
+
         
         
         
@@ -329,7 +336,7 @@ private void loadQuestions() {
      * Handles keyboard input events.
      * 
      * @param event The key event
-     */
+     *
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.P) {
             toggleQuestionCardVisibility();
@@ -337,10 +344,11 @@ private void loadQuestions() {
             movePlayerRandomSteps();
         }
     }
+    **/
     
     /**
      * Moves the player a random number of steps.
-     */
+     *
     private void movePlayerRandomSteps() {
         int steps = random.nextInt(MAX_DICE_VALUE) + MIN_DICE_VALUE;
         
@@ -368,6 +376,7 @@ private void loadQuestions() {
        
         System.out.println(game.getCurrentPlayer().getName() + " moved " + steps + " spaces.");
     }
+    */
     
     /**
      * Toggles the visibility of the question card.
@@ -548,6 +557,8 @@ private void updateHintsDisplay() {
     @FXML
     private void onButtonValiderClicked(ActionEvent event) {
     	
+    	
+    	
         Question currentQuestion = (Question) validerButton.getUserData();
 
         if (reponse.getSelectedToggle() == null) {
@@ -565,14 +576,22 @@ private void updateHintsDisplay() {
             currentPlayer.increaseScore();
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
-            movePlayerForward(stepsToMove);
+           
 
-            if (currentPlayer.hasThreeStreaks()) {
-                dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
-                movePlayerForward(2);
-                currentPlayer.resetStreak();
-            }
+            
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+            
+            
+           
+            if (currentPlayer.hasThreeStreaks()) {
+              
+                        dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
+                        currentPlayer.resetStreak();
+                        stepsToMove += 2;
+            }
+            
+            
+            movePlayerForward(stepsToMove);
             
         } else {
         	stopTimer();
@@ -588,15 +607,15 @@ private void updateHintsDisplay() {
         // Get next player before showing the turn message
         game.nextPlayer();
         Player nextPlayer = game.getCurrentPlayer();
+       // playerViews.
 
         // Show turn message and question with a slight delay
 
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
 			Platform.runLater(() -> {
 				dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-				Platform.runLater(() -> {
-					displayQuestionCardBasedOnPosition();
-				});
+				waitForAnimation();
+				
 			});
 		}));
 		timeline.play();
@@ -640,76 +659,105 @@ private void updateHintsDisplay() {
      */
 
 
+
 private void displayQuestionCardBasedOnPosition() {
-    Player currentPlayer = game.getCurrentPlayer();
-    PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
-    int position = currentPlayer.getPosition();
-    Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
+    PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+    pause.setOnFinished(e -> {
+        Platform.runLater(() -> {
+            Player currentPlayer = game.getCurrentPlayer();
+            PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+            int position = currentPlayer.getPosition();
 
-    String fillColor = currentRectangle.getFill().toString();
+            // Debugging
+            System.out.println("Current Player: " + currentPlayer.getName());
+            System.out.println("Current Position: " + position);
 
-    // Handle red rectangle (malus case)
-    if (fillColor.contains("red") || currentRectangle.getStyleClass().contains("malus")) {
-        // Move player back 2 spaces
-        int stepsBack = Math.min(2, position);
-        currentPlayer.move(-stepsBack);
-        //currentPlayerView.updatePosition();
-        currentPlayerView.animateMovement(-stepsBack);
-        
-        dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back 2 spaces.");
-        game.nextPlayer();
-        
-        Player nextPlayer = game.getCurrentPlayer();
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-			Platform.runLater(() -> {
-				dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-				Platform.runLater(() -> {
-					displayQuestionCardBasedOnPosition();
-				});
-			});
-		}));
-		timeline.play();
-        
-        return; // No question will be displayed
-    }
+            if (position >= currentPlayerView.getSpaces().size()) {
+                return;
+            }
 
-    Topic theme;
+            Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
+            String fillColor = currentRectangle.getFill().toString();
 
-    // Determine theme based on rectangle color
-    if (fillColor.contains("white") || fillColor.contains("ffffff")) {
-        // If white, choose a random theme
-        Topic[] allThemes = Topic.values();
-        theme = allThemes[random.nextInt(allThemes.length)];
-    } else if (fillColor.contains("#611a44")) {
-        theme = Topic.IMPROBABLE;
-    } else if (fillColor.contains("#c19632")) {
-        theme = Topic.ENTERTAINMENT;
-    } else if (fillColor.contains("#0084ff")) {
-        theme = Topic.INFORMATICS;
-    } else if (fillColor.contains("#7aa823")) {
-        theme = Topic.EDUCATION;
-    } else {
-        // For any other color, choose a random theme
-        Topic[] allThemes = Topic.values();
-        theme = allThemes[random.nextInt(allThemes.length)];
-    }
+            // Debugging
+            System.out.println("Rectangle color at position " + position + ": " + fillColor);
 
-    QuestionCard selectedCard = null;
-    for (QuestionCard card : questionCards) {
-        if (card.getTheme() == theme) {
-            selectedCard = card;
-            break;
-        }
-    }
+            // Handle red rectangle (malus case)
+            if (fillColor.equalsIgnoreCase("0xff0000ff") || currentRectangle.getStyleClass().contains("malus")) {
+                System.out.println("RED " + game.getCurrentPlayer().getName());
+                int stepsBack = Math.min(2, position);
+                currentPlayer.move(-stepsBack);
+                currentPlayerView.animateMovement(-stepsBack);
 
-    if (selectedCard == null && !questionCards.isEmpty()) {
-        selectedCard = questionCards.get(random.nextInt(questionCards.size()));
-    }
+                dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back 2 spaces.");
+                game.nextPlayer();
 
-    if (selectedCard != null) {
-        displayQuestionCard(selectedCard);
-    }
+                Player nextPlayer = game.getCurrentPlayer();
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
+                    Platform.runLater(() -> {
+                        dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
+                        waitForAnimation();
+
+
+                    });
+                }));
+                timeline.play();
+                return;
+            }
+
+            Topic theme;
+
+            // Determine theme based on rectangle color
+            if (fillColor.equalsIgnoreCase("0xffffffff")) {
+                Topic[] allThemes = Topic.values();
+                theme = allThemes[random.nextInt(allThemes.length)];
+                System.out.println("White " + game.getCurrentPlayer().getName());
+            } else if (fillColor.contains("611a44")) {
+                theme = Topic.IMPROBABLE;
+                System.out.println("Mauve " + game.getCurrentPlayer().getName());
+            } else if (fillColor.contains("c19632")) {
+                theme = Topic.ENTERTAINMENT;
+                System.out.println("Jaune " + game.getCurrentPlayer().getName());
+            } else if (fillColor.contains("0084ff")) {
+                theme = Topic.INFORMATICS;
+                System.out.println("Bleu " + game.getCurrentPlayer().getName());
+            } else if (fillColor.contains("7aa823")) {
+                theme = Topic.EDUCATION;
+                System.out.println("Vert " + game.getCurrentPlayer().getName());
+            } else {
+                Topic[] allThemes = Topic.values();
+                theme = allThemes[random.nextInt(allThemes.length)];
+                System.out.println("Random " + game.getCurrentPlayer().getName());
+            }
+
+            QuestionCard selectedCard = null;
+            List<QuestionCard> availableCards = questionCards.stream()
+                    .filter(card -> card.getTheme() == theme && !usedQuestionCards.contains(card))
+                    .collect(Collectors.toList());
+
+            if (!availableCards.isEmpty()) {
+                selectedCard = availableCards.get(random.nextInt(availableCards.size()));
+                usedQuestionCards.add(selectedCard);
+            } else {
+                // Reset used questions if all questions of the theme have been used
+                usedQuestionCards.clear();
+                availableCards = questionCards.stream()
+                        .filter(card -> card.getTheme() == theme)
+                        .collect(Collectors.toList());
+                if (!availableCards.isEmpty()) {
+                    selectedCard = availableCards.get(random.nextInt(availableCards.size()));
+                    usedQuestionCards.add(selectedCard);
+                }
+            }
+
+            if (selectedCard != null) {
+                displayQuestionCard(selectedCard);
+            }
+        });
+    });
+    pause.play();
 }
+
 
 
 
@@ -719,52 +767,60 @@ private void displayQuestionCardBasedOnPosition() {
      *
      * @param card The question card to display
      */
-    private void displayQuestionCard(QuestionCard card) {
-    	
-    	//volumeImage.setDisable(true);
-    	sound.playMedia("zoom.wav", SOUND_VOLUME);
-        themeLabel.setText("Theme: " + card.getTheme().toString());
 
-        List<Question> questions = card.getQuestions();
-        Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
+private void displayQuestionCard(QuestionCard card) {
+    sound.playMedia("zoom.wav", SOUND_VOLUME);
+    themeLabel.setText("Theme: " + card.getTheme().toString());
 
-        for (Label label : labels) {
-            label.setVisible(false);
-            label.setWrapText(true);
-            label.setMaxWidth(342.0);
-            label.setPrefHeight(USE_COMPUTED_SIZE);
-        }
+    List<Question> questions = card.getQuestions();
+    Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
 
-        for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
-            final int questionIndex = i;
-            labels[i].setText(questions.get(i).getTexte());
-            labels[i].setVisible(true);
-
-            labels[i].setOnMouseClicked(event -> {
-                sound.playMedia("click2.wav", SOUND_VOLUME);
-                displaySelectedQuestion(questions.get(questionIndex));
-            });
-        }
-
-        questionCard.setVisible(true);
-        questionsContainer.setVisible(true);
-        questionBox.setVisible(false);
-        themeLabel.setVisible(true);
-
-        questionCard.setPrefHeight(USE_COMPUTED_SIZE);
-        questionsContainer.setPrefHeight(USE_COMPUTED_SIZE);
-
-        SequentialTransition sequentialTransition = new SequentialTransition();
-        sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
-
-        for (Label label : labels) {
-            if (label.isVisible()) {
-                sequentialTransition.getChildren().add(playTransitionLabel(label));
-            }
-        }
-       
-        sequentialTransition.play();
+    // Initialize labels
+    for (Label label : labels) {
+        label.setVisible(false);
+        label.setWrapText(true);
+        label.setMaxWidth(342.0);
+        label.setPrefHeight(USE_COMPUTED_SIZE);
     }
+
+    // Sort questions by priority (1 to 4)
+    List<Question> sortedQuestions = questions.stream()
+        .sorted((q1, q2) -> q1.getDifficulty() - q2.getDifficulty())
+        .collect(Collectors.toList());
+
+    // Display questions in order of priority
+    for (int i = 0; i < Math.min(sortedQuestions.size(), labels.length); i++) {
+        final int questionIndex = i;
+        Question question = sortedQuestions.get(i);
+        labels[i].setText(question.getTexte() + " (Priority: " + question.getDifficulty() + ")");
+        labels[i].setVisible(true);
+
+        labels[i].setOnMouseClicked(event -> {
+            sound.playMedia("click2.wav", SOUND_VOLUME);
+            displaySelectedQuestion(question);
+        });
+    }
+
+    questionCard.setVisible(true);
+    questionsContainer.setVisible(true);
+    questionBox.setVisible(false);
+    themeLabel.setVisible(true);
+
+    questionCard.setPrefHeight(USE_COMPUTED_SIZE);
+    questionsContainer.setPrefHeight(USE_COMPUTED_SIZE);
+
+    SequentialTransition sequentialTransition = new SequentialTransition();
+    sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
+
+    for (Label label : labels) {
+        if (label.isVisible()) {
+            sequentialTransition.getChildren().add(playTransitionLabel(label));
+        }
+    }
+
+    sequentialTransition.play();
+}
+
     
     /**
      * Displays the selected question with its possible answers.
@@ -774,24 +830,33 @@ private void displayQuestionCardBasedOnPosition() {
     private void displaySelectedQuestion(Question question) {
         questionsContainer.setVisible(false);
         questionBox.setVisible(true);
-    
+
         questionSelectionneeLabel.setText(question.getTexte());
-    
+
         reponse.selectToggle(null);
-    
-        List<String> responses = question.getResponse();
-    
+
+        List<String> responses = new ArrayList<>(question.getResponse());
+        // Shuffle the responses
+        Collections.shuffle(responses);
+
+        // Keep track of the shuffled indices
+        Map<String, Integer> responseToIndex = new HashMap<>();
+        for (int i = 0; i < question.getResponse().size(); i++) {
+            responseToIndex.put(question.getResponse().get(i), i);
+        }
+
         RadioButton[] responseButtons = {response1, response2, response3, response4};
         for (int i = 0; i < Math.min(responses.size(), responseButtons.length); i++) {
             responseButtons[i].setText(responses.get(i));
             responseButtons[i].setVisible(true);
-            responseButtons[i].setUserData(i);
+            // Store the original index as user data
+            responseButtons[i].setUserData(responseToIndex.get(responses.get(i)));
         }
-    
+
         for (int i = responses.size(); i < responseButtons.length; i++) {
             responseButtons[i].setVisible(false);
         }
-        
+
         Main.mainSound.muteMedia();
         validerButton.setUserData(question);
         startTimer();
@@ -918,6 +983,15 @@ private void updateScoreAndStreakDisplay() {
             playersStreaks.get(i).getStyleClass().remove("streak-active");
         }
     }
+}
+
+private void waitForAnimation() {
+    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+    pause.setOnFinished(event -> {
+        // Code to execute after the delay
+        displayQuestionCardBasedOnPosition();
+    });
+    pause.play();
 }
 
     

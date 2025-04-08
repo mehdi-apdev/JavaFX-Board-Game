@@ -16,7 +16,8 @@ public class Player {
 	
 	// method to move the player
 	public void move(int steps) {
-		this.position += steps;
+		position+= steps;
+		if(position<0) position = 0; // if the player goes back to the start
 	}
 	
 	// method to increase the score

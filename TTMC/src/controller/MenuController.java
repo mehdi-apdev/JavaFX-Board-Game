@@ -41,6 +41,7 @@ public class MenuController {
     @FXML private Pane menuBoard;
     @FXML private Label label;
     @FXML private ImageView volumeImage;
+    @FXML private Pane optionPane;
     
     //Sound effect for button interactions
     private final Sound touchSound = new Sound();
@@ -83,7 +84,12 @@ public class MenuController {
      */
     @FXML
     protected void onButtonOptionClicked(ActionEvent event) {
-        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	 touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+    	if(optionPane.isVisible()) {
+			optionPane.setVisible(false);
+		} else {
+			optionPane.setVisible(true);
+    	} 
     }
     
     /**

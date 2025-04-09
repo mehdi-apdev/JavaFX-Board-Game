@@ -176,13 +176,7 @@ public class BoardController {
         for (int i = 1; i <= 4; i++) {
             allSpacesList.add(addSpaces(allSpaces, i));
         }
-        /*List<Circle> allCircles = new ArrayList<>();
-        for (Node node : board.getChildren()) {
-            if (node instanceof Circle) {
-                allCircles.add((Circle) node);
-                System.out.println(node);
-            }
-        }*/
+        
         
         List<Circle> allCircles = new ArrayList<>();
         allCircles.add(circlePlayer1);
@@ -288,9 +282,6 @@ public class BoardController {
      */
 
         
-        
-        
-
 private void loadQuestions() {
     QuestionLoader loader = new QuestionLoader();
     loader.loadQuestions("ressources/questions/questions.json");
@@ -582,12 +573,7 @@ private void updateHintsDisplay() {
             currentPlayer.increaseScore();
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
-           
-
-            
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
-            
-            
             
             if (currentPlayer.hasThreeStreaks()) {
               
@@ -604,6 +590,7 @@ private void updateHintsDisplay() {
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
+        	currentPlayer.decreaseScore();
             currentPlayer.resetStreak();
             dialog.showAlert("Wrong answer!", "Better luck next time!");
             stopTimer();
@@ -613,24 +600,11 @@ private void updateHintsDisplay() {
         toggleQuestionCardVisibility();
 
         // Get next player before showing the turn message
-        game.nextPlayer();
-        Player nextPlayer = game.getCurrentPlayer();
-       // playerViews.
-
-        // Show turn message and question with a slight delay
-
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
-			Platform.runLater(() -> {
-				dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-				waitForAnimation();
-				
-			});
-		}));
-		timeline.play();
-		        // Reset the timer
-		        stopTimer();
-		       
-                
+        nextPlayer();
+    
+		// Reset the timer
+		stopTimer();
+		         
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
         if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
@@ -705,20 +679,9 @@ private void displayQuestionCardBasedOnPosition() {
 					dialog.showAlert("End of the game", "All players have finished the game!");
                     return;
                 }
-                game.nextPlayer();
-            	Player nextPlayer = game.getCurrentPlayer();
-              
+                //Method to change player
+                nextPlayer();
             	dialog.showAlert("End of Game", "You have reached the end of the game!");
-            	
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
-                    Platform.runLater(() -> {
-                        dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-                        waitForAnimation();
-
-
-                    });
-                }));
-                timeline.play();
             	return;
             }
 
@@ -732,17 +695,8 @@ private void displayQuestionCardBasedOnPosition() {
                 dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back 2 spaces.");
                 displayGif(MALUS_GIF);
                 MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
-                game.nextPlayer();
-
-                Player nextPlayer = game.getCurrentPlayer();
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
-                    Platform.runLater(() -> {
-                        dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-                        waitForAnimation();
-
-
-                    });
-                }));
+                //method to change player
+                nextPlayer();
                 timeline.play();
                 return;
             }
@@ -799,10 +753,6 @@ private void displayQuestionCardBasedOnPosition() {
     });
     pause.play();
 }
-
-
-
-
     /**
      * Displays the question card with properly formatted content.
      * Adjusts the AnchorPane to fit the content and ensures text is fully visible.
@@ -984,90 +934,105 @@ private void displayQuestionCard(QuestionCard card) {
         }
     }
     
-    
-
-private void initializeScoreAndStreak() {
-    playersScores = new ArrayList<>();
-    playersScores.add(scorePlayer1);
-    playersScores.add(scorePlayer2);
-    playersScores.add(scorePlayer3);
-    playersScores.add(scorePlayer4);
-
-    playersStreaks = new ArrayList<>();
-    playersStreaks.add(streakPlayer1);
-    playersStreaks.add(streakPlayer2);
-    playersStreaks.add(streakPlayer3);
-    playersStreaks.add(streakPlayer4);
-
-    for (int i = 0; i < 4; i++) {
-        if (i < players.size()) {
-            playersScores.get(i).setText("Score: 0");
-            playersStreaks.get(i).setText("Streak: 0");
-        } else {
-            playersScores.get(i).setText("");
-            playersStreaks.get(i).setText("");
-        }
-    }
-}
-
-private void updateScoreAndStreakDisplay() {
-    for (int i = 0; i < players.size(); i++) {
-        Player player = players.get(i);
-        playersScores.get(i).setText("Score: " + player.getScore());
-
-        String streakText = "Streak: " + player.getStreak();
-        playersStreaks.get(i).setText(streakText);
-
-        // Apply highlight styling if streak is active
-        if (player.getStreak() > 0) {
-            playersStreaks.get(i).getStyleClass().add("streak-active");
-        } else {
-            playersStreaks.get(i).getStyleClass().remove("streak-active");
-        }
-    }
-}
-
-private void waitForAnimation() {
-    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
-    pause.setOnFinished(event -> {
-        // Code to execute after the delay
-        displayQuestionCardBasedOnPosition();
-    });
-    pause.play();
-}
-
-private void displayGif(String file) {
-	 bonusMalusImage.setImage(new Image(file));
-	 bonusMalusImage.setPreserveRatio(false);
-	 bonusMalusImage.setFitWidth(650); // Set desired width
-	 bonusMalusImage.setFitHeight(365); // Set desired height
-     georgeBonusGifPane.setVisible(true);
-     ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), georgeBonusGifPane);
-     scaleTransition.setFromX(0);
-     scaleTransition.setFromY(0);
-     scaleTransition.setToX(1);
-     scaleTransition.setToY(1);
-     scaleTransition.play();
-     
-     
-     //create transition
-     PauseTransition pause = new PauseTransition(Duration.seconds(3));
-     pause.setOnFinished(e -> {
-         
-     	georgeBonusGifPane.setVisible(false);
-     });
-     pause.play();  
-}
-
-    
-
-    private void quitGame() {
-        players.clear();
-        playersHints.clear();
-        playersNames.clear();
-        PlayerChoiceViewController.getSelectedColors().clear();
-        MenuController.getTimerSound().stopMedia();
-        nbPlayers = 0;
-    }
+	    
+	
+	private void initializeScoreAndStreak() {
+	    playersScores = new ArrayList<>();
+	    playersScores.add(scorePlayer1);
+	    playersScores.add(scorePlayer2);
+	    playersScores.add(scorePlayer3);
+	    playersScores.add(scorePlayer4);
+	
+	    playersStreaks = new ArrayList<>();
+	    playersStreaks.add(streakPlayer1);
+	    playersStreaks.add(streakPlayer2);
+	    playersStreaks.add(streakPlayer3);
+	    playersStreaks.add(streakPlayer4);
+	
+	    for (int i = 0; i < 4; i++) {
+	        if (i < players.size()) {
+	            playersScores.get(i).setText("Score: 0");
+	            playersStreaks.get(i).setText("Streak: 0");
+	        } else {
+	            playersScores.get(i).setText("");
+	            playersStreaks.get(i).setText("");
+	        }
+	    }
+	}
+	
+	private void updateScoreAndStreakDisplay() {
+	    for (int i = 0; i < players.size(); i++) {
+	        Player player = players.get(i);
+	        playersScores.get(i).setText("Score: " + player.getScore());
+	
+	        String streakText = "Streak: " + player.getStreak();
+	        playersStreaks.get(i).setText(streakText);
+	
+	        // Apply highlight styling if streak is active
+	        if (player.getStreak() > 0) {
+	            playersStreaks.get(i).getStyleClass().add("streak-active");
+	        } else {
+	            playersStreaks.get(i).getStyleClass().remove("streak-active");
+	        }
+	    }
+	}
+	
+	private void waitForAnimation() {
+	    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+	    pause.setOnFinished(event -> {
+	        // Code to execute after the delay
+	        displayQuestionCardBasedOnPosition();
+	    });
+	    pause.play();
+	}
+	
+	private void displayGif(String file) {
+		 bonusMalusImage.setImage(new Image(file));
+		 bonusMalusImage.setPreserveRatio(false);
+		 bonusMalusImage.setFitWidth(650); // Set desired width
+		 bonusMalusImage.setFitHeight(365); // Set desired height
+	     georgeBonusGifPane.setVisible(true);
+	     ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), georgeBonusGifPane);
+	     scaleTransition.setFromX(0);
+	     scaleTransition.setFromY(0);
+	     scaleTransition.setToX(1);
+	     scaleTransition.setToY(1);
+	     scaleTransition.play();
+	     
+	     
+	     //create transition
+	     PauseTransition pause = new PauseTransition(Duration.seconds(3));
+	     pause.setOnFinished(e -> {
+	         
+	     	georgeBonusGifPane.setVisible(false);
+	     });
+	     pause.play();  
+	}
+	
+	private void nextPlayer() {
+		game.nextPlayer();
+	
+	    Player nextPlayer = game.getCurrentPlayer();
+	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
+	        Platform.runLater(() -> {
+	            dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
+	            waitForAnimation();
+	
+	
+	        });
+	    }));
+	    timeline.play();
+	}
+	
+	    
+	
+	    private void quitGame() {
+	        players.clear();
+	        playersHints.clear();
+	        playersNames.clear();
+	        PlayerChoiceViewController.getSelectedColors().clear();
+	        MenuController.getTimerSound().stopMedia();
+	        nbPlayers = 0;
+	    }
 }
 

@@ -25,6 +25,15 @@ public class Player {
 		score++;
 	}
 	
+	public void decreaseScore() {
+		
+		if (score <= 0) {
+			score = 0;
+		}else {
+			score--;
+		}
+	}
+	
     public void useHint() {
         if (hint > 0) {
             hint--;

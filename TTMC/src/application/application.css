@@ -209,6 +209,10 @@ Button{
 	-fx-fill: white;
 }
 
+.last{
+		-fx-fill: white;
+}
+
 .Combat{
 	-fx-fill: yellow;
 }

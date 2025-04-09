@@ -24,6 +24,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -685,9 +686,41 @@ private void displayQuestionCardBasedOnPosition() {
 
             Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
             String fillColor = currentRectangle.getFill().toString();
-
+          
             // Debugging
             System.out.println("Rectangle color at position " + position + ": " + fillColor);
+            
+            if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
+            	
+            	int index = game.getCurrentPlayerIndex();
+            	
+            	
+            	// Remove the player from the game and update the U
+            	game.getPlayers().remove(index);
+            	//players.remove(index);
+            	playerViews.remove(index);
+            	
+            	// Vérifier si la liste des joueurs est vide
+                if (game.getPlayers().isEmpty()) {
+					dialog.showAlert("End of the game", "All players have finished the game!");
+                    return;
+                }
+                game.nextPlayer();
+            	Player nextPlayer = game.getCurrentPlayer();
+              
+            	dialog.showAlert("End of Game", "You have reached the end of the game!");
+            	
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
+                    Platform.runLater(() -> {
+                        dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
+                        waitForAnimation();
+
+
+                    });
+                }));
+                timeline.play();
+            	return;
+            }
 
             // Handle red rectangle (malus case)
             if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {

@@ -49,7 +49,7 @@
       <Rectangle id="rec1_8" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="502.0" layoutY="194.0" rotate="-59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec3_17" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="866.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec3_16" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="803.0" layoutY="75.0" rotate="-93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle id="rec4_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1374.0" layoutY="297.0" rotate="-178.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle id="rec4_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1374.0" layoutY="297.0" rotate="-178.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="last" width="60.0" />
       <Rectangle id="rec4_21" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1225.0" layoutY="421.0" rotate="39.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="Combat" width="60.0" />
       <Rectangle id="rec4_22" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1261.0" layoutY="367.0" rotate="-64.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="-" width="60.0" />
       <Rectangle id="rec4_20" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1177.0" layoutY="466.0" rotate="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
@@ -58,7 +58,7 @@
       <Rectangle id="rec4_13" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="732.0" layoutY="425.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="Combat" width="60.0" />
       <Rectangle id="rec1_15" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="752.0" layoutY="546.0" rotate="163.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec4_11" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="613.0" layoutY="448.0" rotate="-19.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle id="rec3_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1319.0" layoutY="125.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle id="rec3_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1319.0" layoutY="125.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="last" width="60.0" />
       <Rectangle id="rec3_10" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="449.0" layoutY="162.0" rotate="-55.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="Combat" width="60.0" />
       <Rectangle id="rec2_2" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="134.0" layoutY="339.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec1_3" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="195.0" layoutY="139.0" rotate="161.1" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="7.0" />
@@ -74,7 +74,7 @@
          </rotationAxis>
       </Rectangle>
      
-      <Rectangle id="rec1_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1271.0" layoutY="698.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle id="rec1_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1271.0" layoutY="698.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="last" width="60.0" />
       <Rectangle id="rec4_5" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="323.0" layoutY="695.0" rotate="-37.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" y="1.0" />
       <Rectangle id="rec4_17" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="974.0" layoutY="453.0" rotate="16.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec4_6" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="367.0" layoutY="651.0" rotate="-46.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
@@ -113,7 +113,7 @@
       <Rectangle id="rec2_5" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="316.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec2_4" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="255.0" layoutY="327.0" rotate="-97.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
       <Rectangle id="rec2_3" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="195.0" layoutY="335.0" rotate="-93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
-      <Rectangle id="rec2_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1410.0" layoutY="462.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="60.0" />
+      <Rectangle id="rec2_24" arcHeight="5.0" arcWidth="5.0" height="60.0" layoutX="1410.0" layoutY="462.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" styleClass="last" width="60.0" />
       <Rectangle id="rec4_7" arcHeight="5.0" arcWidth="5.0" height="85.0" layoutX="401.0" layoutY="585.0" rotate="-51.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" styleClass="Malus" width="85.0" />
       <Rectangle id="rec2_15" arcHeight="5.0" arcWidth="5.0" height="85.0" layoutX="904.0" layoutY="194.0" rotate="-79.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" styleClass="Malus" width="85.0" />
       <Rectangle id="rec3_15" arcHeight="5.0" arcWidth="5.0" height="85.0" layoutX="728.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" styleClass="Malus" width="85.0" />
@@ -285,10 +285,5 @@
             </ImageView>
          </children>
       </Pane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="17.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../Downloads/start.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

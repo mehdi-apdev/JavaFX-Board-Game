@@ -134,7 +134,6 @@
             <Image url="@../../ressources/images/maxVolume.png" />
          </image>
       </ImageView>
-      <VBox layoutX="924.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" styleClass="Malus" />
       <Circle fx:id="circlePlayer1" fill="WHITE" layoutX="104.0" layoutY="205.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <Circle fx:id="circlePlayer2" fill="WHITE" layoutX="102.0" layoutY="374.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <Circle fx:id="circlePlayer3" fill="WHITE" layoutX="114.0" layoutY="581.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
@@ -283,6 +282,45 @@
                   <Image url="@../../ressources/images/georgeBonusGif.gif" />
                </image>
             </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="540.0" layoutY="176.0" prefHeight="505.0" prefWidth="410.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-radius: 7px; -fx-border-width: 4px; -fx-border-color: #8B4513; -fx-background-radius: 7px;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="59.0" layoutY="69.0" prefHeight="52.0" prefWidth="281.0" style="-fx-background-color: rgba(46, 139, 87, 0.4); -fx-border-color: #829e7d; -fx-border-width: 2.5px; -fx-border-radius: 5px;" text="STANDINGS" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Eras Bold ITC" size="25.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="65.0" layoutY="153.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+               <font>
+                  <Font name="Eras Bold ITC" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="65.0" layoutY="209.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+               <font>
+                  <Font name="Eras Bold ITC" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="65.0" layoutY="264.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+               <font>
+                  <Font name="Eras Bold ITC" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="65.0" layoutY="321.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+               <font>
+                  <Font name="Eras Bold ITC" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="231.0" layoutY="424.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" text="PLAY AGAIN">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="30.0" layoutY="424.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" text="EXIT">
+               <font>
+                  <Font name="Eras Bold ITC" size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

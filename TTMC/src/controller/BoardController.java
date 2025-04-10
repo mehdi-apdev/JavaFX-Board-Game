@@ -99,7 +99,7 @@ public class BoardController {
     private DialogWindow dialog = new DialogWindow();
     
     @FXML private Button btnBack, validerButton;
-    @FXML private Pane board, playersContainer, georgeBonusGifPane;
+    @FXML private Pane board, playersContainer, georgeBonusGifPane, standingsPane;
     @FXML private AnchorPane questionCard;
     @FXML private ImageView volumeImage, timerImage, bonusMalusImage;
     @FXML private VBox questionsContainer, questionBox;
@@ -246,7 +246,7 @@ public class BoardController {
             if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
                 hint.setText(players.get(i-1).getHint()+" left(s)");
             } else {
-                hint.setText("/");
+                hint.setText("");
             }
             i++;
         }
@@ -269,7 +269,7 @@ public class BoardController {
                 playerName.setText(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1));
                 nbPlayers++;
             } else {
-                playerName.setText("/");
+                playerName.setText("-----");
             }
             i++;
         }
@@ -518,6 +518,7 @@ private void updateHintsDisplay() {
         int fromScale = isOpen ? 1 : 0;
         int toScale = isOpen ? 0 : 1;
         
+        
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(ANIMATION_DURATION), container);
         scaleTransition.setFromX(fromScale);
         scaleTransition.setFromY(fromScale);
@@ -585,7 +586,7 @@ private void updateHintsDisplay() {
             }
             
            
-    		movePlayerForward(stepsToMove);
+    		movePlayerForward(24);
             
         } else {
         	stopTimer();
@@ -643,7 +644,7 @@ private void updateHintsDisplay() {
 
 
 private void displayQuestionCardBasedOnPosition() {
-    PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+    PauseTransition pause = new PauseTransition(Duration.seconds(2));
     pause.setOnFinished(e -> {
         Platform.runLater(() -> {
             Player currentPlayer = game.getCurrentPlayer();
@@ -660,10 +661,27 @@ private void displayQuestionCardBasedOnPosition() {
 
             Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
             String fillColor = currentRectangle.getFill().toString();
+            
+          //if the list has one player so the game is finished
+            if (game.getPlayers().size() <= 1) {
+				
+				
+				pause.setDuration(Duration.seconds(4));
+				pause.setOnFinished(event ->{
+					 Platform.runLater(() -> {standingsPane.setVisible(true);
+						playTransition(standingsPane, false);});
+					
+				});
+				
+				dialog.showAlert("End of the game", "All players have finished the game!");
+				pause.play();
+                return;
+            }
           
             // Debugging
             System.out.println("Rectangle color at position " + position + ": " + fillColor);
             
+            //When the player has reached the finale case
             if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
             	
             	int index = game.getCurrentPlayerIndex();
@@ -671,17 +689,11 @@ private void displayQuestionCardBasedOnPosition() {
             	
             	// Remove the player from the game and update the U
             	game.getPlayers().remove(index);
-            	//players.remove(index);
             	playerViews.remove(index);
             	
-            	// Vérifier si la liste des joueurs est vide
-                if (game.getPlayers().isEmpty()) {
-					dialog.showAlert("End of the game", "All players have finished the game!");
-                    return;
-                }
                 //Method to change player
                 nextPlayer();
-            	dialog.showAlert("End of Game", "You have reached the end of the game!");
+            	dialog.showAlert("Congrats", "You have reached the end of the game!");
             	return;
             }
 
@@ -794,6 +806,7 @@ private void displayQuestionCard(QuestionCard card) {
     }
 
     questionCard.setVisible(true);
+    playTransition(questionCard, false);
     questionsContainer.setVisible(true);
     questionBox.setVisible(false);
     themeLabel.setVisible(true);
@@ -1010,20 +1023,31 @@ private void displayQuestionCard(QuestionCard card) {
 	}
 	
 	private void nextPlayer() {
+		
 		game.nextPlayer();
-	
 	    Player nextPlayer = game.getCurrentPlayer();
 	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
 	        Platform.runLater(() -> {
 	            dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
 	            waitForAnimation();
-	
-	
+	            for (Label name : playersNames) {
+	    			if (name.getText().equals(game.getCurrentPlayer().getName())) {
+	    				name.setStyle("-fx-text-fill: orange;");
+	    			} else {
+	    				name.setStyle("-fx-text-fill: black;");
+	    			}	
+	    		}
 	        });
 	    }));
 	    timeline.play();
+	    
 	}
-	
+		
+	private void playAgain() {
+		
+		
+		
+	}
 	    
 	
 	    private void quitGame() {

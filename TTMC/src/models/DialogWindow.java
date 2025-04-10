@@ -1,7 +1,9 @@
 package models;
 
+import javafx.util.Duration;
 import java.util.Optional;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -22,7 +24,11 @@ public class DialogWindow {
 		alertInfo.setContentText(message);
 		alertInfo.getDialogPane().setStyle("");
 		alertInfo.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-		alertInfo.showAndWait();
+		alertInfo.show();
+		//close the alert after 1.5 seconds
+	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), evt -> alertInfo.close()));
+	    timeline.setCycleCount(1);
+	    timeline.play();
     }
 	
 	

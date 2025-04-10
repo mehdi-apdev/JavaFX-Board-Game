@@ -42,7 +42,7 @@ Circle{
 /* Style pour le contenu du DialogPane */
 .dialog-pane .content, .header{
     -fx-text-fill: #5C3D2E; /* Couleur du texte - assortie au style bois */
-    -fx-font-size: 14px; /* Taille de la police */
+    -fx-font-size: 16px; /* Taille de la police */
     -fx-font-family: Arial;
     -fx-alignment: center;
 }
@@ -233,14 +233,14 @@ Button{
 }
 
 .player-score {
-    -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
-    -fx-font-size: 16px;
+   /*  -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
+    -fx-font-size: 16px;¨*/
     -fx-font-weight: bold;
 }
 
 .player-streak {
-    -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
-    -fx-font-size: 14px;
+   /* -fx-font-family: "Arial", "Helvetica Neue Bold", sans-serif;
+    -fx-font-size: 14px;*/
     -fx-text-fill: #5C3D2E;
 }
 

@@ -185,79 +185,103 @@
       <Pane fx:id="playersContainer" layoutX="181.0" layoutY="-9.0" prefHeight="60.0" prefWidth="1210.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-color: #5C3D2E; -fx-border-radius: 15px; -fx-border-width: 4px; -fx-background-radius: 15px;">
          <children>
          
-				<Label fx:id="scorePlayer1" layoutX="14.0" layoutY="37.0" styleClass="player-score" text="Score: 0" />
-				<Label fx:id="streakPlayer1" layoutX="100.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0" />
+				<Label fx:id="scorePlayer1" layoutX="14.0" layoutY="37.0" styleClass="player-score" text="Score: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
+				<Label fx:id="streakPlayer1" layoutX="100.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
 				
-				<Label fx:id="scorePlayer2" layoutX="314.0" layoutY="37.0" styleClass="player-score" text="Score: 0" />
-				<Label fx:id="streakPlayer2" layoutX="400.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0" />
+				<Label fx:id="scorePlayer2" layoutX="314.0" layoutY="37.0" styleClass="player-score" text="Score: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
+				<Label fx:id="streakPlayer2" layoutX="400.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
 				
-				<Label fx:id="scorePlayer3" layoutX="595.0" layoutY="37.0" styleClass="player-score" text="Score: 0" />
-				<Label fx:id="streakPlayer3" layoutX="681.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0" />
+				<Label fx:id="scorePlayer3" layoutX="595.0" layoutY="37.0" styleClass="player-score" text="Score: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
+				<Label fx:id="streakPlayer3" layoutX="681.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
 				
-				<Label fx:id="scorePlayer4" layoutX="910.0" layoutY="37.0" styleClass="player-score" text="Score: 0" />
-				<Label fx:id="streakPlayer4" layoutX="996.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0" />
+				<Label fx:id="scorePlayer4" layoutX="910.0" layoutY="37.0" styleClass="player-score" text="Score: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
+				<Label fx:id="streakPlayer4" layoutX="996.0" layoutY="37.0" styleClass="player-streak" text="Streak: 0">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font></Label>
 				
 				
          
-            <Label fx:id="namePlayer1" layoutX="14.0" layoutY="19.0" prefHeight="17.0" prefWidth="100.0" text="Player 1">
+            <Label fx:id="namePlayer1" layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="100.0" style="-fx-text-fill: orange;" text="Player 1">
                <font>
-                  <Font name="Eras Bold ITC" size="17.0" />
+                  <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer2" layoutX="314.0" layoutY="17.0" prefHeight="17.0" prefWidth="100.0" text="Player 2">
+            <Label fx:id="namePlayer2" layoutX="314.0" layoutY="7.0" prefHeight="17.0" prefWidth="100.0" text="Player 2">
                <font>
-                  <Font name="Eras Bold ITC" size="17.0" />
+                  <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer3" layoutX="595.0" layoutY="19.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
+            <Label fx:id="namePlayer3" layoutX="595.0" layoutY="8.0" prefHeight="17.0" prefWidth="100.0" text="Player 3">
                <font>
-                  <Font name="Eras Bold ITC" size="17.0" />
+                  <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="namePlayer4" layoutX="910.0" layoutY="16.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
+            <Label fx:id="namePlayer4" layoutX="910.0" layoutY="7.0" prefHeight="17.0" prefWidth="100.0" text="Player4">
                <font>
-                  <Font name="Eras Bold ITC" size="17.0" />
+                  <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
             <Label layoutX="172.0" layoutY="18.0" />
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="538.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="548.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="853.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="46.0" layoutX="833.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="1158.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="22.0" fitWidth="24.0" layoutX="1131.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="241.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="244.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ressources/images/hint.png" />
                </image>
             </ImageView>
-            <Label fx:id="playerHint1" layoutX="172.0" layoutY="15.0" text="0 left(s)">
+            <Label fx:id="playerHint1" layoutX="189.0" layoutY="36.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="18.0" />
+                  <Font name="Eras Bold ITC" size="11.0" />
                </font>
             </Label>
-            <Label fx:id="playerHint2" layoutX="476.0" layoutY="15.0" text="0 left(s)">
+            <Label fx:id="playerHint2" layoutX="485.0" layoutY="37.0" prefHeight="14.0" prefWidth="53.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="18.0" />
+                  <Font name="Eras Bold ITC" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="playerHint3" layoutX="784.0" layoutY="16.0" text="0 left(s)">
+            <Label fx:id="playerHint3" layoutX="777.0" layoutY="37.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="18.0" />
+                  <Font name="Eras Bold ITC" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="playerHint4" layoutX="1082.0" layoutY="15.0" text="0 left(s)">
+            <Label fx:id="playerHint4" layoutX="1085.0" layoutY="37.0" text="0 left(s)">
                <font>
-                  <Font name="Eras Bold ITC" size="18.0" />
+                  <Font name="Eras Bold ITC" size="12.0" />
                </font>
             </Label>
             <Line endX="98.0" endY="-27.19999885559082" layoutX="207.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
@@ -284,7 +308,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="540.0" layoutY="176.0" prefHeight="505.0" prefWidth="410.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-radius: 7px; -fx-border-width: 4px; -fx-border-color: #8B4513; -fx-background-radius: 7px;" visible="false">
+      <Pane fx:id="standingsPane" layoutX="540.0" layoutY="176.0" prefHeight="505.0" prefWidth="410.0" style="-fx-background-color: rgba(245, 245, 220, 0.9); -fx-border-radius: 7px; -fx-border-width: 4px; -fx-border-color: #8B4513; -fx-background-radius: 7px;" visible="false">
          <children>
             <Label alignment="CENTER" layoutX="59.0" layoutY="69.0" prefHeight="52.0" prefWidth="281.0" style="-fx-background-color: rgba(46, 139, 87, 0.4); -fx-border-color: #829e7d; -fx-border-width: 2.5px; -fx-border-radius: 5px;" text="STANDINGS" textAlignment="CENTER" textFill="WHITE">
                <font>

@@ -586,7 +586,7 @@ private void updateHintsDisplay() {
             }
             
            
-    		movePlayerForward(24);
+    		movePlayerForward(stepsToMove);
             
         } else {
         	stopTimer();

@@ -42,7 +42,7 @@
                   <Font name="Eras Bold ITC" size="24.0" />
                </font>
             </Button>
-            <Label layoutX="132.0" layoutY="14.0" text="CREATE YOUR PAWN">
+            <Label layoutX="132.0" layoutY="14.0" text="CREATE YOUR PAWN" textFill="WHITE">
                <font>
                   <Font name="Eras Bold ITC" size="27.0" />
                </font>

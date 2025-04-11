@@ -709,7 +709,7 @@ private void displayQuestionCardBasedOnPosition() {
                 MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
                 //method to change player
                 nextPlayer();
-                timeline.play();
+                //timeline.play();
                 return;
             }
 

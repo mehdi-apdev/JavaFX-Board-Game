@@ -88,6 +88,7 @@ public class BoardController {
     private static List<Player> players;
     private static List<Label> playersNames;
     private static List<Label> playersHints;
+    private static List<Label> playersPos;
     private Timeline timeline; 
     private static Game game;
     private PlayerView playerView;
@@ -110,7 +111,7 @@ public class BoardController {
     @FXML private ToggleGroup reponse;
     @FXML private Circle circlePlayer1, circlePlayer2, circlePlayer3, circlePlayer4;
 	@FXML private Label scorePlayer1, scorePlayer2, scorePlayer3, scorePlayer4;
-	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4;
+	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4, playerPos1, playerPos2, playerPos3, playerPos4;
 	
 
 	private static final String purpleStr = "611a44";
@@ -120,8 +121,10 @@ public class BoardController {
 	private static final String redStr = "0x8a1515ff";
 	private static final String whiteStr = "ffffff";
 	private static boolean isStreak;
+	private  static int pos = 1;
 	
 	private List<Label> playersScores;
+	private static List<Integer> positions;
 	private List<Label> playersStreaks;
 	private List<QuestionCard> usedQuestionCards;
     private List<PlayerView> playerViews;
@@ -138,6 +141,7 @@ public class BoardController {
         initializeBoard();
         initializeSound();
         initializeScoreAndStreak();
+        initializePlayersPos();
        // initializeEventHandlers();
         loadQuestions();
         
@@ -152,10 +156,13 @@ public class BoardController {
      */
     private void initializeGame() {
         initializePlayersName();
+      
         players = new ArrayList<>();
+       
         
         for(int i = 1; i <= nbPlayers; i++) {
             players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
+            
         }
         initializeHints();
         
@@ -275,6 +282,21 @@ public class BoardController {
         }
         
         return nbPlayers;
+    }
+    
+    private void initializePlayersPos() {
+    	playersPos = new ArrayList<>();
+    	positions = new ArrayList<>();
+    	playersPos.add(playerPos1);
+    	playersPos.add(playerPos2);
+    	playersPos.add(playerPos3);
+    	playersPos.add(playerPos4);
+    	
+		for (int i = 0; i < players.size(); i++) {
+			playersPos.get(i).setVisible(true);
+			positions.add(i);
+	        playersPos.get(i).setText(1+"th");
+		}
     }
     
     /**
@@ -571,7 +593,7 @@ private void updateHintsDisplay() {
         if (isCorrect) {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("good.wav",SOUND_VOLUME);
-            currentPlayer.increaseScore();
+            currentPlayer.increaseScore(1);
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
@@ -580,6 +602,7 @@ private void updateHintsDisplay() {
               
                         dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
                         currentPlayer.resetStreak();
+                        currentPlayer.increaseScore(1);
                         stepsToMove += 2;
                         displayGif(BONUS_GIF);
                         MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
@@ -686,7 +709,7 @@ private void displayQuestionCardBasedOnPosition() {
             	
             	int index = game.getCurrentPlayerIndex();
             	
-            	
+            	pos++;
             	// Remove the player from the game and update the U
             	game.getPlayers().remove(index);
             	playerViews.remove(index);
@@ -1022,6 +1045,10 @@ private void displayQuestionCard(QuestionCard card) {
 	     pause.play();  
 	}
 	
+	
+	
+
+	
 	private void nextPlayer() {
 		
 		game.nextPlayer();
@@ -1037,16 +1064,40 @@ private void displayQuestionCard(QuestionCard card) {
 	    				name.setStyle("-fx-text-fill: black;");
 	    			}	
 	    		}
+	            
 	        });
 	    }));
 	    timeline.play();
-	    
+	    updatePlayerPostions();
 	}
 		
 	private void playAgain() {
 		
 		
 		
+	}
+	
+	private void updatePlayerPostions(){
+		int position;
+		System.out.println("\nPositon of each player after the turn");
+	    for (int i= 0; i< players.size(); i++) {
+	        position = pos;
+	  		positions.set(i, position);	
+			for (int j= 0; j< players.size(); j++) {
+				if (i!= j && players.get(i).getPosition() < players.get(j).getPosition()) {
+					position++;
+					positions.set(i,position);		
+				}
+			}
+			System.out.println(players.get(i).getName()+" : "+players.get(i).getPosition());
+			
+			for (int k= 0; k< players.size(); k++) {
+				playersPos.get(k).setText(positions.get(k)+"th");
+			}
+			
+		}
+	    System.out.println("Positions des joueurs"+ positions);
+	    System.out.println("\n");
 	}
 	    
 	

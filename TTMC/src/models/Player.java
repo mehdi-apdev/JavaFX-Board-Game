@@ -21,8 +21,8 @@ public class Player {
 	}
 	
 	// method to increase the score
-	public void increaseScore() {
-		score++;
+	public void increaseScore(int score) {
+		this.score += score;
 	}
 	
 	public void decreaseScore() {

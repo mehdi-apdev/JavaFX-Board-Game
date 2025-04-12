@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import application.Main;
@@ -587,13 +588,14 @@ private void updateHintsDisplay() {
         }
 
         int selectedResponseIndex = (int) reponse.getSelectedToggle().getUserData();
+        int difficulty = currentQuestion.getDifficulty();
         boolean isCorrect = currentQuestion.isCorrectResponse(selectedResponseIndex);
         Player currentPlayer = game.getCurrentPlayer();
 
         if (isCorrect) {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("good.wav",SOUND_VOLUME);
-            currentPlayer.increaseScore(1);
+            currentPlayer.increaseScore(50 + difficulty * 50);
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
@@ -602,7 +604,16 @@ private void updateHintsDisplay() {
               
                         dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
                         currentPlayer.resetStreak();
-                        currentPlayer.increaseScore(1);
+						if (currentPlayer.averageScore() < 101) {
+							currentPlayer.increaseScore(30);
+						}else if(currentPlayer.averageScore() < 151) {
+							currentPlayer.increaseScore(50);
+						}else if(currentPlayer.averageScore() < 201) {
+							currentPlayer.increaseScore(60);
+						}else {
+							currentPlayer.increaseScore(70);
+						}
+          
                         stepsToMove += 2;
                         displayGif(BONUS_GIF);
                         MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
@@ -614,7 +625,7 @@ private void updateHintsDisplay() {
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
-        	currentPlayer.decreaseScore();
+        	currentPlayer.decreaseScore(40);
             currentPlayer.resetStreak();
             dialog.showAlert("Wrong answer!", "Better luck next time!");
             stopTimer();
@@ -625,9 +636,7 @@ private void updateHintsDisplay() {
 
         // Get next player before showing the turn message
         nextPlayer();
-    
-		// Reset the timer
-		stopTimer();
+
 		         
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
@@ -711,9 +720,7 @@ private void displayQuestionCardBasedOnPosition() {
             	
             	pos++;
             	// Remove the player from the game and update the U
-            	game.getPlayers().remove(index);
-            	playerViews.remove(index);
-            	
+            	removePlayerFromGame(index);
                 //Method to change player
                 nextPlayer();
             	dialog.showAlert("Congrats", "You have reached the end of the game!");
@@ -722,12 +729,17 @@ private void displayQuestionCardBasedOnPosition() {
 
             // Handle red rectangle (malus case)
             if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
+            	
+            	
+            	int randomSteps = ThreadLocalRandom.current().nextInt(2, 5); 
+            	dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back "+ randomSteps + " spaces.");//bug variable ne veut pas s'afficher
                 System.out.println("RED " + game.getCurrentPlayer().getName());
-                int stepsBack = Math.min(2, position);
-                currentPlayer.move(-stepsBack);
-                currentPlayerView.animateMovement(-stepsBack);
+                //int stepsBack = Math.min(randomSteps, position);
+                currentPlayer.move(-randomSteps);
+                currentPlayerView.animateMovement(-randomSteps);
 
-                dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back 2 spaces.");
+                
+                System.out.println("randomSteps: " + randomSteps);
                 displayGif(MALUS_GIF);
                 MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
                 //method to change player
@@ -898,6 +910,7 @@ private void displayQuestionCard(QuestionCard card) {
     private void startTimer() {
     	volumeImage.setDisable(true);
         int seconds = 20;
+        int halfTime = seconds / 2;
         timerLabel.setText(String.valueOf(seconds));
         timerLabel.setVisible(true);
         timerImage.setVisible(true);
@@ -913,13 +926,23 @@ private void displayQuestionCard(QuestionCard card) {
             timeLeft--;
             timerLabel.setText(String.valueOf(timeLeft));
 
-            if (timeLeft <= 10) {
+            if (timeLeft <= halfTime) {
                 timerLabel.setStyle("-fx-text-fill: red;");
             }
 
             if (timeLeft <= 0) {
+            	Player currentPlayer = game.getCurrentPlayer();
+            	PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
                 stopTimer();
-                questionCard.setVisible(false);
+                toggleQuestionCardVisibility();
+                currentPlayer.decreaseScore(25);
+                currentPlayer.resetStreak();
+                int stepsBack = Math.min(1, currentPlayer.getPosition());
+                currentPlayer.move(-stepsBack);
+                currentPlayerView.animateMovement(-stepsBack);
+                updateScoreAndStreakDisplay();
+            
+                nextPlayer();
             }
 
             if (timeLeft == seconds - 1) {
@@ -1075,6 +1098,11 @@ private void displayQuestionCard(QuestionCard card) {
 		
 		
 		
+	}
+	
+	private void removePlayerFromGame(int index) {
+		game.getPlayers().remove(index);
+    	playerViews.remove(index);
 	}
 	
 	private void updatePlayerPostions(){

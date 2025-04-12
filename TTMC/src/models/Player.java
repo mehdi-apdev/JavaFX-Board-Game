@@ -8,6 +8,7 @@ public class Player {
 	private int hint = 3; // Number of hints left, default 3
     private boolean usedHintThisRound;
     private int streak = 0; // Number of consecutive correct answers
+    private int nbQuestionsAnswerd = 0; // Number of questions answered by the player
 	
 	public Player(String name) {
 		setName(name);
@@ -25,13 +26,23 @@ public class Player {
 		this.score += score;
 	}
 	
-	public void decreaseScore() {
+	public void decreaseScore(int score) {
 		
-		if (score <= 0) {
-			score = 0;
+		if (this.score == 0 || this.score < score) {
+			this.score = 0;
 		}else {
-			score--;
+			this.score -= score;
 		}
+	}
+	
+	public int averageScore() {
+		nbQuestionsAnswerd++;
+		if (score == 0) {
+            return 0;
+        }
+        else {
+            return score / nbQuestionsAnswerd;
+        }
 	}
 	
     public void useHint() {

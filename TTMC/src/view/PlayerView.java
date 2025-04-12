@@ -112,7 +112,7 @@ public void animateMovement(int steps) {
         sound.playMedia("tap.wav", 0.5);
     });
 
-    sound.playMedia("tap.wav", 0.5);
+    //sound.playMedia("tap.wav", 0.5);
     sequentialTransition.play();
 }
 

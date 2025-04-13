@@ -909,7 +909,16 @@ private void displayQuestionCard(QuestionCard card) {
      */
     private void startTimer() {
     	volumeImage.setDisable(true);
-        int seconds = 20;
+    	
+    	int seconds;
+    	
+    	Player currentPlayer = game.getCurrentPlayer();
+    	if (currentPlayer.getPosition()>= 17) {
+    		seconds = 10;
+    	}else {
+    		 seconds = 20;
+    	}
+    	
         int halfTime = seconds / 2;
         timerLabel.setText(String.valueOf(seconds));
         timerLabel.setVisible(true);
@@ -931,7 +940,7 @@ private void displayQuestionCard(QuestionCard card) {
             }
 
             if (timeLeft <= 0) {
-            	Player currentPlayer = game.getCurrentPlayer();
+            	//Player currentPlayer = game.getCurrentPlayer();
             	PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
                 stopTimer();
                 toggleQuestionCardVisibility();

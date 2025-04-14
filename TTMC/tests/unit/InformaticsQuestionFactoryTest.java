@@ -1,4 +1,4 @@
-package test;
+package unit;
 import org.junit.jupiter.api.Test;
 import models.InformaticsQuestionFactory;
 import models.Question;

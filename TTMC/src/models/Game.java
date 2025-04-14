@@ -1,7 +1,8 @@
 package models;
 
 import java.util.List;
-import exception.NoPlayersInGameException;
+
+import exceptions.NoPlayersInGameException;
 
 public class Game {
 	

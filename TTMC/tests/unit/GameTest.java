@@ -1,8 +1,9 @@
-package test;
-import exception.NoPlayersInGameException;
+package unit;
 import models.Game;
 import models.Player;
 import org.junit.jupiter.api.Test;
+
+import exceptions.NoPlayersInGameException;
 
 import java.util.Arrays;
 import java.util.List;

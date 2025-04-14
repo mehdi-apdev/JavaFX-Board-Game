@@ -1,3 +1,4 @@
+package test;
 import exception.NoPlayersInGameException;
 import models.Game;
 import models.Player;

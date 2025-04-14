@@ -18,37 +18,54 @@ public class Player {
 	// method to move the player
 	public void move(int steps) {
 		position+= steps;
-		if(position<0) position = 0; // if the player goes back to the start
+		position = (position < 0) ? 0 : position; // if the player goes back to the start
 	}
 	
 	// method to increase the score
 	public void increaseScore(int score) {
-		this.score += score;
-	}
+        if (score < 0) {
+            throw new IllegalArgumentException("Score to increase cannot be negative.");
+        }
+        this.score += score;
+    }
 	
 	public void decreaseScore(int score) {
-		
-		if (this.score == 0 || this.score < score) {
-			this.score = 0;
-		}else {
-			this.score -= score;
-		}
-	}
+        if (score < 0) {
+            throw new IllegalArgumentException("Score to decrease cannot be negative.");
+        }
+        
+        if (this.score == 0 || this.score < score) {
+            this.score = 0;
+        } else {
+            this.score -= score;
+        }
+    }
 	
-	public int averageScore() {
-		nbQuestionsAnswerd++;
-		if (score == 0) {
-            return 0;
-        }
-        else {
-            return score / nbQuestionsAnswerd;
-        }
+	public void incrementQuestionsAnswered() {
+	    nbQuestionsAnswerd++;
 	}
+
+    public void setScore(int score) {
+        if (score < 0) {
+            throw new IllegalArgumentException("Score cannot be negative.");
+        }
+        this.score += score;  // Add the score to the current score
+        this.nbQuestionsAnswerd++; // Increment the number of questions answered
+    }
+
+	public int averageScore() {
+	    if (nbQuestionsAnswerd == 0) {
+	        return 0;
+	    }
+	    return score / nbQuestionsAnswerd;
+	}
+
 	
     public void useHint() {
-        if (hint > 0) {
-            hint--;
+        if (hint <= 0) {
+            throw new IllegalStateException("No hints left to use.");
         }
+        hint--;
     }
     
 	public int getStreak() {
@@ -87,20 +104,14 @@ public class Player {
 		return this.hint;
 	}
 	
-	public void setScore(int score) {
-		this.score = score;
-	}
-	
 	
 	// method to set the name of the player
-	public void setName(String name) {
-		if (name != null && !name.isEmpty()) {
-			this.name = name;
-		}
-		else {
-			System.out.println("Invalid name");
-		}
-	}
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Invalid name. Name cannot be null or empty.");
+        }
+        this.name = name;
+    }
 
 		
 	    public boolean hasUsedHintThisRound() {

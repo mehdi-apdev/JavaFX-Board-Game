@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import exception.NoPlayersInGameException;
 
 public class Game {
 	
@@ -39,9 +40,12 @@ public class Game {
 	}
 	
 	//Method to get the current player
-	public Player getCurrentPlayer() {
-		return players.get(currentPlayerIndex);
-	}
+    public Player getCurrentPlayer() {
+        if (players.isEmpty()) {
+            throw new NoPlayersInGameException("No players available in the game.");
+        }
+        return players.get(currentPlayerIndex);
+    }
 	
 	//Method to get the list of players
 	public List<Player> getPlayers() {
@@ -49,9 +53,12 @@ public class Game {
 	}
 	
 	//method to get the current player index
-	public int getCurrentPlayerIndex() {
-		return currentPlayerIndex;
-	}
+    public int getCurrentPlayerIndex() {
+        if (players.isEmpty()) {
+            throw new NoPlayersInGameException("No players available in the game.");
+        }
+        return currentPlayerIndex;
+    }
 	
 	
 	

@@ -5,11 +5,13 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry excluding="test/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/test"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Annotations 2.18.2.jar"/>
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Core 2.18.2.jar"/>
 	<classpathentry kind="lib" path="ressources/jars/jackson/Jackson Databind 2.18.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -594,35 +594,37 @@ private void updateHintsDisplay() {
         Player currentPlayer = game.getCurrentPlayer();
 
         if (isCorrect) {
-        	stopTimer();
-        	MenuController.getSecondarySound().playMedia("good.wav",SOUND_VOLUME);
+            stopTimer();
+            MenuController.getSecondarySound().playMedia("good.wav", SOUND_VOLUME);
+            
+            // Increase score based on difficulty
             currentPlayer.increaseScore(50 + difficulty * 50);
             currentPlayer.increaseStreak();
             int stepsToMove = currentQuestion.getDifficulty();
+            
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
             
             if (currentPlayer.hasThreeStreaks()) {
-              
-                        dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
-                        currentPlayer.resetStreak();
-						if (currentPlayer.averageScore() < 101) {
-							currentPlayer.increaseScore(30);
-						}else if(currentPlayer.averageScore() < 151) {
-							currentPlayer.increaseScore(50);
-						}else if(currentPlayer.averageScore() < 201) {
-							currentPlayer.increaseScore(60);
-						}else {
-							currentPlayer.increaseScore(70);
-						}
-          
-                        stepsToMove += 2;
-                        displayGif(BONUS_GIF);
-                        MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
+                dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
+                currentPlayer.resetStreak();
+                
+                int avg = currentPlayer.averageScore();
+                if (avg < 101) {
+                    currentPlayer.increaseScore(30);
+                } else if (avg < 151) {
+                    currentPlayer.increaseScore(50);
+                } else if (avg < 201) {
+                    currentPlayer.increaseScore(60);
+                } else {
+                    currentPlayer.increaseScore(70);
+                }
+                
+                stepsToMove += 2;
+                displayGif(BONUS_GIF);
+                MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
             }
-            
-           
-    		movePlayerForward(stepsToMove);
-            
+
+            movePlayerForward(stepsToMove);
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);

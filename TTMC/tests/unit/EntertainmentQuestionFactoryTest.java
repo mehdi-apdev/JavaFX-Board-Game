@@ -1,6 +1,6 @@
-package test;
+package unit;
 import org.junit.jupiter.api.Test;
-import models.EducationQuestionFactory;
+import models.EntertainmentQuestionFactory;
 import models.Question;
 import models.QuestionFactory;
 import models.Topic;
@@ -9,16 +9,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EducationQuestionFactoryTest extends AbstractQuestionFactoryTest {
+public class EntertainmentQuestionFactoryTest extends AbstractQuestionFactoryTest {
 
     @Override
     protected QuestionFactory getFactory() {
-        return new EducationQuestionFactory();
+        return new EntertainmentQuestionFactory();
     }
 
     @Override
     protected Topic getExpectedTopic() {
-        return Topic.EDUCATION;
+        return Topic.ENTERTAINMENT;
     }
 
     @Test
@@ -30,7 +30,7 @@ public class EducationQuestionFactoryTest extends AbstractQuestionFactoryTest {
     // Test for the getQuestions method to ensure it returns the correct list of questions
     @Test
     void testGetQuestions() {
-        EducationQuestionFactory factory = new EducationQuestionFactory();
+        EntertainmentQuestionFactory factory = new EntertainmentQuestionFactory();
 
         // Create some questions
         String texte1 = "What is the capital of France?";
@@ -54,12 +54,12 @@ public class EducationQuestionFactoryTest extends AbstractQuestionFactoryTest {
         // Assert that the questions are the ones that were created
         assertEquals(texte1, questions.get(0).getTexte());
         assertEquals(responses1, questions.get(0).getResponse());
-        assertEquals(Topic.EDUCATION, questions.get(0).getTopic());
+        assertEquals(Topic.ENTERTAINMENT, questions.get(0).getTopic());
         assertEquals(difficulty1, questions.get(0).getDifficulty());
 
         assertEquals(texte2, questions.get(1).getTexte());
         assertEquals(responses2, questions.get(1).getResponse());
-        assertEquals(Topic.EDUCATION, questions.get(1).getTopic());
+        assertEquals(Topic.ENTERTAINMENT, questions.get(1).getTopic());
         assertEquals(difficulty2, questions.get(1).getDifficulty());
     }
 }

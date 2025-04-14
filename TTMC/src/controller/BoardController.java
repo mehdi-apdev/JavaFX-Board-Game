@@ -87,6 +87,7 @@ public class BoardController {
     
     private static int nbPlayers = 0;
     private static List<Player> players;
+    private static List<Player> standingsPlayers;
     private static List<Label> playersNames;
     private static List<Label> playersHints;
     private static List<Label> playersPos;
@@ -717,10 +718,13 @@ private void displayQuestionCardBasedOnPosition() {
             if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
             	
             	int index = game.getCurrentPlayerIndex();
-            	
+            	standingsPlayers.add(currentPlayer);
             	pos++;
+            	
             	// Remove the player from the game and update the U
             	removePlayerFromGame(index);
+            
+            	
                 //Method to change player
                 nextPlayer();
             	dialog.showAlert("Congrats", "You have reached the end of the game!");
@@ -913,10 +917,12 @@ private void displayQuestionCard(QuestionCard card) {
     	int seconds;
     	
     	Player currentPlayer = game.getCurrentPlayer();
-    	if (currentPlayer.getPosition()>= 17) {
-    		seconds = 10;
+    	if (currentPlayer.getPosition() <= 8) {
+    		seconds = 20;
+    	}else if(currentPlayer.getPosition() <= 16) {
+    		seconds = 15;
     	}else {
-    		 seconds = 20;
+    		 seconds = 10;
     	}
     	
         int halfTime = seconds / 2;
@@ -1136,6 +1142,7 @@ private void displayQuestionCard(QuestionCard card) {
 	    System.out.println("Positions des joueurs"+ positions);
 	    System.out.println("\n");
 	}
+
 	    
 	
 	    private void quitGame() {

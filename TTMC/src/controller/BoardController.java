@@ -454,24 +454,58 @@ private void loadQuestions() {
     
 
 
+
 @FXML
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
-    	MenuController.getSecondarySound().playMedia("hint.wav", SOUND_VOLUME);
-        currentPlayer.useHint();
-        currentPlayer.setUsedHintThisRound(true);
-        dialog.showAlert("Hint used", "You have " + currentPlayer.getHint() + " hint(s) left.");
-        // Logic to provide a hint to the player
+        // Get the current question from the validerButton
+        Question currentQuestion = (Question) validerButton.getUserData();
+        if (currentQuestion == null) {
+            dialog.showAlert("No question active", "You can only use a hint when a question is displayed.");
+            return;
+        }
+
+        // Find all incorrect responses
+        RadioButton[] responseButtons = {response1, response2, response3, response4};
+        List<RadioButton> incorrectResponses = new ArrayList<>();
+
+        for (RadioButton rb : responseButtons) {
+            if (rb.isVisible() && rb.getUserData() != null) {
+                int responseIndex = (int) rb.getUserData();
+                if (!currentQuestion.isCorrectResponse(responseIndex)) {
+                    incorrectResponses.add(rb);
+                }
+            }
+        }
+
+        // If there are incorrect options, remove one randomly
+        if (!incorrectResponses.isEmpty()) {
+            RadioButton toDisable = incorrectResponses.get(random.nextInt(incorrectResponses.size()));
+            toDisable.setDisable(true);
+            toDisable.setStyle("-fx-opacity: 0.5; -fx-text-fill: gray;");
+
+            // Use hint
+            MenuController.getSecondarySound().playMedia("hint.wav", 0.1);
+            currentPlayer.useHint();
+            currentPlayer.setUsedHintThisRound(true);
+            dialog.showAlert("Hint used", "One incorrect option has been removed.");
+        } else {
+            dialog.showAlert("Hint unavailable", "No incorrect options to remove.");
+        }
+        
     } else {
         dialog.showAlert("No hints left", "You have no hints left or have already used a hint this round.");
     }
     updateHintsDisplay();
+    
 }
+
 
 private void updateHintsDisplay() {
     for (int i = 0; i < players.size(); i++) {
         playersHints.get(i).setText(players.get(i).getHint() + " left(s)");
+        
     }
 }
 
@@ -714,7 +748,7 @@ private void displayQuestionCardBasedOnPosition() {
             }
           
             // Debugging
-            System.out.println("Rectangle color at position " + position + ": " + fillColor);
+            //System.out.println("Rectangle color at position " + position + ": " + fillColor);
             
             //When the player has reached the finale case
             if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
@@ -746,7 +780,11 @@ private void displayQuestionCardBasedOnPosition() {
 
                 
                 System.out.println("randomSteps: " + randomSteps);
+                
+                
                 displayGif(MALUS_GIF);
+                
+                
                 MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
                 //method to change player
                 nextPlayer();
@@ -873,40 +911,46 @@ private void displayQuestionCard(QuestionCard card) {
      * 
      * @param question The question to display
      */
-    private void displaySelectedQuestion(Question question) {
-        questionsContainer.setVisible(false);
-        questionBox.setVisible(true);
 
-        questionSelectionneeLabel.setText(question.getTexte());
+private void displaySelectedQuestion(Question question) {
+    questionsContainer.setVisible(false);
+    questionBox.setVisible(true);
 
-        reponse.selectToggle(null);
+    questionSelectionneeLabel.setText(question.getTexte());
 
-        List<String> responses = new ArrayList<>(question.getResponse());
-        // Shuffle the responses
-        Collections.shuffle(responses);
+    reponse.selectToggle(null);
 
-        // Keep track of the shuffled indices
-        Map<String, Integer> responseToIndex = new HashMap<>();
-        for (int i = 0; i < question.getResponse().size(); i++) {
-            responseToIndex.put(question.getResponse().get(i), i);
-        }
-
-        RadioButton[] responseButtons = {response1, response2, response3, response4};
-        for (int i = 0; i < Math.min(responses.size(), responseButtons.length); i++) {
-            responseButtons[i].setText(responses.get(i));
-            responseButtons[i].setVisible(true);
-            // Store the original index as user data
-            responseButtons[i].setUserData(responseToIndex.get(responses.get(i)));
-        }
-
-        for (int i = responses.size(); i < responseButtons.length; i++) {
-            responseButtons[i].setVisible(false);
-        }
-
-        Main.getMainSound().muteMedia();
-        validerButton.setUserData(question);
-        startTimer();
+    // Reset all RadioButtons state (fixes the hint persistence issue)
+    RadioButton[] responseButtons = {response1, response2, response3, response4};
+    for (RadioButton button : responseButtons) {
+        button.setDisable(false);
+        button.setStyle("");  // Clear any custom styling
+        button.setVisible(false);  // Will be made visible if needed below
     }
+
+    List<String> responses = new ArrayList<>(question.getResponse());
+    // Shuffle the responses
+    Collections.shuffle(responses);
+
+    // Keep track of the shuffled indices
+    Map<String, Integer> responseToIndex = new HashMap<>();
+    for (int i = 0; i < question.getResponse().size(); i++) {
+        responseToIndex.put(question.getResponse().get(i), i);
+    }
+
+    // Set up the response buttons
+    for (int i = 0; i < Math.min(responses.size(), responseButtons.length); i++) {
+        responseButtons[i].setText(responses.get(i));
+        responseButtons[i].setVisible(true);
+        // Store the original index as user data
+        responseButtons[i].setUserData(responseToIndex.get(responses.get(i)));
+    }
+
+    Main.getMainSound().muteMedia();
+    validerButton.setUserData(question);
+    startTimer();
+}
+
     
 
     
@@ -1062,28 +1106,45 @@ private void displayQuestionCard(QuestionCard card) {
 	    pause.play();
 	}
 	
-	private void displayGif(String file) {
-		 bonusMalusImage.setImage(new Image(file));
-		 bonusMalusImage.setPreserveRatio(false);
-		 bonusMalusImage.setFitWidth(650); // Set desired width
-		 bonusMalusImage.setFitHeight(365); // Set desired height
-	     georgeBonusGifPane.setVisible(true);
-	     ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), georgeBonusGifPane);
-	     scaleTransition.setFromX(0);
-	     scaleTransition.setFromY(0);
-	     scaleTransition.setToX(1);
-	     scaleTransition.setToY(1);
-	     scaleTransition.play();
-	     
-	     
-	     //create transition
-	     PauseTransition pause = new PauseTransition(Duration.seconds(3));
-	     pause.setOnFinished(e -> {
-	         
-	     	georgeBonusGifPane.setVisible(false);
-	     });
-	     pause.play();  
-	}
+
+
+private void displayGif(String file) {
+    // Load the image
+    bonusMalusImage.setImage(new Image(file));
+
+    // Configure image properties for display
+    bonusMalusImage.setPreserveRatio(true);  // Changed to true for better image proportions
+    bonusMalusImage.setSmooth(true);
+    bonusMalusImage.setCache(true);
+
+    // Make image fit inside container boundaries
+    bonusMalusImage.fitWidthProperty().bind(georgeBonusGifPane.widthProperty().multiply(0.9));
+    bonusMalusImage.fitHeightProperty().bind(georgeBonusGifPane.heightProperty().multiply(0.9));
+
+    // Center the image in the pane
+    AnchorPane.setTopAnchor(bonusMalusImage, 0.0);
+    AnchorPane.setRightAnchor(bonusMalusImage, 0.0);
+    AnchorPane.setBottomAnchor(bonusMalusImage, 0.0);
+    AnchorPane.setLeftAnchor(bonusMalusImage, 0.0);
+
+    // Show the container
+    georgeBonusGifPane.setVisible(true);
+
+    // Apply scaling animation
+    ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), georgeBonusGifPane);
+    scaleTransition.setFromX(0);
+    scaleTransition.setFromY(0);
+    scaleTransition.setToX(1);
+    scaleTransition.setToY(1);
+    scaleTransition.play();
+
+    // Hide after delay
+    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+    pause.setOnFinished(e -> georgeBonusGifPane.setVisible(false));
+    pause.play();
+}
+
+
 	
 	
 	
@@ -1091,11 +1152,17 @@ private void displayQuestionCard(QuestionCard card) {
 	
 	private void nextPlayer() {
 		
+		
+	    for (Player player : players) {
+	        player.setUsedHintThisRound(false);
+	    }
+		
+		
 		game.nextPlayer();
 	    Player nextPlayer = game.getCurrentPlayer();
 	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
 	        Platform.runLater(() -> {
-	            dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
+	            //dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
 	            waitForAnimation();
 	            for (Label name : playersNames) {
 	    			if (name.getText().equals(game.getCurrentPlayer().getName())) {
@@ -1108,6 +1175,7 @@ private void displayQuestionCard(QuestionCard card) {
 	        });
 	    }));
 	    timeline.play();
+	    checkPlayerOverlap();
 	    updatePlayerPostions();
 	}
 		
@@ -1155,5 +1223,115 @@ private void displayQuestionCard(QuestionCard card) {
 	        MenuController.getTimerSound().stopMedia();
 	        nbPlayers = 0;
 	    }
+	    
+
+/**
+ * Checks if any two players are on overlapping spaces where two lanes intersect.
+ * If players are found on overlapping spaces, prints a message to the console.
+ */
+
+/**
+ * Checks if any two players are on overlapping spaces where two lanes intersect.
+ * If overlapping players are found, the player with the higher score moves forward
+ * and the player with the lower score moves back 2 spaces.
+ */
+private void checkPlayerOverlap() {
+    // Define the common spaces where lanes intersect
+    Map<String, String> commonSpaces = new HashMap<>();
+    commonSpaces.put("rec1_7", "rec3_10");  // Lane 1 and Lane 3 intersection
+    commonSpaces.put("rec2_6", "rec3_7");   // Lane 2 and Lane 3 intersection
+    commonSpaces.put("rec1_10", "rec2_10"); // Lane 1 and Lane 2 intersection
+    commonSpaces.put("rec1_13", "rec4_13"); // Lane 1 and Lane 4 intersection
+    commonSpaces.put("rec2_21", "rec4_21"); // Lane 2 and Lane 4 intersection
+
+    boolean overlapDetected = false;
+
+    // Check each player against other players
+    for (int i = 0; i < players.size(); i++) {
+        Player player1 = players.get(i);
+        int position1 = player1.getPosition();
+        PlayerView playerView1 = playerViews.get(i);
+
+        // Get the rectangle ID where player1 is located
+        String rec1Id = "";
+        if (position1 < playerView1.getSpaces().size()) {
+            rec1Id = playerView1.getSpaces().get(position1).getId();
+        }
+
+        for (int j = i + 1; j < players.size(); j++) {
+            Player player2 = players.get(j);
+            int position2 = player2.getPosition();
+            PlayerView playerView2 = playerViews.get(j);
+
+            // Get the rectangle ID where player2 is located
+            String rec2Id = "";
+            if (position2 < playerView2.getSpaces().size()) {
+                rec2Id = playerView2.getSpaces().get(position2).getId();
+            }
+
+            // Skip if either rectangle ID is empty
+            if (rec1Id.isEmpty() || rec2Id.isEmpty()) continue;
+
+            boolean isOverlapping = false;
+
+            // Check if players are on the same space
+            if (rec1Id.equals(rec2Id)) {
+                isOverlapping = true;
+                System.out.println("Players " + player1.getName() + " and " +
+                      player2.getName() + " are on the same space: " + rec1Id);
+            }
+            // Check if players are on intersecting spaces
+            else if ((commonSpaces.containsKey(rec1Id) && commonSpaces.get(rec1Id).equals(rec2Id)) ||
+                    (commonSpaces.containsKey(rec2Id) && commonSpaces.get(rec2Id).equals(rec1Id))) {
+                isOverlapping = true;
+                System.out.println("Players " + player1.getName() + " and " +
+                      player2.getName() + " are on intersecting spaces: " +
+                      rec1Id + " and " + rec2Id);
+            }
+
+            // Handle overlap by comparing scores and moving players
+            if (isOverlapping) {
+                overlapDetected = true;
+
+                // Compare scores and move players accordingly
+                // if (player1.getScore() > player2.getScore()) {
+                    // Player 1 has higher score
+                	// playerView1.animateMovement(1);
+                    // player1.move(1);
+                    
+
+                    // playerView2.animateMovement(-2);
+                    // player2.move(-2);
+
+                    // dialog.showAlert("Player Overlap", 
+                    		//   player1.getName() + " has a higher score and moves forward 1 space. " +
+                        		//   player2.getName() + " moves back 2 spaces.");
+                } else {
+                    // Player 2 has higher score (or equal)
+                	// playerView2.animateMovement(1);
+                    // player2.move(1);
+
+                    //  playerView1.animateMovement(-2);
+                    //  player1.move(-2);
+
+                   // dialog.showAlert("Player Overlap", 
+                      //  player2.getName() + " has a higher score and moves forward 1 space. " +
+                       // player1.getName() + " moves back 2 spaces.");
+                }
+            }
+        }
+    }
+
+    // If overlap was detected, skip the question phase by moving to the next player
+   // if (overlapDetected) {
+        // The question phase will be skipped because we're calling nextPlayer directly 
+        // without going through displayQuestionCardBasedOnPosition
+       // PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        //pause.setOnFinished(e -> nextPlayer());
+      //  pause.play();
+    //}
 }
+
+
+
 

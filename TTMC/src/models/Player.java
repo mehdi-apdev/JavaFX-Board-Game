@@ -104,6 +104,9 @@ public class Player {
 		return this.hint;
 	}
 	
+	public int setPosition(int position) {
+		return this.position = position;
+	}
 	
 	// method to set the name of the player
     public void setName(String name) {

@@ -56,65 +56,67 @@ public class PlayerView {
     // Method to animate the player
 
 
-public void animateMovement(int steps) {
-    SequentialTransition sequentialTransition = new SequentialTransition();
-    int startPosition = player.getPosition() - steps;
+    public void animateMovement(int steps) {
+        SequentialTransition sequentialTransition = new SequentialTransition();
+        int startPosition = player.getPosition() - steps;
 
-    // Create a transition for each step
-    for (int i = 0; i < steps; i++) {
-        int currentPos = startPosition + i;
-        int nextPos = currentPos + 1;
+        // Create a transition for each step
+        for (int i = 0; i < steps; i++) {
+            int currentPos = startPosition + i;
+            int nextPos = currentPos + 1;
 
-        if (nextPos < spaces.size()) {
-            Rectangle currentRect = spaces.get(currentPos);
-            Rectangle nextRect = spaces.get(nextPos);
+            if (nextPos < spaces.size()) {
+                Rectangle currentRect = spaces.get(currentPos);
+                Rectangle nextRect = spaces.get(nextPos);
 
-            // Calculate absolute positions instead of relative translations
-            double nextX = nextRect.getLayoutX() + nextRect.getWidth() / 2;
-            double nextY = nextRect.getLayoutY() + nextRect.getHeight() / 2;
-            double currentX = currentRect.getLayoutX() + currentRect.getWidth() / 2;
-            double currentY = currentRect.getLayoutY() + currentRect.getHeight() / 2;
+                // Calculate absolute positions instead of relative translations
+                double nextX = nextRect.getLayoutX() + nextRect.getWidth() / 2;
+                double nextY = nextRect.getLayoutY() + nextRect.getHeight() / 2;
+                double currentX = currentRect.getLayoutX() + currentRect.getWidth() / 2;
+                double currentY = currentRect.getLayoutY() + currentRect.getHeight() / 2;
 
-            // Create bounce effect
-            ParallelTransition stepTransition = new ParallelTransition();
+                // Create bounce effect
+                ParallelTransition stepTransition = new ParallelTransition();
 
-            // Translation movement using absolute positions
-            TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(0.4), circle);
-            moveTransition.setToX(nextX - circle.getLayoutX());
-            moveTransition.setToY(nextY - circle.getLayoutY());
+                // Translation movement using absolute positions
+                TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(0.4), circle);
+                moveTransition.setToX(nextX - circle.getLayoutX());
+                moveTransition.setToY(nextY - circle.getLayoutY());
 
-            // Scale animation for bounce effect
-            ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.2), circle);
-            scaleUp.setFromX(1.0);
-            scaleUp.setFromY(1.0);
-            scaleUp.setToX(1.2);
-            scaleUp.setToY(1.2);
+                // Scale animation for bounce effect
+                ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.2), circle);
+                scaleUp.setFromX(1.0);
+                scaleUp.setFromY(1.0);
+                scaleUp.setToX(1.2);
+                scaleUp.setToY(1.2);
 
-            ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.2), circle);
-            scaleDown.setFromX(1.2);
-            scaleDown.setFromY(1.2);
-            scaleDown.setToX(1.0);
-            scaleDown.setToY(1.0);
+                ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.2), circle);
+                scaleDown.setFromX(1.2);
+                scaleDown.setFromY(1.2);
+                scaleDown.setToX(1.0);
+                scaleDown.setToY(1.0);
 
-            SequentialTransition bounceTransition = new SequentialTransition(scaleUp, scaleDown);
+                SequentialTransition bounceTransition = new SequentialTransition(scaleUp, scaleDown);
 
-            // Combine movement and bounce
-            stepTransition.getChildren().addAll(moveTransition, bounceTransition);
-            sequentialTransition.getChildren().add(stepTransition);
+                // Combine movement and bounce
+                stepTransition.getChildren().addAll(moveTransition, bounceTransition);
+                sequentialTransition.getChildren().add(stepTransition);
+            }
         }
+
+        // Reset translation values and update final position at the end of animation
+        sequentialTransition.setOnFinished(event -> {
+            circle.setTranslateX(0);
+            circle.setTranslateY(0);
+            updatePosition();
+            sound.playMedia("tap.wav", 0.5);
+        });
+
+        //sound.playMedia("tap.wav", 0.5);
+        sequentialTransition.play();
     }
 
-    // Reset translation values and update final position at the end of animation
-    sequentialTransition.setOnFinished(event -> {
-        circle.setTranslateX(0);
-        circle.setTranslateY(0);
-        updatePosition();
-        sound.playMedia("tap.wav", 0.5);
-    });
 
-    //sound.playMedia("tap.wav", 0.5);
-    sequentialTransition.play();
-}
 
 
     

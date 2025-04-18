@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="TTMC/src"/>
+	<classpathentry kind="src" path="TTMC/tests"/>
+	<classpathentry kind="lib" path="TTMC/ressources/jars/jackson/Jackson Annotations 2.18.2.jar"/>
+	<classpathentry kind="lib" path="TTMC/ressources/jars/jackson/Jackson Core 2.18.2.jar"/>
+	<classpathentry kind="lib" path="TTMC/ressources/jars/jackson/Jackson Databind 2.18.2.jar"/>
+	<classpathentry kind="output" path="TTMC/bin"/>
+</classpath>

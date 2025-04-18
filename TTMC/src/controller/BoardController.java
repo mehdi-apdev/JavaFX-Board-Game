@@ -709,141 +709,179 @@ private void updateHintsDisplay() {
      * Displays a question card based on the player's current position.
      * The theme is determined by the color of the rectangle where the player is located.
      */
+    private void displayQuestionCardBasedOnPosition() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(e -> {
+            Platform.runLater(() -> {
+                // Get current player and position information
+                Player currentPlayer = game.getCurrentPlayer();
+                int playerIndex = game.getCurrentPlayerIndex();
+                PlayerView currentPlayerView = playerViews.get(playerIndex);
+                int position = currentPlayer.getPosition();
 
+                // Debugging
+                System.out.println("Current Player: " + currentPlayer.getName());
+                System.out.println("Current Position: " + position);
 
-
-private void displayQuestionCardBasedOnPosition() {
-    PauseTransition pause = new PauseTransition(Duration.seconds(2));
-    pause.setOnFinished(e -> {
-        Platform.runLater(() -> {
-            Player currentPlayer = game.getCurrentPlayer();
-            PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
-            int position = currentPlayer.getPosition();
-
-            // Debugging
-            System.out.println("Current Player: " + currentPlayer.getName());
-            System.out.println("Current Position: " + position);
-
-            if (position >= currentPlayerView.getSpaces().size()) {
-                return;
-            }
-
-            Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
-            String fillColor = currentRectangle.getFill().toString();
-            
-          //if the list has one player so the game is finished
-            if (game.getPlayers().size() <= 1) {
-				
-				
-				pause.setDuration(Duration.seconds(4));
-				pause.setOnFinished(event ->{
-					 Platform.runLater(() -> {standingsPane.setVisible(true);
-						playTransition(standingsPane, false);});
-					
-				});
-				
-				dialog.showAlert("End of the game", "All players have finished the game!");
-				pause.play();
-                return;
-            }
-          
-            // Debugging
-            //System.out.println("Rectangle color at position " + position + ": " + fillColor);
-            
-            //When the player has reached the finale case
-            if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
-            	
-            	int index = game.getCurrentPlayerIndex();
-            	standingsPlayers.add(currentPlayer);
-            	pos++;
-            	
-            	// Remove the player from the game and update the U
-            	removePlayerFromGame(index);
-            
-            	
-                //Method to change player
-                nextPlayer();
-            	dialog.showAlert("Congrats", "You have reached the end of the game!");
-            	return;
-            }
-
-            // Handle red rectangle (malus case)
-            if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
-            	
-            	
-            	int randomSteps = ThreadLocalRandom.current().nextInt(2, 5); 
-            	dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back "+ randomSteps + " spaces.");//bug variable ne veut pas s'afficher
-                System.out.println("RED " + game.getCurrentPlayer().getName());
-                //int stepsBack = Math.min(randomSteps, position);
-                currentPlayer.move(-randomSteps);
-                currentPlayerView.animateMovement(-randomSteps);
-
-                
-                System.out.println("randomSteps: " + randomSteps);
-                
-                
-                displayGif(MALUS_GIF);
-                
-                
-                MenuController.getSecondarySound().playMedia("malus.wav", 0.1);
-                //method to change player
-                nextPlayer();
-                //timeline.play();
-                return;
-            }
-
-            Topic theme;
-
-            // Determine theme based on rectangle color
-            if (fillColor.equalsIgnoreCase(whiteStr)) {
-                Topic[] allThemes = Topic.values();
-                theme = allThemes[random.nextInt(allThemes.length)];
-                System.out.println("White " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains(purpleStr)) {
-                theme = Topic.IMPROBABLE;
-                System.out.println("Mauve " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains(yellowStr)) {
-                theme = Topic.ENTERTAINMENT;
-                System.out.println("Jaune " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains(blueStr)) {
-                theme = Topic.INFORMATICS;
-                System.out.println("Bleu " + game.getCurrentPlayer().getName());
-            } else if (fillColor.contains(greenStr)) {
-                theme = Topic.EDUCATION;
-                System.out.println("Vert " + game.getCurrentPlayer().getName());
-            } else {
-                Topic[] allThemes = Topic.values();
-                theme = allThemes[random.nextInt(allThemes.length)];
-                System.out.println("Random " + game.getCurrentPlayer().getName());
-            }
-
-            QuestionCard selectedCard = null;
-            List<QuestionCard> availableCards = questionCards.stream()
-                    .filter(card -> card.getTheme() == theme && !usedQuestionCards.contains(card))
-                    .collect(Collectors.toList());
-
-            if (!availableCards.isEmpty()) {
-                selectedCard = availableCards.get(random.nextInt(availableCards.size()));
-                usedQuestionCards.add(selectedCard);
-            } else {
-                // Reset used questions if all questions of the theme have been used
-                usedQuestionCards.clear();
-                availableCards = questionCards.stream()
-                        .filter(card -> card.getTheme() == theme)
-                        .collect(Collectors.toList());
-                if (!availableCards.isEmpty()) {
-                    selectedCard = availableCards.get(random.nextInt(availableCards.size()));
-                    usedQuestionCards.add(selectedCard);
+                // Check for valid position
+                if (position >= currentPlayerView.getSpaces().size()) {
+                    System.out.println("Invalid position: " + position);
+                    return;
                 }
-            }
 
-            if (selectedCard != null) {
-                displayQuestionCard(selectedCard);
-            }
+                // Get rectangle at current position
+                Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
+                String fillColor = currentRectangle.getFill().toString();
+                
+                // Check if game is finished (only one player left)
+                if (game.getPlayers().size() <= 1) {
+                    handleGameEnd();
+                    return;
+                }
+              
+                // Check if player reached the finish line
+                if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
+                    handlePlayerFinish(playerIndex);
+                    return;
+                }
+                
+                // Check if player landed on a malus space
+                if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
+                    handleMalusSpace();
+                    return;
+                }
+                
+                // Display appropriate question card based on the space color
+                displayQuestionCardByColor(fillColor);
+            });
         });
-    });
-    pause.play();
-}
+        pause.play();
+    }
+
+    /**
+     * Handles the end of the game when only one player remains.
+     */
+    private void handleGameEnd() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(4));
+        pause.setOnFinished(event -> {
+            Platform.runLater(() -> {
+                standingsPane.setVisible(true);
+                playTransition(standingsPane, false);
+            });
+        });
+        
+        dialog.showAlert("End of the game", "All players have finished the game!");
+        pause.play();
+    }
+
+    /**
+     * Handles a player reaching the finish line.
+     * @param playerIndex The index of the player who finished
+     */
+    private void handlePlayerFinish(int playerIndex) {
+        standingsPlayers.add(game.getCurrentPlayer());
+        pos++;
+        
+        // Remove the player from the game and update UI
+        removePlayerFromGame(playerIndex);
+        updatePlayerPostions();
+        
+        // Change to next player
+        nextPlayer();
+        dialog.showAlert("Congrats", "You have reached the end of the game!");
+        
+        // Wait for animation and proceed to next player's turn
+        waitForAnimation();
+    }
+
+    /**
+     * Handles a player landing on a malus (penalty) space.
+     */
+    private void handleMalusSpace() {
+        Player currentPlayer = game.getCurrentPlayer();
+        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+        
+        int randomSteps = ThreadLocalRandom.current().nextInt(2, 5);
+        dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back " + randomSteps + " spaces.");
+        
+        // Recule le joueur
+        currentPlayer.move(-randomSteps);
+        currentPlayerView.animateMovement(-randomSteps);
+        
+        // Affiche l'animation gif
+        displayGif(MALUS_GIF);
+        MenuController.getSecondarySound().playMedia("malus.wav", SOUND_VOLUME);
+        
+        // Passe au joueur suivant SANS déclencher une autre vérification de case
+        nextPlayer();
+        
+        // Important : utilisez une pause pour attendre la fin de l'animation
+        // sans déclencher de nouveau displayQuestionCardBasedOnPosition
+        PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
+        waitTransition.setOnFinished(e -> {
+            // Ne rien faire ici - juste attendre que l'animation se termine
+            // avant de permettre d'autres actions
+        });
+        waitTransition.play();
+    }
+
+    /**
+     * Displays a question card based on the color of the space.
+     * @param fillColor The color of the space
+     */
+    private void displayQuestionCardByColor(String fillColor) {
+        Topic selectedTheme = null;
+        
+        // Determine theme based on color
+        if (fillColor.contains(purpleStr)) {
+            selectedTheme = Topic.IMPROBABLE;
+        } else if (fillColor.contains(yellowStr)) {
+            selectedTheme = Topic.ENTERTAINMENT;
+        } else if (fillColor.contains(blueStr)) {
+            selectedTheme = Topic.INFORMATICS;
+        } else if (fillColor.contains(greenStr)) {
+            selectedTheme = Topic.EDUCATION;
+        } else {
+            // For any other color, select a random theme
+            Topic[] allThemes = Topic.values();
+            selectedTheme = allThemes[random.nextInt(allThemes.length)];
+        }
+        
+        displayQuestionCardForTheme(selectedTheme);
+    }
+
+    /**
+     * Displays a question card for the specified theme.
+     * @param theme The theme for which to display a question
+     */
+    private void displayQuestionCardForTheme(Topic theme) {
+        // Find cards of the specified theme that haven't been used yet
+        List<QuestionCard> availableCards = questionCards.stream()
+                .filter(card -> card.getTheme() == theme && !usedQuestionCards.contains(card))
+                .collect(Collectors.toList());
+        
+        if (availableCards.isEmpty()) {
+            // If all cards of this theme have been used, reset and select from all theme cards
+            availableCards = questionCards.stream()
+                    .filter(card -> card.getTheme() == theme)
+                    .collect(Collectors.toList());
+            
+            if (availableCards.isEmpty()) {
+                // Fallback if no cards for this theme exist
+                dialog.showAlert("No Questions", "No questions available for this theme. Moving to next player.");
+                nextPlayer();
+                waitForAnimation();
+                return;
+            }
+        }
+        
+        // Select a random card from available cards
+        QuestionCard selectedCard = availableCards.get(random.nextInt(availableCards.size()));
+        usedQuestionCards.add(selectedCard);
+        
+        // Display the selected card
+        displayQuestionCard(selectedCard);
+    }
     /**
      * Displays the question card with properly formatted content.
      * Adjusts the AnchorPane to fit the content and ensures text is fully visible.
@@ -1225,111 +1263,157 @@ private void displayGif(String file) {
 	    }
 	    
 
-/**
- * Checks if any two players are on overlapping spaces where two lanes intersect.
- * If players are found on overlapping spaces, prints a message to the console.
- */
+	    /**
+	     * Checks if any two players are on overlapping spaces.
+	     * If overlapping players are found, the player with the higher score moves forward
+	     * and the player with the lower score moves back 2 spaces.
+	     * No questions are asked after movement, and the game proceeds to the next player.
+	     */
+	    private void checkPlayerOverlap() {
+	        // Define the common spaces where lanes intersect
+	        Map<String, String> commonSpaces = new HashMap<>();
+	        commonSpaces.put("rec1_7", "rec3_10");  // Lane 1 and Lane 3 intersection
+	        commonSpaces.put("rec2_6", "rec3_7");   // Lane 2 and Lane 3 intersection
+	        commonSpaces.put("rec1_10", "rec2_10"); // Lane 1 and Lane 2 intersection
+	        commonSpaces.put("rec1_13", "rec4_13"); // Lane 1 and Lane 4 intersection
+	        commonSpaces.put("rec2_21", "rec4_21"); // Lane 2 and Lane 4 intersection
 
-/**
- * Checks if any two players are on overlapping spaces where two lanes intersect.
- * If overlapping players are found, the player with the higher score moves forward
- * and the player with the lower score moves back 2 spaces.
- */
-private void checkPlayerOverlap() {
-    // Define the common spaces where lanes intersect
-    Map<String, String> commonSpaces = new HashMap<>();
-    commonSpaces.put("rec1_7", "rec3_10");  // Lane 1 and Lane 3 intersection
-    commonSpaces.put("rec2_6", "rec3_7");   // Lane 2 and Lane 3 intersection
-    commonSpaces.put("rec1_10", "rec2_10"); // Lane 1 and Lane 2 intersection
-    commonSpaces.put("rec1_13", "rec4_13"); // Lane 1 and Lane 4 intersection
-    commonSpaces.put("rec2_21", "rec4_21"); // Lane 2 and Lane 4 intersection
+	        boolean overlapDetected = false;
 
-    boolean overlapDetected = false;
+	        // Check each player against other players
+	        for (int i = 0; i < players.size(); i++) {
+	            Player player1 = players.get(i);
+	            int position1 = player1.getPosition();
+	            PlayerView playerView1 = playerViews.get(i);
 
-    // Check each player against other players
-    for (int i = 0; i < players.size(); i++) {
-        Player player1 = players.get(i);
-        int position1 = player1.getPosition();
-        PlayerView playerView1 = playerViews.get(i);
+	            // Get the rectangle ID where player1 is located
+	            String rec1Id = "";
+	            if (position1 < playerView1.getSpaces().size()) {
+	                rec1Id = playerView1.getSpaces().get(position1).getId();
+	            }
 
-        // Get the rectangle ID where player1 is located
-        String rec1Id = "";
-        if (position1 < playerView1.getSpaces().size()) {
-            rec1Id = playerView1.getSpaces().get(position1).getId();
-        }
+	            for (int j = i + 1; j < players.size(); j++) {
+	                Player player2 = players.get(j);
+	                int position2 = player2.getPosition();
+	                PlayerView playerView2 = playerViews.get(j);
 
-        for (int j = i + 1; j < players.size(); j++) {
-            Player player2 = players.get(j);
-            int position2 = player2.getPosition();
-            PlayerView playerView2 = playerViews.get(j);
+	                // Get the rectangle ID where player2 is located
+	                String rec2Id = "";
+	                if (position2 < playerView2.getSpaces().size()) {
+	                    rec2Id = playerView2.getSpaces().get(position2).getId();
+	                }
 
-            // Get the rectangle ID where player2 is located
-            String rec2Id = "";
-            if (position2 < playerView2.getSpaces().size()) {
-                rec2Id = playerView2.getSpaces().get(position2).getId();
-            }
+	                // Skip if either rectangle ID is empty
+	                if (rec1Id.isEmpty() || rec2Id.isEmpty()) continue;
 
-            // Skip if either rectangle ID is empty
-            if (rec1Id.isEmpty() || rec2Id.isEmpty()) continue;
+	                boolean isOverlapping = false;
 
-            boolean isOverlapping = false;
+	                // Check if players are on the same space directly
+	                if (rec1Id.equals(rec2Id)) {
+	                    isOverlapping = true;
+	                }
+	                
+	                // Check if players are on intersecting spaces
+	                if (!isOverlapping) {
+	                    if (commonSpaces.containsKey(rec1Id) && commonSpaces.get(rec1Id).equals(rec2Id)) {
+	                        isOverlapping = true;
+	                    } else if (commonSpaces.containsKey(rec2Id) && commonSpaces.get(rec2Id).equals(rec1Id)) {
+	                        isOverlapping = true;
+	                    }
+	                }
 
-            // Check if players are on the same space
-            if (rec1Id.equals(rec2Id)) {
-                isOverlapping = true;
-                System.out.println("Players " + player1.getName() + " and " +
-                      player2.getName() + " are on the same space: " + rec1Id);
-            }
-            // Check if players are on intersecting spaces
-            else if ((commonSpaces.containsKey(rec1Id) && commonSpaces.get(rec1Id).equals(rec2Id)) ||
-                    (commonSpaces.containsKey(rec2Id) && commonSpaces.get(rec2Id).equals(rec1Id))) {
-                isOverlapping = true;
-                System.out.println("Players " + player1.getName() + " and " +
-                      player2.getName() + " are on intersecting spaces: " +
-                      rec1Id + " and " + rec2Id);
-            }
+	                // Handle overlap if detected
+	                if (isOverlapping) {
+	                    overlapDetected = true;
+	                    handlePlayerCollision(player1, player2, i, j);
+	                }
+	            }
+	        }
+	    }
 
-            // Handle overlap by comparing scores and moving players
-            if (isOverlapping) {
-                overlapDetected = true;
-
-                // Compare scores and move players accordingly
-                // if (player1.getScore() > player2.getScore()) {
-                    // Player 1 has higher score
-                	// playerView1.animateMovement(1);
-                    // player1.move(1);
-                    
-
-                    // playerView2.animateMovement(-2);
-                    // player2.move(-2);
-
-                    // dialog.showAlert("Player Overlap", 
-                    		//   player1.getName() + " has a higher score and moves forward 1 space. " +
-                        		//   player2.getName() + " moves back 2 spaces.");
-                } else {
-                    // Player 2 has higher score (or equal)
-                	// playerView2.animateMovement(1);
-                    // player2.move(1);
-
-                    //  playerView1.animateMovement(-2);
-                    //  player1.move(-2);
-
-                   // dialog.showAlert("Player Overlap", 
-                      //  player2.getName() + " has a higher score and moves forward 1 space. " +
-                       // player1.getName() + " moves back 2 spaces.");
-                }
-            }
-        }
-    }
-
-    // If overlap was detected, skip the question phase by moving to the next player
-   // if (overlapDetected) {
-        // The question phase will be skipped because we're calling nextPlayer directly 
-        // without going through displayQuestionCardBasedOnPosition
-       // PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        //pause.setOnFinished(e -> nextPlayer());
-      //  pause.play();
-    //}
+	    /**
+	     * Handles collision between two players.
+	     * The player with the higher score moves forward 2 spaces,
+	     * and the player with the lower score moves back 2 spaces.
+	     * 
+	     * @param player1 First player
+	     * @param player2 Second player
+	     * @param index1 Index of first player
+	     * @param index2 Index of second player
+	     */
+	    private void handlePlayerCollision(Player player1, Player player2, int index1, int index2) {
+	        Player higherScorePlayer;
+	        Player lowerScorePlayer;
+	        int higherScoreIndex;
+	        int lowerScoreIndex;
+	        
+	        // First message - Battle announcement
+	        dialog.showAlert("Player Battle!", 
+	            "A battle is taking place between " + player1.getName() + " and " + player2.getName() + "!");
+	        
+	        // Determine which player has the higher score
+	        if (player1.getScore() >= player2.getScore()) {
+	            higherScorePlayer = player1;
+	            lowerScorePlayer = player2;
+	            higherScoreIndex = index1;
+	            lowerScoreIndex = index2;
+	        } else {
+	            higherScorePlayer = player2;
+	            lowerScorePlayer = player1;
+	            higherScoreIndex = index2;
+	            lowerScoreIndex = index1;
+	        }
+	        
+	        // Create sequence of actions with delays
+	        PauseTransition battlePause = new PauseTransition(Duration.seconds(2));
+	        battlePause.setOnFinished(e -> {
+	            // Second message - Winner announcement
+	            dialog.showAlert("Battle Result", 
+	                higherScorePlayer.getName() + " wins with a score of " + higherScorePlayer.getScore() + 
+	                " against " + lowerScorePlayer.getName() + " with a score of " + lowerScorePlayer.getScore() + "!");
+	            
+	            PauseTransition resultPause = new PauseTransition(Duration.seconds(2));
+	            resultPause.setOnFinished(ev -> {
+	                // Third message - Movement announcement
+	                dialog.showAlert("Player Movement", 
+	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
+	                    lowerScorePlayer.getName() + " moves back 2 spaces.");
+	                
+	                PauseTransition movePause = new PauseTransition(Duration.seconds(1));
+	                movePause.setOnFinished(evt -> {
+	                    // Move the players
+	                    PlayerView higherScoreView = playerViews.get(higherScoreIndex);
+	                    PlayerView lowerScoreView = playerViews.get(lowerScoreIndex);
+	                    
+	                    // Check if higher score player can move forward (not at the end)
+	                    int highPlayerMaxPos = higherScoreView.getSpaces().size() - 1;
+	                    int moveForwardSteps = Math.min(2, highPlayerMaxPos - higherScorePlayer.getPosition());
+	                    
+	                    // Move higher score player forward
+	                    higherScorePlayer.move(moveForwardSteps);
+	                    higherScoreView.animateMovement(moveForwardSteps);
+	                    
+	                    // Move lower score player back (but not before start)
+	                    int moveBackSteps = Math.min(2, lowerScorePlayer.getPosition());
+	                    lowerScorePlayer.move(-moveBackSteps);
+	                    lowerScoreView.animateMovement(-moveBackSteps);
+	                    
+	                    // Optional: Display animation for collisions
+	                    // displayGif("collision.gif");
+	                    
+	                    // Optional: Play sound effect
+	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);
+	                    
+	                    // Update player positions display
+	                    updatePlayerPostions();
+	                });
+	                movePause.play();
+	            });
+	            resultPause.play();
+	        });
+	        battlePause.play();
+	        
+	    }
 }
 
 

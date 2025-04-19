@@ -235,6 +235,7 @@ public class BoardController {
 
         for (Rectangle rect : allSpaces) {
             rect.setFill(colors[colorIndex]);
+            rect.getStyleClass().add("rectangle"); // Add the CSS style class
             colorIndex = (colorIndex + 1) % colors.length;
         }
     }
@@ -758,7 +759,7 @@ private void updateHintsDisplay() {
                 	
                 	int randomMystery = ThreadLocalRandom.current().nextInt(1, 6);
                 	
-                	switch (randomMystery) {
+                	switch (5) {
                 		case 1:
                 			handlePlayerMovingBack();
                 			break;

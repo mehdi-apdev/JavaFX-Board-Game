@@ -4,6 +4,34 @@ Circle{
 	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.5, 2, 2);
 }
 
+
+.rectangle {
+    -fx-arc-width: 20; /* Coins arrondis pour un aspect organique */
+    -fx-arc-height: 20;
+    -fx-border-color: 
+#2e8b57; /* Vert jungle */
+    -fx-border-width: 3; /* Épaisseur de la bordure */
+    -fx-border-style: dashed; /* Bordure en pointillés pour simuler une texture de liane */
+    -fx-background-color: linear-gradient(to bottom, 
+#6b8e23, 
+#556b2f); /* Dégradé vert naturel */
+    -fx-effect: dropshadow(gaussian, 
+rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Ombre subtile */
+    -fx-background-radius: 20; /* Coins arrondis pour le fond */
+}
+
+/* Effet au survol */
+.rectangle:hover {
+    -fx-background-color: linear-gradient(to bottom, 
+#7cfc00, 
+#6b8e23); /* Vert plus vif au survol */
+    -fx-border-color: 
+#7cfc00; /* Bordure plus lumineuse */
+    -fx-cursor: hand; /* Curseur en forme de main */
+    -fx-effect: dropshadow(gaussian, 
+rgba(0, 0, 0, 0.7), 12, 0.6, 0, 0); /* Ombre renforcée */
+}
+
 .button {
     -fx-background-color:#42953a;
     -fx-border-color: #2c4432;

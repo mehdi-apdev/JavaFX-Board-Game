@@ -6,31 +6,15 @@ Circle{
 
 
 .rectangle {
-    -fx-arc-width: 20; /* Coins arrondis pour un aspect organique */
-    -fx-arc-height: 20;
-    -fx-border-color: 
-#2e8b57; /* Vert jungle */
-    -fx-border-width: 3; /* Épaisseur de la bordure */
-    -fx-border-style: dashed; /* Bordure en pointillés pour simuler une texture de liane */
-    -fx-background-color: linear-gradient(to bottom, 
-#6b8e23, 
-#556b2f); /* Dégradé vert naturel */
-    -fx-effect: dropshadow(gaussian, 
-rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Ombre subtile */
-    -fx-background-radius: 20; /* Coins arrondis pour le fond */
+  
+
+    -fx-border-width: 10px; /* Épaisseur de la bordure */
+    -fx-border-radius: 20px; /* Coins arrondis pour un effet organique */
+
+
 }
 
-/* Effet au survol */
-.rectangle:hover {
-    -fx-background-color: linear-gradient(to bottom, 
-#7cfc00, 
-#6b8e23); /* Vert plus vif au survol */
-    -fx-border-color: 
-#7cfc00; /* Bordure plus lumineuse */
-    -fx-cursor: hand; /* Curseur en forme de main */
-    -fx-effect: dropshadow(gaussian, 
-rgba(0, 0, 0, 0.7), 12, 0.6, 0, 0); /* Ombre renforcée */
-}
+
 
 .button {
     -fx-background-color:#42953a;
@@ -41,9 +25,7 @@ rgba(0, 0, 0, 0.7), 12, 0.6, 0, 0); /* Ombre renforcée */
     -fx-text-fill: white;
 }
 
-#malus{
- -fx-background-color: #9c1e1e; 
-}
+
 /* Style CSS pour l'AnchorPane de questions - Thème Jungle */
 
 /* Carte de question */
@@ -229,8 +211,17 @@ Button{
     -fx-background-color: #3e8e41; /* Change this to an even darker shade of your desired color */
 }
 
-.Malus{
-	-fx-fill: #8a1515;
+.mystery{
+
+-fx-fill: radial-gradient(center 50% 50%, radius 50%,
+rgba(255, 255, 255, 0.8), /* Blanc avec transparence */
+rgba(230, 230, 250, 0.6)); /* Lavande avec transparence */
+-fx-border-color: 
+#9370db; /* Violet moyen */
+-fx-border-width: 4px;
+-fx-border-radius: 20px;
+-fx-background-radius: 20px;
+
 }
 
 .First{
@@ -241,9 +232,17 @@ Button{
 		-fx-fill: white;
 }
 
-.Combat{
-	-fx-fill: yellow;
+
+.Combat {
+   
+    -fx-border-color: #8b0000; /* Rouge foncé */
+    -fx-border-width: 4px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-fill: #800b14; /* Remplissage orange avec transparence */
 }
+
+
 
 /* Add to application.css */
 #playersContainer {

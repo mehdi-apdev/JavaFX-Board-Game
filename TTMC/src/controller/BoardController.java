@@ -123,10 +123,10 @@ public class BoardController {
 	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4, playerPos1, playerPos2, playerPos3, playerPos4;
 	
 
-	private static final String purpleStr = "611a44";
-	private static final String yellowStr= "c19632";
-	private static final String blueStr = "0084ff";
-	private static final String greenStr = "7aa823";
+	private static final String purpleStr = "51244c";
+	private static final String yellowStr= "c0721e";
+	private static final String blueStr = "587a96";
+	private static final String greenStr = "89932b";
 	private static final String redStr = "0x8a1515ff";
 	private static final String whiteStr = "ffffff";
 	private static boolean isStreak;
@@ -755,11 +755,11 @@ private void updateHintsDisplay() {
                 }
                 
                 // Check if player landed on a malus space
-                if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
+                if (currentRectangle.getStyleClass().contains("mystery")) {
                 	
                 	int randomMystery = ThreadLocalRandom.current().nextInt(1, 6);
                 	
-                	switch (5) {
+                	switch (4) {
                 		case 1:
                 			handlePlayerMovingBack();
                 			break;

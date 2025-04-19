@@ -62,6 +62,14 @@ public class Player {
 	}
 	
 	public void setHint(int hint) {
+		if (hint < 0) {
+			throw new IllegalArgumentException("Hint cannot be negative.");
+		}
+		
+		if (this.hint + hint > 3) {
+			hint = 3 - this.hint; // Limit to 3 hints
+		}
+		
 		this.hint += hint;
 	}
 

@@ -19,6 +19,7 @@ public class Bonus4 implements MysteryState {
 
 	    int currentPlayerIndex = game.getCurrentPlayerIndex();
 	    DialogWindow dialog = new DialogWindow();
+	    int steps = 1;
 
 	    // Find the player ahead
 	    Player playerAhead = null;
@@ -60,7 +61,9 @@ public class Bonus4 implements MysteryState {
 	            } else if (choice == 2 && playerBehind != null) {
 	                selectedPlayer = playerBehind;
 	            } else {
-	                dialog.showAlert("Invalid Choice", "Please select a valid player.");
+	                dialog.showAlert("Invalid Choice", ""); 
+	        		currentPlayer.move(steps);
+	        		currentPlayerView.animateMovement(steps);
 	                return;
 	            }
 

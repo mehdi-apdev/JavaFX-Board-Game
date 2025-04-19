@@ -756,7 +756,7 @@ private void updateHintsDisplay() {
                 // Check if player landed on a malus space
                 if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
                 	
-                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 5);
+                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 6);
                 	
                 	switch (randomMystery) {
                 		case 1:

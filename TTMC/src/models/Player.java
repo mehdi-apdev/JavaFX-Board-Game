@@ -7,6 +7,7 @@ public class Player {
 	private int score = 0;
 	private int hint = 3; // Number of hints left, default 3
     private boolean usedHintThisRound;
+    private boolean isBlocked = false; // Indicates if the player is blocked
     private int streak = 0; // Number of consecutive correct answers
     private int nbQuestionsAnswerd = 0; // Number of questions answered by the player
 	
@@ -59,6 +60,10 @@ public class Player {
 	    }
 	    return score / nbQuestionsAnswerd;
 	}
+	
+	public void setHint(int hint) {
+		this.hint += hint;
+	}
 
 	
     public void useHint() {
@@ -104,6 +109,7 @@ public class Player {
 		return this.hint;
 	}
 	
+	
 	public int setPosition(int position) {
 		return this.position = position;
 	}
@@ -124,6 +130,14 @@ public class Player {
 	    public void setUsedHintThisRound(boolean usedHintThisRound) {
 	        this.usedHintThisRound = usedHintThisRound;
 	    }
+	    
+	    public void setBlocked(boolean isBlocked) {
+	    	  this.isBlocked = isBlocked;
+	    }
+
+		public boolean isBlocked() {
+			return isBlocked ;
+		}
 	
 
 	

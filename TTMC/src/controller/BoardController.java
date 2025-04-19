@@ -52,12 +52,18 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.Bonus1;
+import models.Bonus2;
+import models.Bonus3;
 import models.DialogWindow;
 import models.EducationQuestionFactory;
 import models.EntertainmentQuestionFactory;
 import models.Game;
 import models.ImprobableQuestionFactory;
 import models.InformaticsQuestionFactory;
+import models.Malus1;
+import models.Bonus4;
+import models.MysteryState;
 import models.QuestionLoader;
 import models.Player;
 import models.Question;
@@ -97,6 +103,7 @@ public class BoardController {
     private List<QuestionCard> questionCards;
     private int currentCardIndex = 0;
     private Random random = new Random();
+    private MysteryState mysteryState;
     
     //Windows for aletts
     private DialogWindow dialog = new DialogWindow();
@@ -138,7 +145,7 @@ public class BoardController {
      */
     @FXML
     public void initialize() {
-    	        usedQuestionCards = new ArrayList<>();
+    	usedQuestionCards = new ArrayList<>();
         initializeGame();
         initializeBoard();
         initializeSound();
@@ -289,6 +296,7 @@ public class BoardController {
     private void initializePlayersPos() {
     	playersPos = new ArrayList<>();
     	positions = new ArrayList<>();
+    	standingsPlayers = new ArrayList<>();
     	playersPos.add(playerPos1);
     	playersPos.add(playerPos2);
     	playersPos.add(playerPos3);
@@ -747,7 +755,27 @@ private void updateHintsDisplay() {
                 
                 // Check if player landed on a malus space
                 if (fillColor.equalsIgnoreCase(redStr) || currentRectangle.getStyleClass().contains("malus")) {
-                    handleMalusSpace();
+                	
+                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 5);
+                	
+                	switch (randomMystery) {
+                		case 1:
+                			handlePlayerMovingBack();
+                			break;
+                		case 2:
+                			handleSwitchPlayers();
+                			break;
+                		case 3:
+                			handlePlayerBonusForward();
+                			break;
+                		case 4 :
+                			handlePlayerHintBonus();
+                			break;
+                		case 5 :
+                			handleFreezeOpponent();
+							break;
+                	}
+                    
                     return;
                 }
                 
@@ -793,20 +821,50 @@ private void updateHintsDisplay() {
         // Wait for animation and proceed to next player's turn
         waitForAnimation();
     }
+    
+
+    private void handleFreezeOpponent() {
+    	mysteryState = new Bonus3();
+        Player currentPlayer = game.getCurrentPlayer();
+        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+        mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
+        nextPlayer();
+    }
+
+    
+    private void handlePlayerHintBonus() {
+    	mysteryState = new Bonus2();
+		Player currentPlayer = game.getCurrentPlayer();
+		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+		mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
+	
+
+		// Passe au joueur suivant SANS déclencher une autre vérification de case
+		nextPlayer();
+
+		// Important : utilisez une pause pour attendre la fin de l'animation
+		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
+		PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
+		waitTransition.setOnFinished(e -> {
+			// Ne rien faire ici - juste attendre que l'animation se termine
+			// avant de permettre d'autres actions
+			dialog.showAlert("Bonus Square!", "You have received a hint bonus.");
+			updateHintsDisplay();
+
+		});
+		waitTransition.play();
+    }
 
     /**
      * Handles a player landing on a malus (penalty) space.
      */
-    private void handleMalusSpace() {
+    private void handlePlayerMovingBack() {
+    	mysteryState = new Malus1();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
-        
-        int randomSteps = ThreadLocalRandom.current().nextInt(2, 5);
-        dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back " + randomSteps + " spaces.");
-        
-        // Recule le joueur
-        currentPlayer.move(-randomSteps);
-        currentPlayerView.animateMovement(-randomSteps);
+        mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
+     
+        dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back " + " spaces."); 
         
         // Affiche l'animation gif
         displayGif(MALUS_GIF);
@@ -824,6 +882,42 @@ private void updateHintsDisplay() {
         });
         waitTransition.play();
     }
+    
+    private void handleSwitchPlayers() {
+    	 mysteryState = new Bonus4();
+    	 Player currentPlayer = game.getCurrentPlayer();
+ 		 PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+ 		 mysteryState.executeMystery(game, currentPlayer, currentPlayerView, playerViews);
+         nextPlayer();
+    	
+    }
+    
+   private void handlePlayerBonusForward() {
+	    mysteryState = new Bonus1();
+		Player currentPlayer = game.getCurrentPlayer();
+		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+		mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
+		dialog.showAlert("Bonus Square!", "You have moved forward 2 spaces.");
+
+		// Affiche l'animation gif
+		displayGif(BONUS_GIF);
+		MenuController.getSecondarySound().playMedia("bonus.wav", SOUND_VOLUME);
+
+		// Passe au joueur suivant SANS déclencher une autre vérification de case
+		nextPlayer();
+
+		// Important : utilisez une pause pour attendre la fin de l'animation
+		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
+		PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
+		waitTransition.setOnFinished(e -> {
+			// Ne rien faire ici - juste attendre que l'animation se termine
+			// avant de permettre d'autres actions
+		});
+		waitTransition.play();
+	   
+   }
+    
+    
 
     /**
      * Displays a question card based on the color of the space.
@@ -1151,7 +1245,7 @@ private void displayGif(String file) {
     bonusMalusImage.setImage(new Image(file));
 
     // Configure image properties for display
-    bonusMalusImage.setPreserveRatio(true);  // Changed to true for better image proportions
+    bonusMalusImage.setPreserveRatio(false);  // Changed to true for better image proportions
     bonusMalusImage.setSmooth(true);
     bonusMalusImage.setCache(true);
 
@@ -1188,16 +1282,24 @@ private void displayGif(String file) {
 	
 
 	
-	private void nextPlayer() {
+	public void nextPlayer() {
 		
 		
 	    for (Player player : players) {
 	        player.setUsedHintThisRound(false);
 	    }
 		
-		
 		game.nextPlayer();
 	    Player nextPlayer = game.getCurrentPlayer();
+	    
+	 // Skip the turn if the player is blocked
+	    if (nextPlayer.isBlocked()) {
+	        dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
+	        nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
+	        nextPlayer(); // Move to the next player
+	        return;
+	    }
+	    
 	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
 	        Platform.runLater(() -> {
 	            //dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");

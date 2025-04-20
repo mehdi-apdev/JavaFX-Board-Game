@@ -261,7 +261,7 @@ public class BoardController {
         int i = 1;
         for (Label hint: playersHints) {
             if(i <= PlayerChoiceViewController.getSelectedListPlayersNames().size()) {
-                hint.setText(players.get(i-1).getHint()+" left(s)");
+                hint.setText("Hints: "+players.get(i-1).getHint()+" left(s)");
             } else {
                 hint.setText("");
             }
@@ -513,7 +513,7 @@ private void onHintButtonClicked(ActionEvent event) {
 
 private void updateHintsDisplay() {
     for (int i = 0; i < players.size(); i++) {
-        playersHints.get(i).setText(players.get(i).getHint() + " left(s)");
+        playersHints.get(i).setText("Hints : "+players.get(i).getHint() + " left(s)");
         
     }
 }
@@ -759,7 +759,7 @@ private void updateHintsDisplay() {
                 	
                 	int randomMystery = ThreadLocalRandom.current().nextInt(1, 6);
                 	
-                	switch (4) {
+                	switch (randomMystery) {
                 		case 1:
                 			handlePlayerMovingBack();
                 			break;

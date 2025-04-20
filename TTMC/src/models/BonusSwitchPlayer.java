@@ -7,7 +7,7 @@ import java.util.Optional;
 import models.DialogWindow;
 
 
-public class Bonus4 implements MysteryState {
+public class BonusSwitchPlayer implements MysteryState {
 
 	@Override
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView) {
@@ -81,6 +81,9 @@ public class Bonus4 implements MysteryState {
 	        } catch (NumberFormatException e) {
 	            dialog.showAlert("Invalid Input", "Please enter a valid number.");
 	        }
+	    }else {
+	    	currentPlayer.move(steps);
+    		currentPlayerView.animateMovement(steps);
 	    }
 		
 	}

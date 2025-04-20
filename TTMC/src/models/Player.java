@@ -6,6 +6,8 @@ public class Player {
 	private int position = 0; // Player's position on the board;
 	private int score = 0;
 	private int hint = 3; // Number of hints left, default 3
+	private int hintCount = 0;
+	private boolean isAtTheEnd = false; // Indicates if the player is at the end of the game
     private boolean usedHintThisRound;
     private boolean isBlocked = false; // Indicates if the player is blocked
     private int streak = 0; // Number of consecutive correct answers
@@ -71,6 +73,30 @@ public class Player {
 		}
 		
 		this.hint += hint;
+	}
+	
+	public void increasehintCount() {
+		hintCount++;
+	}
+	
+	public void setAtTheEnd() {
+		if (position >= 23) {
+			isAtTheEnd = true;
+		} else {
+			isAtTheEnd = false;
+		}
+	}
+	
+	public boolean isAtTheEnd() {
+		return isAtTheEnd;
+	}
+	
+	public int getHintCount() {
+		return hintCount;
+	}
+	
+	public void setHintCount(int hintCount) {
+		this.hintCount = hintCount;
 	}
 
 	

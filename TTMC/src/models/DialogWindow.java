@@ -38,7 +38,7 @@ public class DialogWindow {
 		alertConfirm.setContentText(text);
 		alertConfirm.getDialogPane().setStyle("");
 		alertConfirm.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-        ButtonType buttonYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonYes = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         alertConfirm.getButtonTypes().setAll(buttonYes, buttonCancel);
 
@@ -53,7 +53,13 @@ public class DialogWindow {
 		 	inputDialog.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
 	        inputDialog.setTitle(message);
 	        inputDialog.setHeaderText(message);
-	        
+	        // Créer des boutons personnalisés
+	        ButtonType buttonYes = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+	        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+	        // Remplacer les boutons par défaut
+	        inputDialog.getDialogPane().getButtonTypes().setAll(buttonYes, buttonNo);
+
 	        
 	        inputDialog.getDialogPane().setExpandableContent(null); // Empêche l'expansion inutile
 	        inputDialog.getDialogPane().setStyle("-fx-wrap-text: true;"); // Permet le retour à la ligne

@@ -7,7 +7,7 @@ import models.DialogWindow;
 
 import view.PlayerView;
 
-public class Bonus3 implements MysteryState {
+public class BonusFreezePlayer implements MysteryState {
 
 	@Override
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView) {

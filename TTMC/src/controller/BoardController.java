@@ -52,17 +52,18 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.Bonus1;
-import models.Bonus2;
-import models.Bonus3;
+import models.BonusExtraSteps;
+import models.BonusExtraHint;
+import models.BonusExtraScore;
+import models.BonusFreezePlayer;
 import models.DialogWindow;
 import models.EducationQuestionFactory;
 import models.EntertainmentQuestionFactory;
 import models.Game;
 import models.ImprobableQuestionFactory;
 import models.InformaticsQuestionFactory;
-import models.Malus1;
-import models.Bonus4;
+import models.MalusSteps;
+import models.BonusSwitchPlayer;
 import models.MysteryState;
 import models.QuestionLoader;
 import models.Player;
@@ -119,7 +120,7 @@ public class BoardController {
     @FXML private RadioButton response1, response2, response3, response4;
     @FXML private ToggleGroup reponse;
     @FXML private Circle circlePlayer1, circlePlayer2, circlePlayer3, circlePlayer4;
-	@FXML private Label scorePlayer1, scorePlayer2, scorePlayer3, scorePlayer4;
+	@FXML private Label scorePlayer1, scorePlayer2, scorePlayer3, scorePlayer4, playerStandingLabel1, playerStandingLabel2, playerStandingLabel3, playerStandingLabel4;
 	@FXML private Label streakPlayer1, streakPlayer2, streakPlayer3, streakPlayer4, playerPos1, playerPos2, playerPos3, playerPos4;
 	
 
@@ -130,11 +131,12 @@ public class BoardController {
 	private static final String redStr = "0x8a1515ff";
 	private static final String whiteStr = "ffffff";
 	private static boolean isStreak;
-	private  static int pos = 1;
+
 	
 	private List<Label> playersScores;
 	private static List<Integer> positions;
 	private List<Label> playersStreaks;
+	private List<Label> standingsLabels;
 	private List<QuestionCard> usedQuestionCards;
     private List<PlayerView> playerViews;
     
@@ -310,6 +312,20 @@ public class BoardController {
 		}
     }
     
+    private void initializeStandingsPlayersLabel() {
+		standingsLabels = new ArrayList<>();
+		standingsLabels.add(playerStandingLabel1);
+		standingsLabels.add(playerStandingLabel2);
+		standingsLabels.add(playerStandingLabel3);
+		standingsLabels.add(playerStandingLabel4);
+
+		for (int i = 0; i < standingsPlayers.size(); i++) {
+			standingsLabels.get(i).setText(i+1+". "+standingsPlayers.get(i).getName());
+			standingsLabels.get(i).setVisible(true);
+		}
+    	
+    }
+    
     /**
      * Initializes event handlers and displays the first question card.
      */
@@ -467,6 +483,7 @@ private void loadQuestions() {
 @FXML
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
+   
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
         // Get the current question from the validerButton
         Question currentQuestion = (Question) validerButton.getUserData();
@@ -489,18 +506,20 @@ private void onHintButtonClicked(ActionEvent event) {
         }
 
         // If there are incorrect options, remove one randomly
-        if (!incorrectResponses.isEmpty()) {
+        if (!incorrectResponses.isEmpty() && currentPlayer.getHintCount() < 2) {
             RadioButton toDisable = incorrectResponses.get(random.nextInt(incorrectResponses.size()));
+            incorrectResponses.remove(toDisable);
             toDisable.setDisable(true);
             toDisable.setStyle("-fx-opacity: 0.5; -fx-text-fill: gray;");
 
             // Use hint
             MenuController.getSecondarySound().playMedia("hint.wav", 0.1);
             currentPlayer.useHint();
-            currentPlayer.setUsedHintThisRound(true);
+            currentPlayer.increasehintCount();
             dialog.showAlert("Hint used", "One incorrect option has been removed.");
         } else {
-            dialog.showAlert("Hint unavailable", "No incorrect options to remove.");
+            dialog.showAlert("Hint unavailable", "You have already used 2 hints this round.");
+            currentPlayer.setUsedHintThisRound(true);
         }
         
     } else {
@@ -611,6 +630,11 @@ private void updateHintsDisplay() {
         return scaleTransition;
     }
     
+    @FXML
+    private void onButtonPlayAgain(ActionEvent event) {
+       playAgain();
+    }
+    
     
 
     
@@ -622,8 +646,6 @@ private void updateHintsDisplay() {
     @FXML
     private void onButtonValiderClicked(ActionEvent event) {
     	
-    	
-    	
         Question currentQuestion = (Question) validerButton.getUserData();
 
         if (reponse.getSelectedToggle() == null) {
@@ -633,6 +655,7 @@ private void updateHintsDisplay() {
 
         int selectedResponseIndex = (int) reponse.getSelectedToggle().getUserData();
         int difficulty = currentQuestion.getDifficulty();
+        int stepsToMove = currentQuestion.getDifficulty();
         boolean isCorrect = currentQuestion.isCorrectResponse(selectedResponseIndex);
         Player currentPlayer = game.getCurrentPlayer();
 
@@ -641,9 +664,9 @@ private void updateHintsDisplay() {
             MenuController.getSecondarySound().playMedia("good.wav", SOUND_VOLUME);
             
             // Increase score based on difficulty
-            currentPlayer.increaseScore(50 + difficulty * 50);
+            currentPlayer.increaseScore(difficulty * 50 + 50);
             currentPlayer.increaseStreak();
-            int stepsToMove = currentQuestion.getDifficulty();
+        
             
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
             
@@ -679,6 +702,12 @@ private void updateHintsDisplay() {
         stopTimer();
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
+       
+        
+		if (currentPlayer.getPosition() + stepsToMove >= 23) {
+			standingsPlayers.add(currentPlayer);
+		    currentPlayer.setAtTheEnd();
+		}
 
         // Get next player before showing the turn message
         nextPlayer();
@@ -742,11 +771,7 @@ private void updateHintsDisplay() {
                 Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
                 String fillColor = currentRectangle.getFill().toString();
                 
-                // Check if game is finished (only one player left)
-                if (game.getPlayers().size() <= 1) {
-                    handleGameEnd();
-                    return;
-                }
+           
               
                 // Check if player reached the finish line
                 if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
@@ -757,7 +782,7 @@ private void updateHintsDisplay() {
                 // Check if player landed on a malus space
                 if (currentRectangle.getStyleClass().contains("mystery")) {
                 	
-                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 6);
+                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 7);
                 	
                 	switch (randomMystery) {
                 		case 1:
@@ -775,6 +800,9 @@ private void updateHintsDisplay() {
                 		case 5 :
                 			handleFreezeOpponent();
 							break;
+                		case 6 :
+                			handlePlayerScoreBonus();
+							break;
                 	}
                     
                     return;
@@ -791,6 +819,13 @@ private void updateHintsDisplay() {
      * Handles the end of the game when only one player remains.
      */
     private void handleGameEnd() {
+    	for (Player player :  game.getPlayers()) {
+			if (!standingsPlayers.contains(player)) {
+				standingsPlayers.add(player);
+			}
+		}
+		
+		initializeStandingsPlayersLabel();
         PauseTransition pause = new PauseTransition(Duration.seconds(4));
         pause.setOnFinished(event -> {
             Platform.runLater(() -> {
@@ -808,8 +843,7 @@ private void updateHintsDisplay() {
      * @param playerIndex The index of the player who finished
      */
     private void handlePlayerFinish(int playerIndex) {
-        standingsPlayers.add(game.getCurrentPlayer());
-        pos++;
+       
         
         // Remove the player from the game and update UI
         removePlayerFromGame(playerIndex);
@@ -825,16 +859,33 @@ private void updateHintsDisplay() {
     
 
     private void handleFreezeOpponent() {
-    	mysteryState = new Bonus3();
+    	mysteryState = new BonusFreezePlayer();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
         mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
         nextPlayer();
     }
+    
+    private void handlePlayerScoreBonus() {
+    	mysteryState = new BonusExtraScore();
+        Player currentPlayer = game.getCurrentPlayer();
+        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
+        mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
+        updateScoreAndStreakDisplay();
+        nextPlayer();
+        PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
+		waitTransition.setOnFinished(e -> {
+			
+			dialog.showAlert("Mystery Activated", "You have received 200 score bonus.");
+			updateHintsDisplay();
+
+		});
+		waitTransition.play();
+    }
 
     
     private void handlePlayerHintBonus() {
-    	mysteryState = new Bonus2();
+    	mysteryState = new BonusExtraHint();
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
 		mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
@@ -849,7 +900,7 @@ private void updateHintsDisplay() {
 		waitTransition.setOnFinished(e -> {
 			// Ne rien faire ici - juste attendre que l'animation se termine
 			// avant de permettre d'autres actions
-			dialog.showAlert("Bonus Square!", "You have received a hint bonus.");
+			dialog.showAlert("Mystery Activated", "You have received a hint bonus.");
 			updateHintsDisplay();
 
 		});
@@ -860,12 +911,12 @@ private void updateHintsDisplay() {
      * Handles a player landing on a malus (penalty) space.
      */
     private void handlePlayerMovingBack() {
-    	mysteryState = new Malus1();
+    	mysteryState = new MalusSteps();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
         mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
      
-        dialog.showAlert("Malus Square!", "You landed on a penalty square. Moving back " + " spaces."); 
+        dialog.showAlert("Mystery Activated", "You landed on a penalty square. Moving back 2 spaces."); 
         
         // Affiche l'animation gif
         displayGif(MALUS_GIF);
@@ -885,7 +936,7 @@ private void updateHintsDisplay() {
     }
     
     private void handleSwitchPlayers() {
-    	 mysteryState = new Bonus4();
+    	 mysteryState = new BonusSwitchPlayer();
     	 Player currentPlayer = game.getCurrentPlayer();
  		 PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
  		 mysteryState.executeMystery(game, currentPlayer, currentPlayerView, playerViews);
@@ -894,11 +945,11 @@ private void updateHintsDisplay() {
     }
     
    private void handlePlayerBonusForward() {
-	    mysteryState = new Bonus1();
+	    mysteryState = new BonusExtraSteps();
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
 		mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
-		dialog.showAlert("Bonus Square!", "You have moved forward 2 spaces.");
+		dialog.showAlert("Mystery Activated", "You have moved forward 2 spaces.");
 
 		// Affiche l'animation gif
 		displayGif(BONUS_GIF);
@@ -1285,9 +1336,16 @@ private void displayGif(String file) {
 	
 	public void nextPlayer() {
 		
+		// Check if game is finished (only one player left)
+        if (standingsPlayers.size() == players.size() - 1) {
+        	updatePlayerPostions();
+            handleGameEnd();
+            return;
+        }
 		
 	    for (Player player : players) {
 	        player.setUsedHintThisRound(false);
+	        player.setHintCount(0);
 	    }
 		
 		game.nextPlayer();
@@ -1305,23 +1363,49 @@ private void displayGif(String file) {
 	        Platform.runLater(() -> {
 	            //dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
 	            waitForAnimation();
-	            for (Label name : playersNames) {
-	    			if (name.getText().equals(game.getCurrentPlayer().getName())) {
-	    				name.setStyle("-fx-text-fill: orange;");
-	    			} else {
-	    				name.setStyle("-fx-text-fill: black;");
-	    			}	
-	    		}
-	            
+	            displayCurrentPlayerLabel();
 	        });
 	    }));
 	    timeline.play();
 	    checkPlayerOverlap();
 	    updatePlayerPostions();
 	}
+	
+	private void displayCurrentPlayerLabel() {
+		for (Label name : playersNames) {
+			if (name.getText().equals(game.getCurrentPlayer().getName())) {
+				name.setStyle("-fx-text-fill: orange;");
+			} else {
+				name.setStyle("-fx-text-fill: black;");
+			}	
+		}
+	}
+	
+	
 		
 	private void playAgain() {
-		
+		standingsPane.setVisible(false);
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).setPosition(0);
+			players.get(i).setScore(0);
+			//players.get(i).setStreak(0);
+			players.get(i).setHint(3);
+			players.get(i).setUsedHintThisRound(false);
+			players.get(i).setAtTheEnd();
+			players.get(i).setHintCount(0);
+			players.get(i).setBlocked(false);
+			players.get(i).setUsedHintThisRound(false);
+			//players.get(i).setIsBlocked(false);
+			//players.get(i).setHasThreeStreaks(false);
+			updateScoreAndStreakDisplay();
+			updateHintsDisplay();
+			playerViews.get(i).updatePosition();
+		}
+		updatePlayerPostions();
+		standingsPlayers.clear();
+		game.setCurrentPlayerIndex(0);
+		displayCurrentPlayerLabel();
+		displayQuestionCardBasedOnPosition();
 		
 		
 	}
@@ -1335,18 +1419,26 @@ private void displayGif(String file) {
 		int position;
 		System.out.println("\nPositon of each player after the turn");
 	    for (int i= 0; i< players.size(); i++) {
-	        position = pos;
+	        position = 1;
 	  		positions.set(i, position);	
 			for (int j= 0; j< players.size(); j++) {
 				if (i!= j && players.get(i).getPosition() < players.get(j).getPosition()) {
 					position++;
-					positions.set(i,position);		
+					positions.set(i,position);	
 				}
+				
+				
+					
 			}
 			System.out.println(players.get(i).getName()+" : "+players.get(i).getPosition());
 			
 			for (int k= 0; k< players.size(); k++) {
-				playersPos.get(k).setText(positions.get(k)+"th");
+				if (players.get(k).isAtTheEnd()) {
+					playersPos.get(k).setText("Ended");
+				}else {
+					playersPos.get(k).setText(positions.get(k)+"th");
+				}
+				
 			}
 			
 		}
@@ -1357,12 +1449,21 @@ private void displayGif(String file) {
 	    
 	
 	    private void quitGame() {
+	    	nbPlayers = 0;
 	        players.clear();
 	        playersHints.clear();
 	        playersNames.clear();
+	        playersScores.clear();
+	        playersStreaks.clear();
+	        playersPos.clear();
+	        playerViews.clear();
+	        questionCards.clear();
+	        usedQuestionCards.clear();
+	        positions.clear();
+	        standingsPlayers.clear();
+	        game.getPlayers().clear();
 	        PlayerChoiceViewController.getSelectedColors().clear();
-	        MenuController.getTimerSound().stopMedia();
-	        nbPlayers = 0;
+	        MenuController.getTimerSound().stopMedia();  
 	    }
 	    
 

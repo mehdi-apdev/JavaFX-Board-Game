@@ -392,22 +392,22 @@
             <Line endX="98.0" endY="-27.19999885559082" layoutX="202.0" layoutY="37.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
             <Line endX="98.0" endY="-27.19999885559082" layoutX="488.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
             <Line endX="98.0" endY="-27.19999885559082" layoutX="803.0" layoutY="36.0" startX="98.0" startY="14.400001525878906" stroke="#5c3d2e" />
-            <Label fx:id="playerPos1" layoutX="256.0" layoutY="-1.0" prefHeight="38.0" prefWidth="36.0" text="1st" visible="false">
+            <Label fx:id="playerPos1" alignment="CENTER_RIGHT" layoutX="172.0" layoutY="-1.0" prefHeight="38.0" prefWidth="120.0" text="1st" textAlignment="RIGHT" visible="false">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="playerPos2" layoutX="542.0" prefHeight="38.0" prefWidth="46.0" text="2nd" visible="false">
+            <Label fx:id="playerPos2" alignment="CENTER_RIGHT" layoutX="440.0" prefHeight="38.0" prefWidth="139.0" text="2nd" visible="false">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="playerPos3" layoutX="858.0" layoutY="1.0" prefHeight="38.0" prefWidth="36.0" text="3th" visible="false">
+            <Label fx:id="playerPos3" alignment="CENTER_RIGHT" layoutX="787.0" layoutY="1.0" prefHeight="38.0" prefWidth="107.0" text="3th" visible="false">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="playerPos4" layoutX="1154.0" layoutY="1.0" prefHeight="38.0" prefWidth="36.0" text="4th" visible="false">
+            <Label fx:id="playerPos4" alignment="CENTER_RIGHT" layoutX="1051.0" layoutY="1.0" prefHeight="38.0" prefWidth="139.0" text="4th" visible="false">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font>
@@ -440,32 +440,32 @@
                   <Font name="Eras Bold ITC" size="25.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="65.0" layoutY="153.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+            <Label fx:id="playerStandingLabel1" alignment="CENTER" layoutX="65.0" layoutY="153.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
                <font>
                   <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="65.0" layoutY="209.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+            <Label fx:id="playerStandingLabel2" alignment="CENTER" layoutX="65.0" layoutY="209.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
                <font>
                   <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="65.0" layoutY="264.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+            <Label fx:id="playerStandingLabel3" alignment="CENTER" layoutX="65.0" layoutY="264.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
                <font>
                   <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="65.0" layoutY="321.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
+            <Label fx:id="playerStandingLabel4" alignment="CENTER" layoutX="65.0" layoutY="321.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-border-width: 2px; -fx-border-color: #8B4513; -fx-border-radius: 5px;" text="PLAYER">
                <font>
                   <Font name="Eras Bold ITC" size="20.0" />
                </font>
             </Label>
-            <Button layoutX="231.0" layoutY="424.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" text="PLAY AGAIN">
+            <Button fx:id="playAgainButton" layoutX="231.0" layoutY="424.0" mnemonicParsing="false" onAction="#onButtonPlayAgain" prefHeight="43.0" prefWidth="151.0" text="PLAY AGAIN">
                <font>
                   <Font name="Eras Bold ITC" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="30.0" layoutY="424.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" text="EXIT">
+            <Button fx:id="exitButton" layoutX="30.0" layoutY="424.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" text="EXIT">
                <font>
                   <Font name="Eras Bold ITC" size="16.0" />
                </font>

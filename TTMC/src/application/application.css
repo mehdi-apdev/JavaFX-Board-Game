@@ -25,6 +25,16 @@ Circle{
     -fx-text-fill: white;
 }
 
+.button:hover{
+	   -fx-background-color: #45a049; 
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 8, 0, 0, 3);
+      
+}
+.button:pressed{
+	   -fx-background-color: #3e8e41; 
+}
+
 
 /* Style CSS pour l'AnchorPane de questions - Thème Jungle */
 

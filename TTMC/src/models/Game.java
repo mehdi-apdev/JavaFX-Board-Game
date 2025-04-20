@@ -60,6 +60,14 @@ public class Game {
         }
         return currentPlayerIndex;
     }
+
+	public void setCurrentPlayerIndex(int i) {
+		if (i < 0 || i >= players.size()) {
+			throw new IllegalArgumentException("Invalid player index");
+		}
+		this.currentPlayerIndex = i;
+		
+	}
 	
 	
 	

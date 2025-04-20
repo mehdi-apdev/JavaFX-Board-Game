@@ -857,7 +857,7 @@ private void updateHintsDisplay() {
         waitForAnimation();
     }
     
-
+    //Test 
     private void handleFreezeOpponent() {
     	mysteryState = new BonusFreezePlayer();
         Player currentPlayer = game.getCurrentPlayer();

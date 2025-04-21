@@ -36,6 +36,22 @@ import models.DialogWindow;
  */
 public class PlayerChoiceViewController {
     
+    // Constants
+    private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
+    private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
+    private static final String CLICK_SOUND = "click.wav";
+    private static final String CONFIRM_SOUND = "click2.wav";
+    private static final double SOUND_VOLUME = 0.1;
+	private static List<Paint> selectedColors = new ArrayList<>();
+    
+    
+    // FXML elements
+    @FXML private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext;
+    @FXML private Circle playerColor;
+    @FXML private ImageView volumeImage;
+    @FXML private TextField playerName;
+    @FXML private Pane playerChoicePane;
+    
     /**
      * Enum representing available player colors
      */
@@ -66,21 +82,6 @@ public class PlayerChoiceViewController {
         }
     }
     
-    // Constants
-    private static final String VOLUME_ON_IMAGE = "file:ressources/images/maxVolume.png";
-    private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
-    private static final String CLICK_SOUND = "click.wav";
-    private static final String CONFIRM_SOUND = "click2.wav";
-    private static final double SOUND_VOLUME = 0.1;
-	private static List<Paint> selectedColors = new ArrayList<>();
-    
-    
-    // FXML elements
-    @FXML private Button btnBack, btnPlay, btnOk, btnPrevious, btnNext;
-    @FXML private Circle playerColor;
-    @FXML private ImageView volumeImage;
-    @FXML private TextField playerName;
-    @FXML private Pane playerChoicePane;
     
     // Controller state
     private PlayerColor currentPlayerColor;

@@ -13,7 +13,11 @@ public class BonusSwitchPlayer implements MysteryState {
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView) {
 	
 	}
-
+	
+	/*
+	 * This method is called when the player chooses to execute the mystery. It
+	 * allows the player to switch places with another player ahead or behind them.
+	 */
 	@Override
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView, List<PlayerView> playerViews) {
 

@@ -170,14 +170,12 @@ public class BoardController {
         initializePlayersName();
       
         players = new ArrayList<>();
-       
         
         for(int i = 1; i <= nbPlayers; i++) {
             players.add(new Player(PlayerChoiceViewController.getSelectedListPlayersNames().get(i-1)));
             
         }
         initializeHints();
-        
         game = new Game(players);
     }
     
@@ -220,6 +218,7 @@ public class BoardController {
             
             System.out.println("Player " + (i + 1) + " Circle: " + allCircles.get(i).getId());
         }
+        
            //circlePlayer1.setVisible(true);
             //circlePlayer1.setFill(playerColor);
             //playerView = new PlayerView(game.getCurrentPlayer(), circlePlayer1, selectedSpaces);
@@ -316,9 +315,13 @@ public class BoardController {
     private void initializeStandingsPlayersLabel() {
 		standingsLabels = new ArrayList<>();
 		standingsLabels.add(playerStandingLabel1);
+		playerStandingLabel1.setVisible(false);
 		standingsLabels.add(playerStandingLabel2);
+		playerStandingLabel2.setVisible(false);
 		standingsLabels.add(playerStandingLabel3);
+		playerStandingLabel3.setVisible(false);
 		standingsLabels.add(playerStandingLabel4);
+		playerStandingLabel4.setVisible(false);
 
 		for (int i = 0; i < standingsPlayers.size(); i++) {
 			standingsLabels.get(i).setText(i+1+". "+standingsPlayers.get(i).getName());
@@ -663,9 +666,14 @@ private void updateHintsDisplay() {
                 displayGif(BONUS_GIF);
                 MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
             }
+            
+            /*random = new Random();
+            int rd =random.nextInt(5, 8);*/
+            movePlayerForward(stepsToMove);
+            System.out.println("Player " + currentPlayer.getName() + " moved forward " + stepsToMove + " spaces.");
+         
+			if (currentPlayer.getPosition() == 23) {
 
-            movePlayerForward(24);
-            if (currentPlayer.getPosition() + stepsToMove >= 23) {
     		    // Add the current player to the standings
     		    standingsPlayers.add(currentPlayer);
     		    currentPlayer.setAtTheEnd();

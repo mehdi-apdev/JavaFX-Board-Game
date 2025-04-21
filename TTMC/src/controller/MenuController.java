@@ -93,17 +93,8 @@ public class MenuController {
 			optionPane.setVisible(true);
     	} 
     }
-    
-    @FXML
-    protected void onTimerSoundCheckBoxSelected(ActionEvent event) {
-    	 timerSound.muteMedia();
-    }
-    
-    @FXML
-    protected void onSecondarySoundCheckBoxSelected(ActionEvent event) {
-    	 secondarySound.muteMedia();
-    }
-    
+
+
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
@@ -161,14 +152,15 @@ public class MenuController {
         }
     }
     
+    // Getters for sound effects
     public static Sound getTimerSound() {
 		return timerSound;
 	}
-    
+    // Getters for sound effects
     public static Sound getTouchSound() {
 		return touchSound;
 	}
-    
+    // Getters for sound effects
     public static Sound getSecondarySound() {
 		return secondarySound;
 	}

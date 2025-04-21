@@ -9,17 +9,27 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
-
+/*
+ * This class is used to create dialog windows for information, confirmation, and input.
+ * It uses JavaFX's Alert class to display the dialogs.
+ * */
 public class DialogWindow {
 	private Alert alertInfo;
 	private Alert alertConfirm;
 	
+	// Constructor
 	public DialogWindow() {
 		  alertInfo = new Alert(AlertType.INFORMATION);
 		  alertConfirm = new Alert(AlertType.CONFIRMATION);
 	}
 	
-	
+	/*
+	 * * This method is used to show an information alert.
+	 * 
+	 * @param title The title of the alert window.
+	 * 
+	 * @param message The message to be displayed in the alert window.
+	 */
 	public void showAlert(String title, String message) {
 		alertInfo.setHeaderText(title);
 		alertInfo.setContentText(message);
@@ -32,7 +42,15 @@ public class DialogWindow {
 	    timeline.play();
     }
 	
-	
+	/*
+	 * This method is used to show a confirmation alert.
+	 * 
+	 * @param title The title of the alert window.
+	 * 
+	 * @param text The message to be displayed in the alert window.
+	 * 
+	 * @return true if the user clicked "Ok", false otherwise.
+	 */
 	public boolean showConfirmationDialog(String title, String text) {
 		alertConfirm.setHeaderText(title);
 		alertConfirm.setContentText(text);
@@ -47,7 +65,17 @@ public class DialogWindow {
         return result.isPresent() && result.get() == buttonYes;
     }
 
-
+	
+	/*
+	 * This method is used to show an input dialog.
+	 * 
+	 * @param title The title of the alert window.
+	 * 
+	 * @param message The message to be displayed in the alert window.
+	 * 
+	 * @return The user input as a String, or an empty Optional if the user clicked
+	 * "Cancel".
+	 */
 	public Optional<String> showInputDialog(String title, String message) {
 		 TextInputDialog inputDialog = new TextInputDialog();
 		 	inputDialog.getDialogPane().getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());

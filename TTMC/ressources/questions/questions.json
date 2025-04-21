@@ -1,297 +1,514 @@
-
 [
-  {
-    "theme_name": "improbable",
-    "priority": 2,
-    "question": "How many grape berries are needed to make a 75 cl bottle of wine?",
-    "responses": ["600", "1000", "200", "150"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 2,
-    "question": "What is carpophobia?",
-    "responses": ["The fear of wrists", "The fear of fruits", "The fear of bones", "The fear of feet"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 4,
-    "question": "How many photos are uploaded to Facebook daily?",
-    "responses": ["350 million", "1 billion", "100 million", "50 million"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 3,
-    "question": "What is the maximum speed of a giraffe?",
-    "responses": ["60 km/h", "30 km/h", "80 km/h", "100 km/h"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 3,
-    "question": "Which planet in our solar system spins the fastest?",
-    "responses": ["Jupiter", "Earth", "Mars", "Venus"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 4,
-    "question": "On average, how many hairs does a person have?",
-    "responses": ["100,000 to 150,000 hairs", "50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 3,
-    "question": "What is the rarest blood type?",
-    "responses": ["AB negative", "O positive", "A negative", "B positive"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 2,
-    "question": "How many hearts does an octopus have?",
-    "responses": ["Three", "One", "Two", "Four"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 2,
-    "question": "What is the tallest building in the world?",
-    "responses": ["Burj Khalifa", "Shanghai Tower", "Abraj Al-Bait Clock Tower", "Ping An Finance Centre"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 3,
-    "question": "What is the smallest country in the world?",
-    "responses": ["Vatican City", "Monaco", "Nauru", "San Marino"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 4,
-    "question": "How many bones are in the human body?",
-    "responses": ["206", "195", "210", "220"]
-  },
-  {
-    "theme_name": "improbable",
-    "priority": 3,
-    "question": "What is the longest river in the world?",
-    "responses": ["Nile", "Amazon", "Yangtze", "Mississippi"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What is polymorphism?",
-    "responses": ["A concept in OOP where an entity can have multiple forms.", "A way to store multiple variables", "A method to encrypt passwords", "A machine learning model"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 2,
-    "question": "What is the primary programming language for Android apps?",
-    "responses": ["Java", "Python", "Swift", "C++"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 2,
-    "question": "What part of web development deals with UI/UX?",
-    "responses": ["Front end", "Back end", "Database", "Server-side"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 2,
-    "question": "What is RAM?",
-    "responses": ["Random Access Memory", "Hard Drive", "Cache", "ROM"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What is a DDOS attack?",
-    "responses": ["An attack overwhelming a server with requests.", "SQL Injection", "Brute Force", "Phishing"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What does HTML stand for?",
-    "responses": ["HyperText Markup Language", "High Tech Machine Learning", "HyperTransfer Markup Language", "Home Tool Markup Language"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 2,
-    "question": "What is the function of an IP address?",
-    "responses": ["Identify a device on a network", "Store website data", "Encrypt messages", "Speed up browsing"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What is the purpose of a firewall?",
-    "responses": ["To protect networks from unauthorized access", "To increase internet speed", "To store passwords", "To block ads"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 2,
-    "question": "What is a compiler?",
-    "responses": ["A program that translates code into machine language", "A type of database", "A network protocol", "A web server"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What is an API?",
-    "responses": ["Application Programming Interface", "Automated Process Integration", "Advanced Programming Instruction", "Application Protocol Interface"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 4,
-    "question": "What is the main function of an operating system?",
-    "responses": ["Manage computer hardware and software resources", "Store user data", "Provide internet access", "Run antivirus programs"]
-  },
-  {
-    "theme_name": "informatics",
-    "priority": 3,
-    "question": "What is the difference between HTTP and HTTPS?",
-    "responses": ["HTTPS is secure, HTTP is not", "HTTP is faster", "HTTPS is a newer version", "There is no difference"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 2,
-    "question": "Who directed the movie 'Inception'?",
-    "responses": ["Christopher Nolan", "Steven Spielberg", "James Cameron", "Quentin Tarantino"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the highest-grossing film of all time?",
-    "responses": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars: The Force Awakens"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 4,
-    "question": "Who is known as the 'King of Pop'?",
-    "responses": ["Michael Jackson", "Elvis Presley", "Prince", "Madonna"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the longest-running TV show?",
-    "responses": ["The Simpsons", "Friends", "Game of Thrones", "Breaking Bad"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 2,
-    "question": "Who wrote the 'Harry Potter' series?",
-    "responses": ["J.K. Rowling", "J.R.R. Tolkien", "George R.R. Martin", "Stephen King"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the name of the fictional city in 'Batman'?",
-    "responses": ["Gotham", "Metropolis", "Star City", "Central City"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 4,
-    "question": "Who played the character of Jack in 'Titanic'?",
-    "responses": ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Johnny Depp"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the name of the coffee shop in 'Friends'?",
-    "responses": ["Central Perk", "Monk's Cafe", "MacLaren's Pub", "The Drunken Clam"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 2,
-    "question": "Who is the lead singer of the band 'Queen'?",
-    "responses": ["Freddie Mercury", "Mick Jagger", "David Bowie", "Elton John"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the name of the dragon in 'The Hobbit'?",
-    "responses": ["Smaug", "Drogon", "Falkor", "Toothless"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 4,
-    "question": "Who won the first season of 'American Idol'?",
-    "responses": ["Kelly Clarkson", "Carrie Underwood", "Jennifer Hudson", "Adam Lambert"]
-  },
-  {
-    "theme_name": "entertainment",
-    "priority": 3,
-    "question": "What is the name of the kingdom in 'Frozen'?",
-    "responses": ["Arendelle", "Narnia", "Westeros", "Hogwarts"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 1,
-    "question": "When did humans first walk on the moon?",
-    "responses": ["1969", "1955", "1972", "1980"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 2,
-    "question": "Who fought against racism in South Africa?",
-    "responses": ["Nelson Mandela", "Martin Luther King Jr.", "Barack Obama", "Mahatma Gandhi"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 4,
-    "question": "What was the result of Charles Quint's expedition against Algiers?",
-    "responses": ["Failure due to a storm and resistance", "Victory", "A peace treaty", "No significant impact"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 1,
-    "question": "What is the largest country in Africa?",
-    "responses": ["Algeria", "Nigeria", "Egypt", "South Africa"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 1,
-    "question": "Who was the first president of the USA?",
-    "responses": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 1,
-    "question": "What is the capital of Norway?",
-    "responses": ["Oslo", "Stockholm", "Copenhagen", "Helsinki"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 2,
-    "question": "What is the chemical symbol for water?",
-    "responses": ["H2O", "O2", "CO2", "H2"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 3,
-    "question": "Who wrote 'To Kill a Mockingbird'?",
-    "responses": ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 4,
-    "question": "What is the powerhouse of the cell?",
-    "responses": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 3,
-    "question": "Who developed the theory of relativity?",
-    "responses": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 2,
-    "question": "What is the largest planet in our solar system?",
-    "responses": ["Jupiter", "Saturn", "Earth", "Mars"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 3,
-    "question": "Who painted the Mona Lisa?",
-    "responses": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"]
-  },
-  {
-    "theme_name": "education",
-    "priority": 4,
-    "question": "What is the longest river in Africa?",
-    "responses": ["Nile", "Congo", "Niger", "Zambezi"]
-  }
+
+	{
+	  "theme_name": "improbable",
+	  "priority": 1,
+	  "question": "How many hearts does an octopus have?",
+	  "responses": ["3", "1", "10", "5"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 1,
+	  "question": "What is the smallest country in the world?",
+	  "responses": ["Vatican City", "Monaco", "Nauru", "San Marino"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 1,
+	  "question": "What is the maximum speed of a giraffe?",
+	  "responses": ["60 km/h", "30 km/h", "80 km/h", "100 km/h"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 1,
+	  "question": "How many bones are in the human body?",
+	  "responses": ["206", "195", "210", "256"]
+	},
+
+	{
+	  "theme_name": "improbable",
+	  "priority": 2,
+	  "question": "Which planet in our solar system spins the fastest?",
+	  "responses": ["Jupiter", "Earth", "Mars", "Venus"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 2,
+	  "question": "How many grape berries are needed to make a 75 cl bottle of wine?",
+	  "responses": ["600", "1000", "200", "150"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 2,
+	  "question": "What is the tallest building in the world?",
+	  "responses": ["Burj Khalifa", "Shanghai Tower", "Abraj Al-Bait Clock Tower", "Ping An Finance Centre"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 2,
+	  "question": "How many ants are there for each human on earth?",
+	  "responses": ["2 million", "1 million", "10 million", "500,000"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 3,
+	  "question": "How many years does a snail sleep?",
+	  "responses": ["3 years", "2 years", "1 year", "5 years"]
+	},
+	{
+		  "theme_name": "improbable",
+		  "priority": 3,
+		  "question": "Which condition causes people to fall asleep unexpectedly during the day?",
+		  "responses": ["Narcolepsy", "Cataplexy", "Apnea", "Insomnia"]
+		},
+	{
+	  "theme_name": "improbable",
+	  "priority": 3,
+	  "question": "On average, how many hairs does a person have?",
+	  "responses": ["100,000 to 150,000 hairs", "50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 3,
+	  "question": "What is the longest river in the world?",
+	  "responses": ["Nile", "Amazon", "Yangtze", "Mississippi"]
+	},
+	{
+	  "theme_name": "improbable",
+	  "priority": 4,
+	  "question": "What is the name of the mental condition where a person thinks they are a cow?",
+	  "responses": ["Boanthropy", "Lycanthropy", "Minotauria", "Tauritis"]
+	},
+
+	{
+	  "theme_name": "improbable",
+	  "priority": 4,
+	  "question": "How many photos are uploaded to Facebook daily?",
+	  "responses": ["350 million", "1 billion", "100 million", "50 million"]
+	},
+	{
+		  "theme_name": "improbable",
+		  "priority": 4,
+		  "question": "What is carpophobia?",
+		  "responses": ["The fear of wrists", "The fear of fruits", "The fear of bones", "The fear of feet"]
+	},
+	{
+	   "theme_name": "improbable",
+	   "priority": 4,
+	   "question": "What is the rarest blood type?",
+	   "responses": ["AB negative", "O positive", "A negative", "B positive"]
+		},
+	
+	
+	
+	
+	{
+	    "theme_name": "informatics",
+	    "priority": 1,
+	    "question": "What is RAM?",
+	    "responses": ["Random Access Memory", "Read Access Memory", "Rapid Access Memory", "Real-time Access Memory"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 1,
+	    "question": "What is the function of an IP address?",
+	    "responses": ["Identify a device on a network", "Store website data", "Encrypt messages", "Speed up browsing"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What does 'IP' stand for in networking?",
+	      "responses": ["Internet Protocol", "Internal Protocol", "Interconnected Protocol", "Internet Provider"]
+	  },
+	  
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What part of web development deals with UI/UX?",
+	    "responses": ["Front end", "Back end", "Database", "Server-side"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What is a compiler?",
+	    "responses": ["A program that translates code into machine language", "A type of database", "A network protocol", "A web server"]
+	  },
+	  {
+	  	    "theme_name": "informatics",
+	  	    "priority": 2,
+	  	    "question": "What is the difference between HTTP and HTTPS?",
+	  	    "responses": ["HTTPS is secure, HTTP is not", "HTTP is faster", "HTTPS is a newer version", "There is no difference"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What does HTML stand for?",
+	    "responses": ["HyperText Markup Language", "High Tech Machine Learning", "HyperTransfer Markup Language", "Home Tool Markup Language"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 3,
+	    "question": "What is polymorphism?",
+	    "responses": ["A concept in OOP where an entity can have multiple forms.", "A way to store multiple variables", "A method to encrypt passwords", "A machine learning model"]
+	  },
+	  {
+	  	 "theme_name": "informatics",
+	  	  "priority": 3,
+	  	  "question": "What is the primary programming language for Android apps?",
+	  	  "responses": ["Java", "Python", "Swift", "C++"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 3,
+	    "question": "What is an API?",
+	    "responses": ["Application Programming Interface", "Automated Process Integration", "Advanced Programming Instruction", "Application Protocol Interface"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 3,
+	    "question": "What is a DDOS attack?",
+	    "responses": ["An attack overwhelming a server with requests.", "SQL Injection", "Brute Force", "Phishing"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 3,
+	    "question": "What is the purpose of a firewall?",
+	    "responses": ["To protect networks from unauthorized access", "To increase internet speed", "To store passwords", "To block ads"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 3,
+	    "question": "Which Java keyword is used to declare a non-instantiable class?",
+	    "responses": ["Abstract", "Final", "Static", "Transient"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 4,
+	    "question": "Which OOP principle allows a class to be used interchangeably with its parent class?",
+	    "responses": ["Polymorphism", "Encapsulation", "Inheritance", "Abstraction"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 4,
+	    "question": "What is the purpose of a 'try-catch' block in programming?",
+	    "responses": ["To handle exceptions or errors in code", "To debug the program", "To perform unit testing", "To format output"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 4,
+	    "question": "What is the main function of an operating system?",
+	    "responses": ["Manage computer hardware and software resources", "Store user data", "Provide internet access", "Run antivirus programs"]
+	  },
+  
+  
+  
+	  {
+	     "theme_name": "entertainment",
+	     "priority": 1,
+	     "question": "What color is a Smurf?",
+	     "responses": ["Blue", "Green", "Red", "Yellow"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 1,
+	     "question": "What is the most popular sport in the world",
+	     "responses": ["Football", "Golf", "Basketball", "Baseball"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 1,
+	     "question": "What is the name of the fictional wizarding school in 'Harry Potter'?",
+	     "responses": ["Hogwarts", "Beauxbatons", "Durmstrang", "Ilvermorny"]
+	   },
+	   
+	   {
+	   	     "theme_name": "entertainment",
+	   	     "priority": 1,
+	   	     "question": "Who is known as the 'King of Pop'?",
+	   	     "responses": ["Michael Jackson", "Elvis Presley", "Prince", "Madonna"]
+	   	   },
+		   {
+		      "theme_name": "entertainment",
+		       "priority": 2,
+		       "question": "Who has won the ballon d'or in 2023?",
+		       "responses": ["Lionel Messi", "Cristiano Ronaldo", "Karim Benzema", "Neymar"]
+		     },
+		   {
+		   	 "theme_name": "entertainment",
+		   	 "priority": 2,
+		   	 "question": "How many Stars Wars are there ?",
+		     "responses": ["9", "8", "10", "7"]
+		},
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Who directed the movie 'Inception'?",
+	     "responses": ["Christopher Nolan", "Steven Spielberg", "James Cameron", "Quentin Tarantino"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Which movie features the quote 'I'll be back'?",
+	     "responses": ["The Terminator", "Predator", "Die Hard", "RoboCop"]
+	   },
+	   {
+	   	     "theme_name": "entertainment",
+	   	     "priority": 2,
+	   	     "question": "Who played the character of Jack in 'Titanic'?",
+	   	     "responses": ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Johnny Depp"]
+	   	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Who wrote the 'Harry Potter' series?",
+	     "responses": ["J.K. Rowling", "J.R.R. Tolkien", "George R.R. Martin", "Stephen King"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Who is the main character in the Pokemon series?",
+	     "responses": ["Ash", "Adam", "Andrew", "Brock"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Who played the character of Tony Stark in the MCU?",
+	     "responses": ["Robert Downey Jr.", "Chris Evans", "Chris Hemsworth", "Mark Ruffalo"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "Who is the lead singer of the band 'Queen'?",
+	     "responses": ["Freddie Mercury", "Mick Jagger", "David Bowie", "Elton John"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "What is the name of the kingdom in 'Frozen'?",
+	       "responses": ["Arendelle", "Atlantis", "Narnia", "Hogwarts"]
+	   },
+	   {
+	        "theme_name": "entertainment",
+	        "priority": 2,
+	        "question": "What is the name of the fictional city in 'Batman'?",
+	        "responses": ["Gotham", "Metropolis", "Star City", "Central City"]
+	      },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	     "question": "Which band performed the song Bohemian Rhapsody'?",
+	     "responses": ["Queen", "The Beatles", "Led Zeppelin", "Pink Floyd"]
+	   },
+	   {
+	   	 "theme_name": "entertainment",
+	   	 "priority": 3,
+	   	 "question": "Who is the artist the most Grammy-awarded of all time?",
+	   	 "responses": [ "Beyoncé", "Michael Jackson", "Stevie Wonder", "Whitney Houston"]
+	   	 },	   
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	     "question": "What is the highest-grossing film of all time?",
+	     "responses": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars: The Force Awakens"]
+	   },
+	   {
+	        "theme_name": "entertainment",
+	        "priority": 3,
+	        "question": "Which country won the first-ever football World Cup?",
+	        "responses": ["Uruguay", "Brazil", "Germany", "Italy"]
+	      },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	     "question": "What is the longest-running TV show?",
+	     "responses": ["The Simpsons", "Friends", "Game of Thrones", "Breaking Bad"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	     "question": "Which Disney princess is the most passionate about reading?",
+	     "responses": ["Belle", "Cinderella", "Ariel", "Snow White"]
+	   },
+	  
+	   {
+	   	     "theme_name": "entertainment",
+	   	     "priority": 4,
+	   	     "question": "What is the name of the coffee shop in 'Friends'?",
+	   	     "responses": ["Central Perk", "Monk's Cafe", "MacLaren's Pub", "The Drunken Clam"]
+	   	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 4,
+	     "question": "Who won the first season of 'American Idol'?",
+	     "responses": ["Kelly Clarkson", "Carrie Underwood", "Jennifer Hudson", "Adam Lambert"]
+	   },
+	   {
+	   	     "theme_name": "entertainment",
+	   	     "priority": 4,
+	   	     "question": "What is the name of the dragon in 'The Hobbit'?",
+	   	     "responses": ["Smaug", "Drogon", "Falkor", "Toothless"]
+	   	   },
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   {
+		      "theme_name": "education",
+		      "priority": 1,
+		      "question": "When did humans first set foot on the Moon?",
+		      "responses": ["1969", "1955", "1972", "1980"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 1,
+		      "question": "Who was the first president of the USA?",
+		      "responses": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 1,
+		      "question": "What is the capital of Belgium?",
+		      "responses": ["Brussels", "Antwerp", "Ghent", "Liège"]
+		    },
+			{
+			  "theme_name": "education",
+			  "priority": 2,
+			  "question": "Solve this equation (15 x 2) - (8 + 5)..",
+			  "responses": ["17", "22", "15", "19"]
+			 },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "Who fought against racism in South Africa?",
+		      "responses": ["Nelson Mandela", "Martin Luther King Jr.", "Mahatma Gandhi", "Winston Churchill"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "Which seas border the EU in the north?",
+		      "responses": ["Baltic and North Seas", "Mediterranean Sea", "Caspian Sea", "Black Sea"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "What is the capital of Norway?",
+		      "responses": ["Oslo", "Stockholm", "Copenhagen", "Helsinki"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "What is the chemical symbol for water?",
+		      "responses": ["H2O", "O2", "CO2", "H2"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "How long is the lifespan of a human red blood cell?",
+		      "responses": ["120 days", "90 days", "100 days", "150 days"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 2,
+		      "question": "What is the largest planet in our solar system?",
+		      "responses": ["Jupiter", "Saturn", "Earth", "Mars"]
+		    },
+			{
+			    "theme_name": "education",
+				 "priority": 3,
+				 "question": "What is the largest country in Africa?",
+				 "responses": ["Algeria", "Nigeria", "Dr Congo", "South Africa"]
+		     },
+		    {
+		      "theme_name": "education",
+		      "priority": 3,
+		      "question": "Who wrote 'To Kill a Mockingbird'?",
+		      "responses": ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 3,
+		      "question": "Who developed the theory of relativity?",
+		      "responses": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 3,
+		      "question": "Who painted the Mona Lisa?",
+		      "responses": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 3,
+		      "question": "Solve this equation: (48 ÷ 6) × (7 - 3).",
+		      "responses": ["32", "28", "30", "36"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 4,
+		      "question": "What is Newton's third law of motion?",
+		      "responses": ["For every action, there is an equal and opposite reaction.", "An object in motion stays in motion.", "Force equals mass times acceleration.", "Energy cannot be created or destroyed."]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 4,
+		      "question": "What was the result of Charles Quint's expedition against Algiers?",
+		      "responses": ["Failure due to a storm and resistance", "Victory", "A peace treaty", "No significant impact"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 4,
+		      "question": "What is the powerhouse of the cell?",
+		      "responses": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"]
+		    },
+		    {
+		      "theme_name": "education",
+		      "priority": 4,
+		      "question": "What is the longest river in Africa?",
+		       "responses": ["Nile", "Amazon", "Yangtze", "Congo"]
+		    }
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

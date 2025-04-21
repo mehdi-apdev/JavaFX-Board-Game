@@ -1044,8 +1044,9 @@ private void displayQuestionCard(QuestionCard card) {
     // Display questions in order of priority
     for (int i = 0; i < Math.min(sortedQuestions.size(), labels.length); i++) {
         final int questionIndex = i;
+        
         Question question = sortedQuestions.get(i);
-        labels[i].setText(question.getTexte() + " (Priority: " + question.getDifficulty() + ")");
+        labels[i].setText(question.getTexte() + " (Difficulty: " + question.getDifficulty() + ")");
         labels[i].setVisible(true);
 
         labels[i].setOnMouseClicked(event -> {
@@ -1086,7 +1087,7 @@ private void displaySelectedQuestion(Question question) {
     questionsContainer.setVisible(false);
     questionBox.setVisible(true);
 
-    questionSelectionneeLabel.setText(question.getTexte());
+    questionSelectionneeLabel.setText(question.getTexte() + " (Difficulty: " + question.getDifficulty() + ")");
 
     reponse.selectToggle(null);
 

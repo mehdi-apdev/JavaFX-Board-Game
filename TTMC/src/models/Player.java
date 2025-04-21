@@ -44,6 +44,7 @@ public class Player {
         }
     }
 	
+	
 	public void incrementQuestionsAnswered() {
 	    nbQuestionsAnswerd++;
 	}
@@ -114,6 +115,8 @@ public class Player {
 	public void increaseStreak() {
 		streak++;
 	}
+	
+	
 	
 	public void resetStreak() {
 		streak = 0;

@@ -1312,56 +1312,52 @@ private void displayGif(String file) {
 	
 
 	
-	public void nextPlayer() {
-		
-		Player oldPlayer = game.getCurrentPlayer();
-	
-		
-		// Check if game is finished (only one player left)
-        if (standingsPlayers.size() == game.getPlayers().size() -1 || nbPlayers == 2 && standingsPlayers.size() == 1) {
-        	updatePlayerPostions();
-            handleGameEnd();
-            return;
-        }
-        
-        if (standingsPlayers.contains(oldPlayer)) {
-        	int size = standingsPlayers.size();
-        	
-        	for(int i = 0; i< nbPlayers - size; i++) {
-        		game.nextPlayer();
-        	}
-			nextPlayer();
-			return;
-		}
-        
-		
-	    for (Player player : players) {
-	        player.setUsedHintThisRound(false);
-	        player.setHintCount(0);
-	    }
-		
-		game.nextPlayer();
-	    Player nextPlayer = game.getCurrentPlayer();
-	    
-	 // Skip the turn if the player is blocked
-	    if (nextPlayer.isBlocked()) {
-	        dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
-	        nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
-	        nextPlayer(); // Move to the next player
-	        return;
-	    }
-	    
-	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
-	        Platform.runLater(() -> {
-	            //dialog.showAlert("Next Turn", "It's " + nextPlayer.getName() + "'s turn!");
-	            waitForAnimation();
-	            displayCurrentPlayerLabel();
-	        });
-	    }));
-	    timeline.play();
-	    checkPlayerOverlap();
-	    updatePlayerPostions();
-	}
+
+public void nextPlayer() {
+
+    Player oldPlayer = game.getCurrentPlayer();
+
+    // Check if game is finished (only one player left)
+    if (standingsPlayers.size() == game.getPlayers().size() - 1 || (nbPlayers == 2 && standingsPlayers.size() == 1)) {
+        updatePlayerPostions();
+        handleGameEnd();
+        return;
+    }
+
+    // Skip players who have already finished
+    do {
+        game.nextPlayer();
+    } while (standingsPlayers.contains(game.getCurrentPlayer()));
+
+    Player nextPlayer = game.getCurrentPlayer();
+
+    // Reset hints and states for all players
+    for (Player player : players) {
+        player.setUsedHintThisRound(false);
+        player.setHintCount(0);
+    }
+
+    // Skip the turn if the player is blocked
+    if (nextPlayer.isBlocked()) {
+        dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
+        nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
+        nextPlayer(); // Move to the next player
+        return;
+    }
+
+    // Display the next player's turn with a delay
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
+        Platform.runLater(() -> {
+            waitForAnimation();
+            displayCurrentPlayerLabel();
+        });
+    }));
+    timeline.play();
+
+    checkPlayerOverlap();
+    updatePlayerPostions();
+}
+
 	
 	private void displayCurrentPlayerLabel() {
 		for (Label name : playersNames) {
@@ -1380,7 +1376,7 @@ private void displayGif(String file) {
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).setPosition(0);
 			players.get(i).setScore(0);
-			//players.get(i).setStreak(0);
+			players.get(i).resetStreak();
 			players.get(i).setHint(3);
 			players.get(i).setUsedHintThisRound(false);
 			players.get(i).setAtTheEnd();

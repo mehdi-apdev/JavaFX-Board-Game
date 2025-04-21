@@ -129,14 +129,29 @@ public class Player {
 		hint--;
 	}
 	
+	/**
+	 * Retrieves the number of hints available to the player.
+	 * 
+	 * @return The number of hints.
+	 */
 	public int getHint() {
 		return hint;
 	}
-
+	
+	/**
+	 * Checks if the player has any hints left.
+	 * 
+	 * @return True if hints are available, false otherwise.
+	 */
 	public boolean hasUsedHintThisRound() {
 		return usedHintThisRound;
 	}
 
+	/**
+	 * Sets the hint usage status for the current round.
+	 * 
+	 * @param usedHintThisRound True if a hint was used, false otherwise.
+	 */
 	public void setUsedHintThisRound(boolean usedHintThisRound) {
 		this.usedHintThisRound = usedHintThisRound;
 	}

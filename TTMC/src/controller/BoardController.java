@@ -827,21 +827,6 @@ private void updateHintsDisplay() {
         
     }
 
-    /**
-     * Handles a player reaching the finish line.
-     * @param playerIndex The index of the player who finished
-     */
-    private void handlePlayerFinish(int index) {
-       
-        
-        // Remove the player from the game and update UI
-        game.getPlayers().remove(index);
-    	playerViews.remove(index);
-        
-        dialog.showAlert("Congrats", "You have reached the end of the game!");
-  
-        
-    }
     
     //Test 
     private void handleFreezeOpponent() {
@@ -922,6 +907,7 @@ private void updateHintsDisplay() {
     }
     
     private void handleSwitchPlayers() {
+    	 
     	 mysteryState = new BonusSwitchPlayer();
     	 Player currentPlayer = game.getCurrentPlayer();
  		 PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
@@ -1128,7 +1114,7 @@ private void displaySelectedQuestion(Question question) {
     /**
      * Starts a countdown timer for answering questions.
      */
-    private void startTimer() {
+    public void startTimer() {
     	volumeImage.setDisable(true);
     	
     	int seconds;
@@ -1189,7 +1175,7 @@ private void displaySelectedQuestion(Question question) {
     /**
      * Stops the countdown timer.
      */
-    private void stopTimer() {
+    public void stopTimer() {
         if (timeline != null) {
             timeline.stop();
             //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
@@ -1263,7 +1249,7 @@ private void displaySelectedQuestion(Question question) {
 	        if (player.getStreak() > 0) {
 	            playersStreaks.get(i).getStyleClass().add("streak-active");
 	        } else {
-	            playersStreaks.get(i).getStyleClass().remove("streak-active");
+	            playersStreaks.get(i).getStyleClass().add("streak-inactive");
 	        }
 	    }
 	}
@@ -1324,7 +1310,6 @@ private void displayGif(String file) {
 
 public void nextPlayer() {
 
-    Player oldPlayer = game.getCurrentPlayer();
 
     // Check if game is finished (only one player left)
     if (standingsPlayers.size() == game.getPlayers().size() - 1 || (nbPlayers == 2 && standingsPlayers.size() == 1)) {
@@ -1346,17 +1331,13 @@ public void nextPlayer() {
         player.setHintCount(0);
     }
 
-    // Skip the turn if the player is blocked
-    if (nextPlayer.isBlocked()) {
-        dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
-        nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
-        nextPlayer(); // Move to the next player
-        return;
-    }
-
     // Display the next player's turn with a delay
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
         Platform.runLater(() -> {
+        	// Skip the turn if the player is blocked
+            if (checkIfPlayerIsBlocked(nextPlayer)) {
+                return;
+            }
             waitForAnimation();
             displayCurrentPlayerLabel();
         });
@@ -1367,7 +1348,25 @@ public void nextPlayer() {
     updatePlayerPostions();
 }
 
+/**
+ * Checks if the player is blocked. If so, shows an alert and skips their turn.
+ *
+ * @param nextPlayer The next player to check
+ * @return true if the player is blocked, false otherwise
+ */
+private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
+	 if (nextPlayer.isBlocked()) {
+         dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
+         nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
+         nextPlayer(); // Move to the next player
+         return true;
+     }
+	 return false;
+}
 	
+/*
+ * Displays the current player label with a specific color.
+ */
 	private void displayCurrentPlayerLabel() {
 		for (Label name : playersNames) {
 			if (name.getText().equals(game.getCurrentPlayer().getName())) {
@@ -1379,7 +1378,8 @@ public void nextPlayer() {
 	}
 	
 	
-		
+	
+	
 	private void playAgain() {
 		standingsPane.setVisible(false);
 		for (int i = 0; i < players.size(); i++) {
@@ -1411,7 +1411,10 @@ public void nextPlayer() {
 	}
 	
 	
-	
+	/*
+	 * * Updates the positions of all players after a turn. Displays their current
+	 * position and updates the UI accordingly.
+	 */
 	private void updatePlayerPostions(){
 		int position;
 		System.out.println("\nPositon of each player after the turn");
@@ -1443,8 +1446,6 @@ public void nextPlayer() {
 	    System.out.println("\n");
 	}
 
-	    
-	
 	    private void quitGame() {
 	    	nbPlayers = 0;
 	        players.clear();
@@ -1573,14 +1574,14 @@ public void nextPlayer() {
 	                higherScorePlayer.getName() + " wins with a score of " + higherScorePlayer.getScore() + 
 	                " against " + lowerScorePlayer.getName() + " with a score of " + lowerScorePlayer.getScore() + "!");
 	            
-	            PauseTransition resultPause = new PauseTransition(Duration.seconds(2));
+	            PauseTransition resultPause = new PauseTransition(Duration.seconds(4));
 	            resultPause.setOnFinished(ev -> {
 	                // Third message - Movement announcement
 	                dialog.showAlert("Player Movement", 
 	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
 	                    lowerScorePlayer.getName() + " moves back 2 spaces.");
 	                
-	                PauseTransition movePause = new PauseTransition(Duration.seconds(1));
+	                PauseTransition movePause = new PauseTransition(Duration.seconds(3));
 	                movePause.setOnFinished(evt -> {
 	                    // Move the players
 	                    PlayerView higherScoreView = playerViews.get(higherScoreIndex);

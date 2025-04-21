@@ -3,6 +3,8 @@ package models;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import controller.BoardController;
 import models.DialogWindow;
 
 import view.PlayerView;
@@ -18,11 +20,12 @@ public class BonusFreezePlayer implements MysteryState {
 	 */
 	@Override
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView) {
-
+	
 		DialogWindow dialog = new DialogWindow();
 	    // Check if there are other players to freeze
 	    List<Player> otherPlayers = game.getPlayers().stream()
-	        .filter(player -> !player.equals(currentPlayer))
+	        .filter(player -> !player.equals(currentPlayer))// Exclude the current player
+	        .filter(player -> !player.isAtTheEnd()) // Exclude players at the end
 	        .collect(Collectors.toList());
 	    
 	    // If there are no other players, show an alert and return

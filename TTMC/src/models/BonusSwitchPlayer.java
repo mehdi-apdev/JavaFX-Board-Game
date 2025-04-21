@@ -3,6 +3,7 @@ import view.PlayerView;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import models.DialogWindow;
 
@@ -18,77 +19,69 @@ public class BonusSwitchPlayer implements MysteryState {
 	 * This method is called when the player chooses to execute the mystery. It
 	 * allows the player to switch places with another player ahead or behind them.
 	 */
+
 	@Override
-	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView, List<PlayerView> playerViews) {
+	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView,
+			List<PlayerView> playerViews) {
+		DialogWindow dialog = new DialogWindow();
+		int steps = 1;
 
-	    int currentPlayerIndex = game.getCurrentPlayerIndex();
-	    DialogWindow dialog = new DialogWindow();
-	    int steps = 1;
+		// Liste des joueurs disponibles pour l'échange
+		List<Player> availablePlayers = game.getPlayers().stream()
+				.filter(player -> player.getPosition() != currentPlayer.getPosition()) // Include players not at the same position
+				.filter(player -> player.getPosition() < currentPlayer.getPosition()) // Include players behind the current player
+				.filter(player -> !player.isAtTheEnd()) // Include players not at the end																		
+				.collect(Collectors.toList());
 
-	    // Find the player ahead
-	    Player playerAhead = null;
-	    Player playerBehind = null;
-	    for (Player player : game.getPlayers()) {
-	        if (player.getPosition() > currentPlayer.getPosition()) {
-	            if (playerAhead == null || player.getPosition() < playerAhead.getPosition()) {
-	                playerAhead = player;
-	            }
-	        } else if (player.getPosition() < currentPlayer.getPosition()) {
-	            if (playerBehind == null || player.getPosition() > playerBehind.getPosition()) {
-	                playerBehind = player;
-	            }
-	        }
-	    }
+		if (availablePlayers.isEmpty()) {
+			dialog.showAlert("No Players to Switch", "There are no players available to switch places with.");
+			currentPlayer.move(steps);
+			currentPlayerView.animateMovement(steps);
+			// Move the current player forward by 1 step
+			return;
+		}
 
-	    if (playerAhead == null && playerBehind == null) {
-	        dialog.showAlert("No Players to Switch", "There are no players ahead or behind to switch places with.");
-	        return;
-	    }
+		// Construire le message des options
+		StringBuilder message = new StringBuilder("Choose a player to switch places with:\n");
+		for (int i = 0; i < availablePlayers.size(); i++) {
+			Player player = availablePlayers.get(i);
+			message.append(i + 1).append(". ").append(player.getName()).append(" (Position: ")
+					.append(player.getPosition()).append(")\n");
+		}
 
-	    // Let the current player choose to switch with the player ahead or behind
-	    StringBuilder message = new StringBuilder("Choose a player to switch places with:\n");
-	    if (playerAhead != null) {
-	        message.append("1. ").append(playerAhead.getName()).append(" (Ahead)\n");
-	    }
-	    if (playerBehind != null) {
-	        message.append("2. ").append(playerBehind.getName()).append(" (Behind)\n");
-	    }
+		Optional<String> result = dialog.showInputDialog("Switch Places", message.toString());
+		if (result.isPresent()) {
+			try {
+				int choice = Integer.parseInt(result.get());
+				if (choice < 1 || choice > availablePlayers.size()) {
+					dialog.showAlert("Invalid Choice", "Please select a valid player.");
+					currentPlayer.move(steps);
+					currentPlayerView.animateMovement(steps);
+					return;
+				}
 
-	    Optional<String> result = dialog.showInputDialog("Switch Places", message.toString());
-	    if (result.isPresent()) {
-	        try {
-	            int choice = Integer.parseInt(result.get());
-	            Player selectedPlayer = null;
+				// Joueur sélectionné
+				Player selectedPlayer = availablePlayers.get(choice - 1);
 
-	            if (choice == 1 && playerAhead != null) {
-	                selectedPlayer = playerAhead;
-	            } else if (choice == 2 && playerBehind != null) {
-	                selectedPlayer = playerBehind;
-	            } else {
-	                dialog.showAlert("Invalid Choice", ""); 
-	        		currentPlayer.move(steps);
-	        		currentPlayerView.animateMovement(steps);
-	                return;
-	            }
+				// Échanger les positions
+				int tempPosition = currentPlayer.getPosition();
+				currentPlayer.setPosition(selectedPlayer.getPosition());
+				selectedPlayer.setPosition(tempPosition);
 
-	            // Swap positions
-	            int tempPosition = currentPlayer.getPosition();
-	            currentPlayer.setPosition(selectedPlayer.getPosition());
-	            selectedPlayer.setPosition(tempPosition);
+				// Mettre à jour les animations
+				PlayerView selectedPlayerView = playerViews.get(game.getPlayers().indexOf(selectedPlayer));
+				currentPlayerView.updatePosition();
+				selectedPlayerView.updatePosition();
 
-	            // Update animations
-	            PlayerView selectedPlayerView = playerViews.get(game.getPlayers().indexOf(selectedPlayer));
-	            currentPlayerView.updatePosition();
-	            selectedPlayerView.updatePosition();
-
-	            dialog.showAlert("Switch Successful", "You have switched places with " + selectedPlayer.getName() + "!");
-	        } catch (NumberFormatException e) {
-	            dialog.showAlert("Invalid Input", "Please enter a valid number.");
-	        }
-	    }else {
-	    	currentPlayer.move(steps);
-    		currentPlayerView.animateMovement(steps);
-	    }
-		
+				dialog.showAlert("Switch Successful",
+						"You have switched places with " + selectedPlayer.getName() + "!");
+			} catch (NumberFormatException e) {
+				dialog.showAlert("Invalid Input", "Please enter a valid number.");
+			}
+		} else {
+			currentPlayer.move(steps);
+			currentPlayerView.animateMovement(steps);
+		}
 	}
+
 }

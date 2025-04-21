@@ -40,6 +40,14 @@ public class Game {
 		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 	}
 	
+	public Player getNextPlayer() {
+		if (players.isEmpty()) {
+			throw new NoPlayersInGameException("No players available in the game.");
+		}
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		return players.get(currentPlayerIndex);
+	}
+	
 	//Method to get the current player
     public Player getCurrentPlayer() {
         if (players.isEmpty()) {

@@ -9,6 +9,7 @@ import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -382,47 +383,16 @@ private void loadQuestions() {
      * Handles keyboard input events.
      * 
      * @param event The key event
-     *
+     **/
+    @FXML
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.P) {
             toggleQuestionCardVisibility();
-        }  else if (event.getCode() == KeyCode.A) {
-            movePlayerRandomSteps();
-        }
+        }  
     }
-    **/
     
-    /**
-     * Moves the player a random number of steps.
-     *
-    private void movePlayerRandomSteps() {
-        int steps = random.nextInt(MAX_DICE_VALUE) + MIN_DICE_VALUE;
-        
-        
-        Player currentPlayer = game.getCurrentPlayer();
-        PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
-        
-        
-        int currentPosition = currentPlayer.getPosition();
-        int remainingSteps = currentPlayerView.getSpaces().size() - currentPosition - 1;
-        
-        
-        
-
-        if (steps > remainingSteps) {
-            steps = remainingSteps;
-        }
-
-        currentPlayer.move(steps);
-        //currentPlayerView.updatePosition();
-        currentPlayerView.animateMovement(steps);
-
-        displayQuestionCardBasedOnPosition();
-        game.nextPlayer();
-       
-        System.out.println(game.getCurrentPlayer().getName() + " moved " + steps + " spaces.");
-    }
-    */
+    
+    
     
     /**
      * Toggles the visibility of the question card.
@@ -479,55 +449,54 @@ private void loadQuestions() {
     
 
 
-
 @FXML
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
-   
+
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
-        // Get the current question from the validerButton
+        // Récupérer la question actuelle
         Question currentQuestion = (Question) validerButton.getUserData();
         if (currentQuestion == null) {
             dialog.showAlert("No question active", "You can only use a hint when a question is displayed.");
             return;
         }
 
-        // Find all incorrect responses
+        // Trouver toutes les mauvaises réponses encore activées
         RadioButton[] responseButtons = {response1, response2, response3, response4};
-        List<RadioButton> incorrectResponses = new ArrayList<>();
-
-        for (RadioButton rb : responseButtons) {
-            if (rb.isVisible() && rb.getUserData() != null) {
+        List<RadioButton> incorrectResponses = Arrays.stream(responseButtons)
+            .filter(rb -> rb.isVisible() && !rb.isDisable() && rb.getUserData() != null)
+            .filter(rb -> {
                 int responseIndex = (int) rb.getUserData();
-                if (!currentQuestion.isCorrectResponse(responseIndex)) {
-                    incorrectResponses.add(rb);
-                }
-            }
-        }
+                return !currentQuestion.isCorrectResponse(responseIndex);
+            })
+            .collect(Collectors.toList());
 
-        // If there are incorrect options, remove one randomly
+        // Vérifier s'il reste des mauvaises réponses à désactiver
         if (!incorrectResponses.isEmpty() && currentPlayer.getHintCount() < 2) {
+            // Désactiver une mauvaise réponse aléatoire
             RadioButton toDisable = incorrectResponses.get(random.nextInt(incorrectResponses.size()));
-            incorrectResponses.remove(toDisable);
             toDisable.setDisable(true);
             toDisable.setStyle("-fx-opacity: 0.5; -fx-text-fill: gray;");
 
-            // Use hint
-            MenuController.getSecondarySound().playMedia("hint.wav", 0.1);
+            // Utiliser un indice
+            MenuController.getSecondarySound().playMedia("hint.wav", SOUND_VOLUME);
             currentPlayer.useHint();
             currentPlayer.increasehintCount();
             dialog.showAlert("Hint used", "One incorrect option has been removed.");
         } else {
             dialog.showAlert("Hint unavailable", "You have already used 2 hints this round.");
             currentPlayer.setUsedHintThisRound(true);
+            MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
         }
-        
     } else {
-        dialog.showAlert("No hints left", "You have no hints left or have already used a hint this round.");
+        dialog.showAlert("No hints left", "You have no hints left or you have already used 2 this round.");
+        MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
     }
+
+    // Mettre à jour l'affichage des indices
     updateHintsDisplay();
-    
 }
+
 
 
 private void updateHintsDisplay() {
@@ -549,10 +518,14 @@ private void updateHintsDisplay() {
 
     @FXML    
     protected void onVolumeClicked(MouseEvent event) {
-    	if (MenuController.getTimerSound().isPlaying()) {
+    	if (MenuController.getTimerSound().isPlaying() || standingsPane.isVisible()) {
     		return;
     	}
-    	
+    	updateVolumeImage();
+    }
+    
+    private void updateVolumeImage() {
+
         if (Main.getMainSound().isMuted()) {
             volumeImage.setImage(new Image(VOLUME_ON_IMAGE));
             Main.getMainSound().unMuteMedia();
@@ -561,7 +534,6 @@ private void updateHintsDisplay() {
             volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
         }
     }
-    
     /**
      * Displays the next question card with animation.
      */
@@ -650,6 +622,7 @@ private void updateHintsDisplay() {
 
         if (reponse.getSelectedToggle() == null) {
             dialog.showAlert("No answer selected", "Please select an answer before validating.");
+            MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
             return;
         }
 
@@ -659,16 +632,17 @@ private void updateHintsDisplay() {
         boolean isCorrect = currentQuestion.isCorrectResponse(selectedResponseIndex);
         Player currentPlayer = game.getCurrentPlayer();
 
-        if (isCorrect) {
+        if (isCorrect ) {
             stopTimer();
             MenuController.getSecondarySound().playMedia("good.wav", SOUND_VOLUME);
+            
             
             // Increase score based on difficulty
             currentPlayer.increaseScore(difficulty * 50 + 50);
             currentPlayer.increaseStreak();
         
-            
             dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+            
             
             if (currentPlayer.hasThreeStreaks()) {
                 dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
@@ -690,7 +664,15 @@ private void updateHintsDisplay() {
                 MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
             }
 
-            movePlayerForward(stepsToMove);
+            movePlayerForward(24);
+            if (currentPlayer.getPosition() + stepsToMove >= 23) {
+    		    // Add the current player to the standings
+    		    standingsPlayers.add(currentPlayer);
+    		    currentPlayer.setAtTheEnd();
+    		    dialog.showAlert("Congrats", "You have reached the end of the game!");
+    		    updatePlayerPostions();
+    		    
+    		}
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
@@ -703,11 +685,7 @@ private void updateHintsDisplay() {
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
        
-        
-		if (currentPlayer.getPosition() + stepsToMove >= 23) {
-			standingsPlayers.add(currentPlayer);
-		    currentPlayer.setAtTheEnd();
-		}
+
 
         // Get next player before showing the turn message
         nextPlayer();
@@ -774,10 +752,10 @@ private void updateHintsDisplay() {
            
               
                 // Check if player reached the finish line
-                if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
+                /*if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
                     handlePlayerFinish(playerIndex);
                     return;
-                }
+                }*/
                 
                 // Check if player landed on a malus space
                 if (currentRectangle.getStyleClass().contains("mystery")) {
@@ -831,30 +809,30 @@ private void updateHintsDisplay() {
             Platform.runLater(() -> {
                 standingsPane.setVisible(true);
                 playTransition(standingsPane, false);
+                Main.getMainSound().stopMedia();
+                MenuController.getSecondarySound().playMedia("victory.wav", SOUND_VOLUME);
             });
         });
         
         dialog.showAlert("End of the game", "All players have finished the game!");
         pause.play();
+        
     }
 
     /**
      * Handles a player reaching the finish line.
      * @param playerIndex The index of the player who finished
      */
-    private void handlePlayerFinish(int playerIndex) {
+    private void handlePlayerFinish(int index) {
        
         
         // Remove the player from the game and update UI
-        removePlayerFromGame(playerIndex);
-        updatePlayerPostions();
+        game.getPlayers().remove(index);
+    	playerViews.remove(index);
         
-        // Change to next player
-        nextPlayer();
         dialog.showAlert("Congrats", "You have reached the end of the game!");
+  
         
-        // Wait for animation and proceed to next player's turn
-        waitForAnimation();
     }
     
     //Test 
@@ -1336,12 +1314,26 @@ private void displayGif(String file) {
 	
 	public void nextPlayer() {
 		
+		Player oldPlayer = game.getCurrentPlayer();
+	
+		
 		// Check if game is finished (only one player left)
-        if (standingsPlayers.size() == players.size() - 1) {
+        if (standingsPlayers.size() == game.getPlayers().size() -1 || nbPlayers == 2 && standingsPlayers.size() == 1) {
         	updatePlayerPostions();
             handleGameEnd();
             return;
         }
+        
+        if (standingsPlayers.contains(oldPlayer)) {
+        	int size = standingsPlayers.size();
+        	
+        	for(int i = 0; i< nbPlayers - size; i++) {
+        		game.nextPlayer();
+        	}
+			nextPlayer();
+			return;
+		}
+        
 		
 	    for (Player player : players) {
 	        player.setUsedHintThisRound(false);
@@ -1401,6 +1393,9 @@ private void displayGif(String file) {
 			updateHintsDisplay();
 			playerViews.get(i).updatePosition();
 		}
+		Main.getMainSound().playMedia("georgeTheme.mp3", 0.1);
+		updateVolumeImage();
+	
 		updatePlayerPostions();
 		standingsPlayers.clear();
 		game.setCurrentPlayerIndex(0);
@@ -1410,10 +1405,7 @@ private void displayGif(String file) {
 		
 	}
 	
-	private void removePlayerFromGame(int index) {
-		game.getPlayers().remove(index);
-    	playerViews.remove(index);
-	}
+	
 	
 	private void updatePlayerPostions(){
 		int position;

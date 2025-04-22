@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -30,7 +31,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-				Pane root = (Pane)FXMLLoader.load(getClass().getResource("../view/menuView.fxml"));
+				Parent root = (Parent)FXMLLoader.load(getClass().getResource("../view/menuView.fxml"));
 				
 				// Obtenir les dimensions de l'écran
 		        double screenWidth = Screen.getPrimary().getBounds().getWidth();

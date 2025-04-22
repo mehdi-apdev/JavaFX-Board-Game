@@ -706,7 +706,7 @@ private void updateHintsDisplay() {
             
             /*random = new Random();
             int rd =random.nextInt(5, 8);*/
-            movePlayerForward(24);
+            movePlayerForward(stepsToMove);
             System.out.println("Player " + currentPlayer.getName() + " moved forward " + stepsToMove + " spaces.");
          
 			if (currentPlayer.getPosition() == 23) {

@@ -185,6 +185,7 @@ public class PlayerChoiceViewController {
 
 			// Use a StackPane to overlay the views
 			StackPane stackPane = new StackPane(currentRoot, newRoot);
+		
 			currentScene.setRoot(stackPane);
 
 			// Determine slide direction

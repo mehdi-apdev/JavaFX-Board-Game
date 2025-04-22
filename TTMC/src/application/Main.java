@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import models.QuestionLoader;
 import models.DialogWindow;
@@ -37,9 +38,12 @@ public class Main extends Application {
 		        double screenWidth = Screen.getPrimary().getBounds().getWidth();
 		        double screenHeight = Screen.getPrimary().getBounds().getHeight();
 		        
-				Scene scene = new Scene(root,screenWidth,screenHeight);
+				Scene scene = new Scene(root,1536,864);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				primaryStage.setScene(scene);
+				primaryStage.setTitle("TTMC");
+		        primaryStage.setResizable(false);
+
 				
 				//play music
 				mainSound.playMedia("georgeTheme.mp3", 0.05);

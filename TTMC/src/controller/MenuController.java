@@ -156,6 +156,7 @@ public class MenuController {
 
 			// Use a StackPane to overlay the views
 			StackPane stackPane = new StackPane(currentRoot, newRoot);
+			
 			currentScene.setRoot(stackPane);
 
 			// Position the new view off-screen (to the right)

@@ -18,7 +18,7 @@
             <Image url="@../../ressources/images/cartoon-nature-forest-scenery-free-vector.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5c705a" height="305.0" layoutX="-54.0" layoutY="617.0" rotate="3.8" stroke="BLACK" strokeType="INSIDE" width="1629.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5c705a" height="294.0" layoutX="-54.0" layoutY="617.0" rotate="3.8" stroke="BLACK" strokeType="INSIDE" width="1596.0" />
       <Pane layoutX="495.0" layoutY="130.0" prefHeight="452.0" prefWidth="560.0" style="-fx-background-color: #5c705a; -fx-border-color: BLAck;">
          <children>
             <TextField fx:id="playerName" layoutX="170.0" layoutY="50.0" prefHeight="27.0" prefWidth="232.0" promptText="Enter your name">
@@ -99,12 +99,12 @@
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="294.0" layoutY="684.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- (Themes: Unlikely, Entertainment, Computer Science, Education).">
+      <Text fill="WHITE" layoutX="294.0" layoutY="684.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- (Themes: Improbable, Entertainment, Computer Science, Education).">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="294.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ✅ Correct = move forward (1 to 3 tiles based on difficulty)">
+      <Text fill="WHITE" layoutX="294.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- ✅ Correct = move forward (1 to 4 tiles based on difficulty)">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
@@ -119,17 +119,17 @@
             <Font name="Eras Bold ITC" size="16.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="828.0" layoutY="692.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Each correct answer = +1 point">
+      <Text fill="WHITE" layoutX="831.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Each correct answer + x points (based on difficulty)" wrappingWidth="359.3453369140625">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="828.0" layoutY="714.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 3 points = 1 hint (removes one wrong answer)">
+      <Text fill="WHITE" layoutX="828.0" layoutY="740.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Player can use 2 hints per question">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="828.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Max 3 hints per player per game">
+      <Text fill="WHITE" layoutX="828.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Player starts with 3 hints">
          <font>
             <Font name="Eras Bold ITC" size="13.0" />
          </font>

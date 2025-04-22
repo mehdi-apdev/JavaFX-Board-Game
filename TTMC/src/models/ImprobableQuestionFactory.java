@@ -17,4 +17,7 @@ public class ImprobableQuestionFactory implements QuestionFactory {
 	public List<Question> getQuestions() {
 		return questions;
 	}
+	public void setQuestions(List<Question> questions) {
+	    this.questions = new ArrayList<>(questions);
+	}
 }

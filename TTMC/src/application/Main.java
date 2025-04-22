@@ -17,6 +17,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.QuestionLoader;
+import models.DialogWindow;
 import models.Question;
 import models.QuestionCard;
 import models.QuestionCardFactory;
@@ -49,13 +50,10 @@ public class Main extends Application {
 				public void handle(WindowEvent event) {
 					System.out.println(event.getEventType());
 						
-					Alert alert = new Alert(AlertType.CONFIRMATION); 
-					alert.setTitle("Exit Program"); 
-					alert.setHeaderText("Confirm Exit");
-					alert.setContentText("Are you sure that you want to exit the program?");
+					DialogWindow alert = new DialogWindow();
+					boolean result = alert.showConfirmationDialog("Quit", "Do you really want to quit the game?");
 						
-					Optional<ButtonType> result = alert.showAndWait();
-					if(result.isPresent() && result.get() == ButtonType.OK) {
+					if(result) {
 						Platform.exit(); 
 					}
 					else {

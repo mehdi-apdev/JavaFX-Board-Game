@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 /*
  * This class is used to create dialog windows for information, confirmation, and input.
@@ -16,6 +18,8 @@ import javafx.scene.control.Alert.AlertType;
 public class DialogWindow {
 	private Alert alertInfo;
 	private Alert alertConfirm;
+	private static final String ICON_PATH = "file:ressources/images/logoGj.png";
+	private ImageView imageView;
 	
 	// Constructor
 	public DialogWindow() {
@@ -31,6 +35,19 @@ public class DialogWindow {
 	 * @param message The message to be displayed in the alert window.
 	 */
 	public void showAlert(String title, String message) {
+		
+		/*Image in the dialog box
+        Loading the image*/
+		 // Initialiser l'ImageView
+	    imageView = new ImageView();
+        imageView.setImage(new Image(ICON_PATH));
+        // Adjust size
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(90);
+        imageView.setPreserveRatio(false);
+        //Adds the ImageView (containing the image) as a graphic element to the dialog box.
+        alertInfo.setGraphic(imageView);
+        
 		alertInfo.setHeaderText(title);
 		alertInfo.setContentText(message);
 		alertInfo.getDialogPane().setStyle("");
@@ -52,6 +69,12 @@ public class DialogWindow {
 	 * @return true if the user clicked "Ok", false otherwise.
 	 */
 	public boolean showConfirmationDialog(String title, String text) {
+		imageView = new ImageView();
+        imageView.setImage(new Image(ICON_PATH));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(90);
+        imageView.setPreserveRatio(false);
+        alertConfirm.setGraphic(imageView);
 		alertConfirm.setHeaderText(title);
 		alertConfirm.setContentText(text);
 		alertConfirm.getDialogPane().setStyle("");

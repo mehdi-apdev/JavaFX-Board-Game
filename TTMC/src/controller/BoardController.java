@@ -116,7 +116,7 @@ public class BoardController {
     @FXML private ImageView volumeImage, timerImage, bonusMalusImage;
     @FXML private VBox questionsContainer, questionBox;
     @FXML private Label themeLabel, questionLabel1, questionLabel2, questionLabel3, questionLabel4,  questionSelectionneeLabel;
-    @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4, timerLabel;
+    @FXML private Label namePlayer1, namePlayer2, namePlayer3, namePlayer4,currentPlayerLabelOnQuestionCard,timerLabel;
     @FXML private Label playerHint1, playerHint2, playerHint3, playerHint4;
     @FXML private RadioButton response1, response2, response3, response4;
     @FXML private ToggleGroup reponse;
@@ -156,7 +156,7 @@ public class BoardController {
         initializePlayersPos();
        // initializeEventHandlers();
         loadQuestions();
-        
+        board.setOnKeyPressed(this::handleToggleQuestionCard);
 		Platform.runLater(() -> {
 			// Display the first question card
 			displayQuestionCardBasedOnPosition();
@@ -315,17 +315,21 @@ public class BoardController {
     private void initializeStandingsPlayersLabel() {
 		standingsLabels = new ArrayList<>();
 		standingsLabels.add(playerStandingLabel1);
-		playerStandingLabel1.setVisible(false);
 		standingsLabels.add(playerStandingLabel2);
-		playerStandingLabel2.setVisible(false);
-		standingsLabels.add(playerStandingLabel3);
-		playerStandingLabel3.setVisible(false);
+		standingsLabels.add(playerStandingLabel3);	
 		standingsLabels.add(playerStandingLabel4);
-		playerStandingLabel4.setVisible(false);
+		
+	    for (Label label : standingsLabels) {
+	        label.setLayoutX(0); 
+	        label.setVisible(false); 
+	    }
 
 		for (int i = 0; i < standingsPlayers.size(); i++) {
-			standingsLabels.get(i).setText(i+1+". "+standingsPlayers.get(i).getName());
-			standingsLabels.get(i).setVisible(true);
+			double centerX = (standingsPane.getWidth() - standingsLabels.get(i).getWidth()) / 2;
+			
+			standingsLabels.get(i).setText((i + 1) + ". " + standingsPlayers.get(i).getName());
+			standingsLabels.get(i).setLayoutX(centerX);
+	        standingsLabels.get(i).setVisible(true);
 		}
     	
     }
@@ -381,6 +385,13 @@ private void loadQuestions() {
             quitGame();
         }
     }
+    
+	
+    @FXML
+	private void onExitButton(ActionEvent event) {
+		MenuController.getTouchSound().playMedia(CLICK_SOUND, SOUND_VOLUME);
+		navigateToView("../view/menuView.fxml", event);
+	}
     
     /**
      * Handles keyboard input events.
@@ -499,6 +510,32 @@ private void onHintButtonClicked(ActionEvent event) {
     // Mettre à jour l'affichage des indices
     updateHintsDisplay();
 }
+
+/**
+ * Toggles the visibility of the question card using the 'H' key.
+ * The card can only be toggled if no question has been selected yet.
+ *
+ * @param event The key event
+ */
+@FXML
+private void handleToggleQuestionCard(KeyEvent event) {
+    if (event.getCode() == KeyCode.H) {
+        // Check if the question box is visible (indicating a question is selected)
+        if (questionBox.isVisible()) {
+        	MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
+            //dialog.showAlert("Action Not Allowed", "You cannot hide the question card after selecting a question.");
+            return;
+        }
+
+        // Toggle the visibility of the question card
+        MenuController.getSecondarySound().playMedia("slide.wav", 0.4);
+        boolean isVisible = questionCard.isVisible();
+        questionCard.setVisible(!isVisible);
+        questionsContainer.setVisible(!isVisible);
+
+    }
+}
+
 
 
 
@@ -669,7 +706,7 @@ private void updateHintsDisplay() {
             
             /*random = new Random();
             int rd =random.nextInt(5, 8);*/
-            movePlayerForward(stepsToMove);
+            movePlayerForward(24);
             System.out.println("Player " + currentPlayer.getName() + " moved forward " + stepsToMove + " spaces.");
          
 			if (currentPlayer.getPosition() == 23) {
@@ -1008,7 +1045,10 @@ private void updateHintsDisplay() {
      */
 
 private void displayQuestionCard(QuestionCard card) {
+	int playerIndex = game.getCurrentPlayerIndex();
 	MenuController.getSecondarySound().playMedia("zoom.wav", SOUND_VOLUME);
+	currentPlayerLabelOnQuestionCard.setText(game.getCurrentPlayer().getName()+"'s turn");
+	currentPlayerLabelOnQuestionCard.setTextFill(playerViews.get(playerIndex).getCircle().getFill());
     themeLabel.setText("Theme: " + card.getTheme().toString());
 
     List<Question> questions = card.getQuestions();
@@ -1384,7 +1424,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 		standingsPane.setVisible(false);
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).setPosition(0);
-			players.get(i).setScore(0);
+			players.get(i).resetScore();
 			players.get(i).resetStreak();
 			players.get(i).setHint(3);
 			players.get(i).setUsedHintThisRound(false);
@@ -1392,8 +1432,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 			players.get(i).setHintCount(0);
 			players.get(i).setBlocked(false);
 			players.get(i).setUsedHintThisRound(false);
-			//players.get(i).setIsBlocked(false);
-			//players.get(i).setHasThreeStreaks(false);
+			players.get(i).setBlocked(false);
 			updateScoreAndStreakDisplay();
 			updateHintsDisplay();
 			playerViews.get(i).updatePosition();

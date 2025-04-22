@@ -64,6 +64,7 @@ public class Player {
 			throw new IllegalArgumentException("Score to increase cannot be negative.");
 		}
 		this.score += score;
+		this.nbQuestionsAnswerd++;
 	}
 
 	/**
@@ -84,12 +85,9 @@ public class Player {
 	 * 
 	 * @param score The new score.
 	 */
-	public void setScore(int score) {
-		if (score < 0) {
-			throw new IllegalArgumentException("Score cannot be negative.");
-		}
-		this.score += score;
-		this.nbQuestionsAnswerd++;
+	
+	public void resetScore() {
+		this.score = 0;
 	}
 	
 	public int getScore() {

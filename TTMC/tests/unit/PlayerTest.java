@@ -65,19 +65,19 @@ public class PlayerTest {
         assertEquals(0, player.averageScore());
 
         // First score of 100
-        player.setScore(100);
+        player.increaseScore(100);
 
         // Average should be 100
         assertEquals(100, player.averageScore());
 
         // Second score of 50
-        player.setScore(50);
+        player.increaseScore(50);
 
         // Average should be (100 + 50) / 2 = 75
         assertEquals(75, player.averageScore());
 
         // Third score of 150
-        player.setScore(150);
+        player.increaseScore(150);
 
         // Average should be (100 + 50 + 150) / 3 = 100
         assertEquals(100, player.averageScore());
@@ -115,10 +115,10 @@ public class PlayerTest {
     @Test
     void testSetScoreValidAndInvalid() {
         Player player = new Player("Ivy");
-        player.setScore(15);
+        player.increaseScore(15);
         assertEquals(15, player.getScore());
 
-        assertThrows(IllegalArgumentException.class, () -> player.setScore(-1));
+        assertThrows(IllegalArgumentException.class, () -> player.decreaseScore(-1));
     }
 
     @Test

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import application.Main;
 import controller.MenuController;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +24,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.DialogWindow;
 
 
@@ -56,10 +59,16 @@ public class PlayerChoiceViewController {
      * Enum representing available player colors
      */
     public enum PlayerColor {
-        RED(Color.RED),
-        ORANGE(Color.ORANGE),
-        YELLOW(Color.YELLOW),
-        BLUE(Color.BLUE);
+    	RED(Color.web("D61E33")),
+        ORANGE(Color.web("D24E01")),
+        YELLOW(Color.web("FFCE00")),
+        PINK(Color.web("C71585")),
+        GREEN(Color.web("135E46")),
+        PURPLE(Color.PURPLE),
+        BLUE(Color.web("0072BB")),;
+    	
+    	
+    	
         
         private final Color color;
         
@@ -98,7 +107,7 @@ public class PlayerChoiceViewController {
     @FXML
     public void initialize() {
         // Initialize the first color
-        currentPlayerColor = PlayerColor.RED;
+        currentPlayerColor = PlayerColor.RED ;
         playerColor.setFill(currentPlayerColor.getColor());
       
 
@@ -123,10 +132,10 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonBackClicked(ActionEvent event) {
-    	 
+    	MenuController.getTouchSound().playMedia(CONFIRM_SOUND, SOUND_VOLUME);
     	 boolean result = dialog.showConfirmationDialog("YOUR PROGRESS WILL BE LOST", "Are you sure you want to leave the menu?");
          if (result) {
-             navigateToView("../view/menuView.fxml", event, null);
+             navigateToView("../view/menuView.fxml", event, false);
              selectedColors.clear();
              selectedListPlayersNames.clear();
              listPlayersNames.clear();
@@ -141,6 +150,7 @@ public class PlayerChoiceViewController {
      */
     @FXML
     protected void onButtonPlayClicked(ActionEvent event) {
+    	
     	MenuController.getTouchSound().playMedia(CONFIRM_SOUND, SOUND_VOLUME);
     	if (listPlayersNames.size() < 2 ) {
     		dialog.showAlert("HEADS UP !", "You need more players to start the adventure !");
@@ -148,7 +158,7 @@ public class PlayerChoiceViewController {
     	}
         selectedColor = playerColor.getFill();
         selectedListPlayersNames = getListPlayersNames();
-        navigateToView("../view/boardView.fxml", event, CONFIRM_SOUND);
+        navigateToView("../view/boardView.fxml", event, true);
     }
     
     /**
@@ -158,31 +168,52 @@ public class PlayerChoiceViewController {
      * @param event The action event that triggered the navigation
      * @param soundFile The sound file to play during navigation
      */
-    private void navigateToView(String fxmlPath, ActionEvent event, String soundFile) {
-        try {
-            // Play sound
-        	MenuController.getTouchSound().playMedia(soundFile, SOUND_VOLUME);
-            
-            // Load the FXML file of the new interface
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Pane root = fxmlLoader.load();
-            
-            // Create a new scene with the loaded content
-            Scene scene = new Scene(root);
-            
-            // Get the current stage (window)
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-            
-            // Set the new scene on the current stage
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+
+	private void navigateToView(String fxmlPath, ActionEvent event, boolean slideToLeft) {
+		try {
+			MenuController.getSecondarySound().playMedia("slide.wav", 0.5);
+
+			// Get the current scene
+			Node source = (Node) event.getSource();
+			Stage stage = (Stage) source.getScene().getWindow();
+			Scene currentScene = source.getScene();
+			Pane currentRoot = (Pane) currentScene.getRoot();
+
+			// Preload the new interface
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+			Pane newRoot = fxmlLoader.load();
+
+			// Use a StackPane to overlay the views
+			StackPane stackPane = new StackPane(currentRoot, newRoot);
+			currentScene.setRoot(stackPane);
+
+			// Determine slide direction
+			double sceneWidth = currentScene.getWidth();
+			double currentRootTargetX = slideToLeft ? -sceneWidth : sceneWidth;
+			double newRootStartX = slideToLeft ? sceneWidth : -sceneWidth;
+
+			// Position the new view off-screen
+			newRoot.setTranslateX(newRootStartX);
+
+			// Create slide-out transition for the current view
+			TranslateTransition slideOut = new TranslateTransition(Duration.millis(800), currentRoot);
+			slideOut.setToX(currentRootTargetX);
+
+			// Create slide-in transition for the new view
+			TranslateTransition slideIn = new TranslateTransition(Duration.millis(800), newRoot);
+			slideIn.setToX(0);
+
+			// After the animation, remove the old root
+			slideOut.setOnFinished(e -> stackPane.getChildren().remove(currentRoot));
+
+			// Play the animations
+			slideOut.play();
+			slideIn.play();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 import application.Main;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +22,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.DialogWindow;
 import javafx.scene.control.ButtonBar;
 
@@ -46,6 +50,7 @@ public class MenuController {
     //all Sounds effects
     private static Sound touchSound = new Sound();
     private static Sound timerSound = new Sound();
+    private static Sound zoomSound = new Sound();
     private static Sound secondarySound = new Sound();
     //Windows for aletts
     private DialogWindow dialog = new DialogWindow();
@@ -75,6 +80,7 @@ public class MenuController {
      */
     @FXML
     protected void onButtonClicked(ActionEvent event) {
+    	touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
         navigateToView("../view/playerChoiceView.fxml", event);
     }
     
@@ -119,7 +125,7 @@ public class MenuController {
      */
     @FXML
     protected void onButtonQuitClicked(ActionEvent event) {
-        touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
+        zoomSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
         boolean result;
         result = dialog.showConfirmationDialog("QUIT GAME", "Do you really want to leave the adventure?");
         if (result) {
@@ -133,25 +139,50 @@ public class MenuController {
      * @param fxmlPath The path to the FXML file to load
      * @param event The action event that triggered the navigation
      */
-    private void navigateToView(String fxmlPath, ActionEvent event) {
-        try {
-            touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-            
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Pane root = fxmlLoader.load();
-            
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
-            
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
+
+	private void navigateToView(String fxmlPath, ActionEvent event) {
+		try {
+			touchSound.playMedia("slide.wav", 0.5);
+
+			// Get the current scene
+			Node source = (Node) event.getSource();
+			Stage stage = (Stage) source.getScene().getWindow();
+			Scene currentScene = source.getScene();
+			Pane currentRoot = (Pane) currentScene.getRoot();
+
+			// Preload the new interface
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+			Pane newRoot = fxmlLoader.load();
+
+			// Use a StackPane to overlay the views
+			StackPane stackPane = new StackPane(currentRoot, newRoot);
+			currentScene.setRoot(stackPane);
+
+			// Position the new view off-screen (to the right)
+			newRoot.setTranslateX(currentScene.getWidth());
+
+			// Create slide-out transition for the current view
+			TranslateTransition slideOut = new TranslateTransition(Duration.millis(800), currentRoot);
+			slideOut.setToX(-currentScene.getWidth());
+
+			// Create slide-in transition for the new view
+			TranslateTransition slideIn = new TranslateTransition(Duration.millis(800), newRoot);
+			slideIn.setToX(0);
+
+			// After the animation, remove the old root and set the new root
+			slideOut.setOnFinished(e -> {
+				stackPane.getChildren().remove(currentRoot); // Remove the old root
+			
+			});
+
+			// Play the animations
+			slideOut.play();
+			slideIn.play();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
     // Getters for sound effects
     public static Sound getTimerSound() {
 		return timerSound;

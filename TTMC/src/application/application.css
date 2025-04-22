@@ -1,3 +1,16 @@
+
+/* Déclaration de la police personnalisée */
+@font-face {
+    -fx-font-family: "CustomFont";
+    src: url("../../ressources/police/eras-itc-bold.ttf"); /* Ajustez le nom du fichier selon votre police */
+}
+
+/* Application globale de la police */
+.root {
+    -fx-font-family: "CustomFont";
+}
+
+
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 Circle{
 	/*-fx-fill: radial-gradient(focus-angle 45deg, focus-distance 20%, center 50% 50%, radius 50%, rgba(255,0,0,1) 0%, rgba(255,0,0,0.6) 100%);*/
@@ -40,6 +53,13 @@ Circle{
 
 /* Carte de question */
 #questionCard {
+    -fx-background-image: url("../../ressources/images/logoGJ.png");
+    -fx-background-size: 150px;
+    -fx-background-position: top right;
+    -fx-background-repeat: no-repeat;
+    
+    
+    
     -fx-background-color: rgba(245, 245, 220, 0.9); /* Beige transparent */
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
@@ -48,6 +68,7 @@ Circle{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 5);
     -fx-padding: 10px;
 }
+
 /* Style pour DialogPane */
 .dialog-pane {
     -fx-background-color: rgba(245, 245, 220, 0.9); /* Beige transparent */
@@ -157,12 +178,15 @@ Circle{
 }
 
 /* Décoration jungle */
+
+/* 
 #questionCard::before {
-    -fx-background-image: url(file:ressources/images/feuilleJungle.png); /* Ajoutez votre image décorative */
+    -fx-background-image: url(file:ressources/images/feuilleJungle.png); 
     -fx-background-position: top right;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 0.5;
 }
+*/
 Button{
 	 -fx-border-radius: 8px;      
     -fx-background-radius: 8px; 

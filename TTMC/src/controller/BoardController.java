@@ -1574,14 +1574,16 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                higherScorePlayer.getName() + " wins with a score of " + higherScorePlayer.getScore() + 
 	                " against " + lowerScorePlayer.getName() + " with a score of " + lowerScorePlayer.getScore() + "!");
 	            
-	            PauseTransition resultPause = new PauseTransition(Duration.seconds(4));
+	            PauseTransition resultPause = new PauseTransition(Duration.seconds(2));
 	            resultPause.setOnFinished(ev -> {
 	                // Third message - Movement announcement
 	                dialog.showAlert("Player Movement", 
 	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
 	                    lowerScorePlayer.getName() + " moves back 2 spaces.");
 	                
-	                PauseTransition movePause = new PauseTransition(Duration.seconds(3));
+	                
+	                
+	                PauseTransition movePause = new PauseTransition(Duration.seconds(1));
 	                movePause.setOnFinished(evt -> {
 	                    // Move the players
 	                    PlayerView higherScoreView = playerViews.get(higherScoreIndex);
@@ -1600,6 +1602,8 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);
 	                    
+	                    
+	                    
 	                    // Optional: Display animation for collisions
 	                    // displayGif("collision.gif");
 	                    
@@ -1607,9 +1611,10 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);
 	                    
 	                    // Update player positions display
-	                    updatePlayerPostions();
+	                    
 	                });
 	                movePause.play();
+	                updatePlayerPostions();
 	            });
 	            resultPause.play();
 	        });

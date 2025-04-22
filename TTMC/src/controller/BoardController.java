@@ -1032,7 +1032,7 @@ private void displayQuestionCard(QuestionCard card) {
         final int questionIndex = i;
         
         Question question = sortedQuestions.get(i);
-        labels[i].setText(question.getTexte() + " (Difficulty: " + question.getDifficulty() + ")");
+        labels[i].setText("Difficulty: " + question.getDifficulty() + "");
         labels[i].setVisible(true);
 
         labels[i].setOnMouseClicked(event -> {

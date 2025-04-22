@@ -29,7 +29,7 @@ public class BonusSwitchPlayer implements MysteryState {
 		// Liste des joueurs disponibles pour l'échange
 		List<Player> availablePlayers = game.getPlayers().stream()
 				.filter(player -> player.getPosition() != currentPlayer.getPosition()) // Include players not at the same position
-				.filter(player -> player.getPosition() < currentPlayer.getPosition()) // Include players behind the current player
+				.filter(player -> player.getPosition() > currentPlayer.getPosition()) // Include players behind the current player
 				.filter(player -> !player.isAtTheEnd()) // Include players not at the end																		
 				.collect(Collectors.toList());
 
@@ -65,8 +65,8 @@ public class BonusSwitchPlayer implements MysteryState {
 
 				// Échanger les positions
 				int tempPosition = currentPlayer.getPosition();
-				currentPlayer.setPosition(selectedPlayer.getPosition());
-				selectedPlayer.setPosition(tempPosition);
+				currentPlayer.setPosition(selectedPlayer.getPosition()+1);
+				selectedPlayer.setPosition(tempPosition+1);
 
 				// Mettre à jour les animations
 				PlayerView selectedPlayerView = playerViews.get(game.getPlayers().indexOf(selectedPlayer));

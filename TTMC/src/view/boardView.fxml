@@ -305,6 +305,11 @@
                 <Label fx:id="questionLabel4" alignment="CENTER" maxWidth="650" text="Question 1" textAlignment="CENTER" visible="false" wrapText="true" />
             </children>
         </VBox>
+            <Label layoutX="35.0" layoutY="536.0" prefHeight="31.0" prefWidth="552.0" style="-fx-text-fill: #5C3D2E;" text="Press &quot;H&quot; to hide " textFill="#696262">
+               <font>
+                  <Font name="Eras Bold ITC" size="18.0" />
+               </font>
+            </Label>
     </children>
 </AnchorPane>
 

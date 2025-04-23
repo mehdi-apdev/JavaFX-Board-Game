@@ -523,7 +523,7 @@ private void handleToggleQuestionCard(KeyEvent event) {
         // Check if the question box is visible (indicating a question is selected)
         if (questionBox.isVisible()) {
         	MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
-            //dialog.showAlert("Action Not Allowed", "You cannot hide the question card after selecting a question.");
+            dialog.showAlert("Action Not Allowed", "You cannot hide the question card after selecting a question.");
             return;
         }
 
@@ -1620,7 +1620,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
 	                    lowerScorePlayer.getName() + " moves back 2 spaces.");
 	                
-	                
+	      
 	                
 	                PauseTransition movePause = new PauseTransition(Duration.seconds(1));
 	                movePause.setOnFinished(evt -> {
@@ -1644,7 +1644,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    
 	                    
 	                    // Optional: Display animation for collisions
-	                    // displayGif("collision.gif");
+	                    displayGif(BONUS_GIF);
 	                    
 	                    // Optional: Play sound effect
 	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);

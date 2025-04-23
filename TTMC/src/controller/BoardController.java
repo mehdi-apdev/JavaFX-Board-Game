@@ -393,17 +393,7 @@ private void loadQuestions() {
 		navigateToView("../view/menuView.fxml", event);
 	}
     
-    /**
-     * Handles keyboard input events.
-     * 
-     * @param event The key event
-     **/
-    @FXML
-    private void handleKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.P) {
-            toggleQuestionCardVisibility();
-        }  
-    }
+   
     
     
     
@@ -517,23 +507,39 @@ private void onHintButtonClicked(ActionEvent event) {
  *
  * @param event The key event
  */
+
 @FXML
 private void handleToggleQuestionCard(KeyEvent event) {
-    if (event.getCode() == KeyCode.H) {
-        // Check if the question box is visible (indicating a question is selected)
-        if (questionBox.isVisible()) {
-        	MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
-            dialog.showAlert("Action Not Allowed", "You cannot hide the question card after selecting a question.");
-            return;
-        }
+	if (event.getCode() == KeyCode.H) {
+		// Check if the question box is visible (indicating a question is selected)
+		if (questionBox.isVisible()) {
+			MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
+			dialog.showAlert("Action Not Allowed", "You cannot hide the question card after selecting a question.");
+			return;
+		}
 
-        // Toggle the visibility of the question card
-        MenuController.getSecondarySound().playMedia("slide.wav", 0.4);
-        boolean isVisible = questionCard.isVisible();
-        questionCard.setVisible(!isVisible);
-        questionsContainer.setVisible(!isVisible);
+		// Toggle the visibility of the question card
+		MenuController.getSecondarySound().playMedia("slide.wav", 0.4);
+		boolean isVisible = questionCard.isVisible();
 
-    }
+		// Check if the message label already exists
+		Label message = (Label) board.lookup("#toggleMessage");
+		if (message == null) {
+			message = new Label("Press 'H' to display the question card");
+			message.setId("toggleMessage");
+			message.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-family: 'Eras Bold ITC'; -fx-font-weight: bold;");
+			 // Center the message on the board
+	        message.layoutXProperty().bind(board.widthProperty().subtract(message.widthProperty()).divide(2));
+	        message.layoutYProperty().bind(board.heightProperty().subtract(message.heightProperty()).divide(1));
+
+			board.getChildren().add(message);
+		}
+		// Update the visibility of the message
+		message.setVisible(!!isVisible);
+		// Toggle the visibility of the question card and container
+		questionCard.setVisible(!isVisible);
+		questionsContainer.setVisible(!isVisible);
+	}
 }
 
 
@@ -1644,7 +1650,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    
 	                    
 	                    // Optional: Display animation for collisions
-	                    displayGif(BONUS_GIF);
+	                    //displayGif(BONUS_GIF);
 	                    
 	                    // Optional: Play sound effect
 	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);

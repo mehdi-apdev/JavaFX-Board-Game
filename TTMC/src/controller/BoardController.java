@@ -553,8 +553,6 @@ private void updateHintsDisplay() {
 }
 
 
-    
-   
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.
@@ -653,9 +651,30 @@ private void updateHintsDisplay() {
        playAgain();
     }
     
-    
-
-    
+	private void randomMystery() {
+		int randomIndex = ThreadLocalRandom.current().nextInt(0, 5);
+		switch (randomIndex) {
+		case 0:
+			handlePlayerBonusForward();
+			break;
+		case 1:
+			handleFreezeOpponent();
+			break;
+		case 2:
+			handlePlayerScoreBonus();
+			break;
+		case 3:
+			handlePlayerHintBonus();
+			break;
+		case 4:
+			handleSwitchPlayers();
+			break;
+		case 5:
+            handlePlayerMovingBack();
+            break;
+		}
+     }
+	
     /**
      * Handles the validate button click to check the selected answer.
      * 
@@ -681,15 +700,11 @@ private void updateHintsDisplay() {
         if (isCorrect ) {
             stopTimer();
             MenuController.getSecondarySound().playMedia("good.wav", SOUND_VOLUME);
-            
-            
             // Increase score based on difficulty
             currentPlayer.increaseScore(difficulty * 50 + 50);
             currentPlayer.increaseStreak();
-        
-            dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
-            
-            
+            //dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
+
             if (currentPlayer.hasThreeStreaks()) {
                 dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
                 currentPlayer.resetStreak();
@@ -704,7 +719,7 @@ private void updateHintsDisplay() {
                 } else {
                     currentPlayer.increaseScore(70);
                 }
-                
+
                 stepsToMove += 2;
                 displayGif(BONUS_GIF);
                 MenuController.getSecondarySound().playMedia("bonus.mp3", SOUND_VOLUME);
@@ -714,9 +729,9 @@ private void updateHintsDisplay() {
             int rd =random.nextInt(5, 8);*/
             movePlayerForward(stepsToMove);
             System.out.println("Player " + currentPlayer.getName() + " moved forward " + stepsToMove + " spaces.");
-         
+            
+            // Check if the player has reached the end of the game        	
 			if (currentPlayer.getPosition() == 23) {
-
     		    // Add the current player to the standings
     		    standingsPlayers.add(currentPlayer);
     		    currentPlayer.setAtTheEnd();
@@ -724,6 +739,20 @@ private void updateHintsDisplay() {
     		    updatePlayerPostions();
     		    
     		}
+			// Check if the player is on a mystery space
+			if (playerView.getSpaces().get(currentPlayer.getPosition()).getStyleClass().contains("mystery")) {
+				PauseTransition pause = new PauseTransition(Duration.seconds(3));
+				pause.setOnFinished(e -> {
+					Platform.runLater(() -> {
+						randomMystery();
+					});
+				});
+				pause.play();
+				toggleQuestionCardVisibility();
+				updateScoreAndStreakDisplay();
+				return;// Stop here beacause random already execute nextPlayer()
+			}
+
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
@@ -735,13 +764,8 @@ private void updateHintsDisplay() {
         stopTimer();
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
-       
-
-
         // Get next player before showing the turn message
-        nextPlayer();
-
-		         
+        nextPlayer();       
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
         if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
@@ -749,7 +773,6 @@ private void updateHintsDisplay() {
         }
     }
 
-    
     /**
      * Moves the player forward a specified number of steps.
      * 
@@ -799,43 +822,6 @@ private void updateHintsDisplay() {
                 // Get rectangle at current position
                 Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
                 String fillColor = currentRectangle.getFill().toString();
-                
-           
-              
-                // Check if player reached the finish line
-                /*if (fillColor.equalsIgnoreCase(whiteStr) || currentRectangle.getStyleClass().contains("last")) {
-                    handlePlayerFinish(playerIndex);
-                    return;
-                }*/
-                
-                // Check if player landed on a malus space
-                if (currentRectangle.getStyleClass().contains("mystery")) {
-                	
-                	int randomMystery = ThreadLocalRandom.current().nextInt(1, 7);
-                	
-                	switch (randomMystery) {
-                		case 1:
-                			handlePlayerMovingBack();
-                			break;
-                		case 2:
-                			handleSwitchPlayers();
-                			break;
-                		case 3:
-                			handlePlayerBonusForward();
-                			break;
-                		case 4 :
-                			handlePlayerHintBonus();
-                			break;
-                		case 5 :
-                			handleFreezeOpponent();
-							break;
-                		case 6 :
-                			handlePlayerScoreBonus();
-							break;
-                	}
-                    
-                    return;
-                }
                 
                 // Display appropriate question card based on the space color
                 displayQuestionCardByColor(fillColor);
@@ -1342,7 +1328,7 @@ private void displayGif(String file) {
     scaleTransition.play();
 
     // Hide after delay
-    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+    PauseTransition pause = new PauseTransition(Duration.seconds(4));
     pause.setOnFinished(e -> georgeBonusGifPane.setVisible(false));
     pause.play();
 }
@@ -1622,9 +1608,9 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	            PauseTransition resultPause = new PauseTransition(Duration.seconds(2));
 	            resultPause.setOnFinished(ev -> {
 	                // Third message - Movement announcement
-	                dialog.showAlert("Player Movement", 
+	                /*dialog.showAlert("Player Movement", 
 	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
-	                    lowerScorePlayer.getName() + " moves back 2 spaces.");
+	                    lowerScorePlayer.getName() + " moves back 2 spaces.");*/
 	                
 	      
 	                
@@ -1643,14 +1629,14 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    higherScoreView.animateMovement(moveForwardSteps);
 	                    
 	                    // Move lower score player back (but not before start)
-	                    int moveBackSteps = Math.min(2, lowerScorePlayer.getPosition());
+	                    int moveBackSteps = Math.min(1, lowerScorePlayer.getPosition());
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);
 	                    
 	                    
 	                    
 	                    // Optional: Display animation for collisions
-	                    //displayGif(BONUS_GIF);
+	                    
 	                    
 	                    // Optional: Play sound effect
 	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);
@@ -1662,6 +1648,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                updatePlayerPostions();
 	            });
 	            resultPause.play();
+	            displayGif("file:ressources/images/georgeBattleGif.gif");
 	        });
 	        battlePause.play();
 	        

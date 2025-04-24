@@ -391,13 +391,9 @@ private void loadQuestions() {
 	private void onExitButton(ActionEvent event) {
 		MenuController.getTouchSound().playMedia(CLICK_SOUND, SOUND_VOLUME);
 		navigateToView("../view/menuView.fxml", event);
+		quitGame();
 	}
-    
-   
-    
-    
-    
-    
+
     /**
      * Toggles the visibility of the question card.
      */
@@ -449,10 +445,8 @@ private void loadQuestions() {
         
         return spacesTmp;
     }
-    
-    
 
-
+    
 @FXML
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
@@ -652,7 +646,8 @@ private void updateHintsDisplay() {
     }
     
 	private void randomMystery() {
-		int randomIndex = ThreadLocalRandom.current().nextInt(0, 5);
+		// Randomly select a mystery effect
+		int randomIndex = ThreadLocalRandom.current().nextInt(0, 6);
 		switch (randomIndex) {
 		case 0:
 			handlePlayerBonusForward();
@@ -673,6 +668,9 @@ private void updateHintsDisplay() {
             handlePlayerMovingBack();
             break;
 		}
+        updateScoreAndStreakDisplay();
+		nextPlayer();
+		
      }
 	
     /**
@@ -728,8 +726,9 @@ private void updateHintsDisplay() {
             /*random = new Random();
             int rd =random.nextInt(5, 8);*/
             movePlayerForward(stepsToMove);
+            int index = game.getCurrentPlayerIndex();
             System.out.println("Player " + currentPlayer.getName() + " moved forward " + stepsToMove + " spaces.");
-            
+            System.out.println("Predict: "+playerViews.get(index).getSpaces().get(currentPlayer.getPosition()).getStyleClass());
             // Check if the player has reached the end of the game        	
 			if (currentPlayer.getPosition() == 23) {
     		    // Add the current player to the standings
@@ -740,7 +739,8 @@ private void updateHintsDisplay() {
     		    
     		}
 			// Check if the player is on a mystery space
-			if (playerView.getSpaces().get(currentPlayer.getPosition()).getStyleClass().contains("mystery")) {
+			if (playerViews.get(index).getSpaces().get(currentPlayer.getPosition()).getStyleClass().contains("mystery")) {
+				System.out.println("Player " + currentPlayer.getName() + " is on a mystery space.");
 				PauseTransition pause = new PauseTransition(Duration.seconds(3));
 				pause.setOnFinished(e -> {
 					Platform.runLater(() -> {
@@ -748,9 +748,8 @@ private void updateHintsDisplay() {
 					});
 				});
 				pause.play();
-				toggleQuestionCardVisibility();
-				updateScoreAndStreakDisplay();
-				return;// Stop here beacause random already execute nextPlayer()
+		        toggleQuestionCardVisibility();
+				return;
 			}
 
         } else {
@@ -764,7 +763,6 @@ private void updateHintsDisplay() {
         stopTimer();
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
-        // Get next player before showing the turn message
         nextPlayer();       
         volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
@@ -793,6 +791,7 @@ private void updateHintsDisplay() {
         currentPlayer.move(steps);
         //currentPlayerView.updatePosition();
         currentPlayerView.animateMovement(steps);
+        checkPlayerOverlap();
     }
     
     /**
@@ -808,16 +807,23 @@ private void updateHintsDisplay() {
                 int playerIndex = game.getCurrentPlayerIndex();
                 PlayerView currentPlayerView = playerViews.get(playerIndex);
                 int position = currentPlayer.getPosition();
+                Rectangle positon2 = currentPlayerView.getSpaces().get(currentPlayer.getPosition());
+                	int index =	currentPlayerView.getSpaces().indexOf(positon2);
 
                 // Debugging
                 System.out.println("Current Player: " + currentPlayer.getName());
                 System.out.println("Current Position: " + position);
-
+                System.out.println("Current Rectangle :"+index);
                 // Check for valid position
                 if (position >= currentPlayerView.getSpaces().size()) {
                     System.out.println("Invalid position: " + position);
                     return;
                 }
+                
+				if (currentPlayerView.getSpaces().get(position).getStyleClass().contains("mystery")) {
+					randomMystery();
+					return;
+				}
 
                 // Get rectangle at current position
                 Rectangle currentRectangle = currentPlayerView.getSpaces().get(position);
@@ -859,20 +865,20 @@ private void updateHintsDisplay() {
     
     //Test 
     private void handleFreezeOpponent() {
+    	System.out.println("Freeze opponent");
     	mysteryState = new BonusFreezePlayer();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
         mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
-        nextPlayer();
     }
     
     private void handlePlayerScoreBonus() {
+    	System.out.println("Bonus score");
     	mysteryState = new BonusExtraScore();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
         mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
         updateScoreAndStreakDisplay();
-        nextPlayer();
         PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
 		waitTransition.setOnFinished(e -> {
 			
@@ -885,15 +891,11 @@ private void updateHintsDisplay() {
 
     
     private void handlePlayerHintBonus() {
+    	System.out.println("Bonus hint");
     	mysteryState = new BonusExtraHint();
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
 		mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
-	
-
-		// Passe au joueur suivant SANS déclencher une autre vérification de case
-		nextPlayer();
-
 		// Important : utilisez une pause pour attendre la fin de l'animation
 		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
 		PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
@@ -911,6 +913,9 @@ private void updateHintsDisplay() {
      * Handles a player landing on a malus (penalty) space.
      */
     private void handlePlayerMovingBack() {
+		System.out.println("Moving back");
+	
+		// Execute the mystery effect
     	mysteryState = new MalusSteps();
         Player currentPlayer = game.getCurrentPlayer();
         PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
@@ -920,11 +925,7 @@ private void updateHintsDisplay() {
         
         // Affiche l'animation gif
         displayGif(MALUS_GIF);
-        MenuController.getSecondarySound().playMedia("malus.wav", SOUND_VOLUME);
-        
-        // Passe au joueur suivant SANS déclencher une autre vérification de case
-        nextPlayer();
-        
+
         // Important : utilisez une pause pour attendre la fin de l'animation
         // sans déclencher de nouveau displayQuestionCardBasedOnPosition
         PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
@@ -936,16 +937,17 @@ private void updateHintsDisplay() {
     }
     
     private void handleSwitchPlayers() {
-    	 
+    	 System.out.println("Switch players");
     	 mysteryState = new BonusSwitchPlayer();
     	 Player currentPlayer = game.getCurrentPlayer();
  		 PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
  		 mysteryState.executeMystery(game, currentPlayer, currentPlayerView, playerViews);
-         nextPlayer();
+
     	
     }
     
    private void handlePlayerBonusForward() {
+	    System.out.println("Bonus forward");
 	    mysteryState = new BonusExtraSteps();
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
@@ -955,9 +957,6 @@ private void updateHintsDisplay() {
 		// Affiche l'animation gif
 		displayGif(BONUS_GIF);
 		MenuController.getSecondarySound().playMedia("bonus.wav", SOUND_VOLUME);
-
-		// Passe au joueur suivant SANS déclencher une autre vérification de case
-		nextPlayer();
 
 		// Important : utilisez une pause pour attendre la fin de l'animation
 		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
@@ -1187,9 +1186,10 @@ private void displaySelectedQuestion(Question question) {
                 toggleQuestionCardVisibility();
                 currentPlayer.decreaseScore(25);
                 currentPlayer.resetStreak();
-                int stepsBack = Math.min(1, currentPlayer.getPosition());
+                int stepsBack = Math.min(1, currentPlayer.getPosition());             
                 currentPlayer.move(-stepsBack);
                 currentPlayerView.animateMovement(-stepsBack);
+                checkPlayerOverlap();
                 updateScoreAndStreakDisplay();
             
                 nextPlayer();
@@ -1376,7 +1376,7 @@ public void nextPlayer() {
     }));
     timeline.play();
 
-    checkPlayerOverlap();
+    //checkPlayerOverlap();
     updatePlayerPostions();
 }
 
@@ -1461,7 +1461,8 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 				
 					
 			}
-			System.out.println(players.get(i).getName()+" : "+players.get(i).getPosition());
+			int index = players.get(i).getPosition();
+			System.out.println(players.get(i).getName()+" : "+players.get(i).getPosition()+" "+playerViews.get(i).getSpaces().get(index).getStyleClass());
 			
 			for (int k= 0; k< players.size(); k++) {
 				if (players.get(k).isAtTheEnd()) {
@@ -1502,7 +1503,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	     * and the player with the lower score moves back 2 spaces.
 	     * No questions are asked after movement, and the game proceeds to the next player.
 	     */
-	    private void checkPlayerOverlap() {
+	    public void checkPlayerOverlap() {
 	        // Define the common spaces where lanes intersect
 	        Map<String, String> commonSpaces = new HashMap<>();
 	        commonSpaces.put("rec1_7", "rec3_10");  // Lane 1 and Lane 3 intersection
@@ -1608,13 +1609,8 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	            PauseTransition resultPause = new PauseTransition(Duration.seconds(2));
 	            resultPause.setOnFinished(ev -> {
 	                // Third message - Movement announcement
-	                /*dialog.showAlert("Player Movement", 
-	                    higherScorePlayer.getName() + " moves forward 2 spaces and " +
-	                    lowerScorePlayer.getName() + " moves back 2 spaces.");*/
-	                
-	      
-	                
-	                PauseTransition movePause = new PauseTransition(Duration.seconds(1));
+	            
+	               PauseTransition movePause = new PauseTransition(Duration.seconds(1));
 	                movePause.setOnFinished(evt -> {
 	                    // Move the players
 	                    PlayerView higherScoreView = playerViews.get(higherScoreIndex);
@@ -1622,26 +1618,22 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    
 	                    // Check if higher score player can move forward (not at the end)
 	                    int highPlayerMaxPos = higherScoreView.getSpaces().size() - 1;
-	                    int moveForwardSteps = Math.min(2, highPlayerMaxPos - higherScorePlayer.getPosition());
+	                    //int moveForwardSteps = Math.min(2, highPlayerMaxPos - higherScorePlayer.getPosition());
+	                    int moveForwardSteps = 2;
 	                    
 	                    // Move higher score player forward
 	                    higherScorePlayer.move(moveForwardSteps);
 	                    higherScoreView.animateMovement(moveForwardSteps);
-	                    
+	                  
 	                    // Move lower score player back (but not before start)
-	                    int moveBackSteps = Math.min(1, lowerScorePlayer.getPosition());
+	                    //int moveBackSteps = Math.min(1, lowerScorePlayer.getPosition());
+	                    int moveBackSteps = 0;
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);
-	                    
-	                    
-	                    
-	                    // Optional: Display animation for collisions
-	                    
-	                    
+
 	                    // Optional: Play sound effect
 	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);
-	                    
-	                    // Update player positions display
+
 	                    
 	                });
 	                movePause.play();

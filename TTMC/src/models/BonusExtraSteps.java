@@ -13,12 +13,12 @@ public class BonusExtraSteps implements MysteryState {
 	
 	/*
 	 * This method is called when the player chooses to execute the mystery. It
-	 * allows the player to advance by 3 steps.
+	 * allows the player to advance by 2 steps.
 	 */
 	@Override
 	public void executeMystery(Game game, Player currentPlayer, PlayerView currentPlayerView) {
 		// Move the current player forward by 3 steps
-		int steps = 3;
+		int steps = 2;
 		currentPlayer.move(steps);
 		currentPlayerView.animateMovement(steps);
 

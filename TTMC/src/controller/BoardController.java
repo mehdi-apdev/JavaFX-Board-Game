@@ -668,9 +668,9 @@ private void updateHintsDisplay() {
             handlePlayerMovingBack();
             break;
 		}
-        updateScoreAndStreakDisplay();
-		nextPlayer();
-		
+		updateScoreAndStreakDisplay();
+        nextPlayer();   
+
      }
 	
     /**
@@ -680,7 +680,7 @@ private void updateHintsDisplay() {
      */
     @FXML
     private void onButtonValiderClicked(ActionEvent event) {
-    	
+    	PauseTransition randomPlaying = new PauseTransition(Duration.seconds(3));
         Question currentQuestion = (Question) validerButton.getUserData();
 
         if (reponse.getSelectedToggle() == null) {
@@ -741,14 +741,14 @@ private void updateHintsDisplay() {
 			// Check if the player is on a mystery space
 			if (playerViews.get(index).getSpaces().get(currentPlayer.getPosition()).getStyleClass().contains("mystery")) {
 				System.out.println("Player " + currentPlayer.getName() + " is on a mystery space.");
-				PauseTransition pause = new PauseTransition(Duration.seconds(3));
-				pause.setOnFinished(e -> {
+				
+				randomPlaying.setOnFinished(e -> {
 					Platform.runLater(() -> {
 						randomMystery();
 					});
 				});
-				pause.play();
-		        toggleQuestionCardVisibility();
+			    toggleQuestionCardVisibility();
+				randomPlaying.play();
 				return;
 			}
 
@@ -791,7 +791,7 @@ private void updateHintsDisplay() {
         currentPlayer.move(steps);
         //currentPlayerView.updatePosition();
         currentPlayerView.animateMovement(steps);
-        checkPlayerOverlap();
+        //checkPlayerOverlap();
     }
     
     /**
@@ -1189,7 +1189,7 @@ private void displaySelectedQuestion(Question question) {
                 int stepsBack = Math.min(1, currentPlayer.getPosition());             
                 currentPlayer.move(-stepsBack);
                 currentPlayerView.animateMovement(-stepsBack);
-                checkPlayerOverlap();
+                //checkPlayerOverlap();
                 updateScoreAndStreakDisplay();
             
                 nextPlayer();
@@ -1376,7 +1376,7 @@ public void nextPlayer() {
     }));
     timeline.play();
 
-    //checkPlayerOverlap();
+    checkPlayerOverlap();
     updatePlayerPostions();
 }
 

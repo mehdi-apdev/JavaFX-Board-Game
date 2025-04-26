@@ -1,11 +1,11 @@
 package controller;
 
 
-import javafx.animation.ParallelTransition;
+
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+
 import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,33 +14,30 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import application.Main;
 import javafx.animation.KeyFrame;
-import javafx.animation.ScaleTransition;
-import javafx.animation.SequentialTransition;
+
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -52,7 +49,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 import models.BonusExtraSteps;
 import models.BonusExtraHint;
 import models.BonusExtraScore;
@@ -86,8 +83,7 @@ public class BoardController {
     private static final String VOLUME_OFF_IMAGE = "file:ressources/images/noVolume.png";
     private static final String MALUS_GIF = "file:ressources/images/georgeMalusGif.gif";
     private static final String BONUS_GIF = "file:ressources/images/georgeBonusGif.gif";
-    private static final int MAX_DICE_VALUE = 4;
-    private static final int MIN_DICE_VALUE = 1;
+
     private static final double ANIMATION_DURATION = 0.6;
     private static final String CLICK_SOUND = "click2.wav";
     private static final double SOUND_VOLUME = 0.1;
@@ -103,7 +99,6 @@ public class BoardController {
     private static Game game;
     private PlayerView playerView;
     private List<QuestionCard> questionCards;
-    private int currentCardIndex = 0;
     private Random random = new Random();
     private MysteryState mysteryState;
     
@@ -129,9 +124,7 @@ public class BoardController {
 	private static final String yellowStr= "c0721e";
 	private static final String blueStr = "587a96";
 	private static final String greenStr = "89932b";
-	private static final String redStr = "0x8a1515ff";
-	private static final String whiteStr = "ffffff";
-	private static boolean isStreak;
+
 
 	
 	private List<Label> playersScores;
@@ -219,16 +212,6 @@ public class BoardController {
             System.out.println("Player " + (i + 1) + " Circle: " + allCircles.get(i).getId());
         }
         
-           //circlePlayer1.setVisible(true);
-            //circlePlayer1.setFill(playerColor);
-            //playerView = new PlayerView(game.getCurrentPlayer(), circlePlayer1, selectedSpaces);
-           //playerView.updatePosition();
-           // board.getChildren().add(playerView.getCircle());
-            //game.nextPlayer();
-        //}
-        
-       // board.getChildren().add(questionCard);
-       //board.getChildren().add(playerView.getCircle());
     }
     
     private void initializeRectangleColors(List<Rectangle> allSpaces) {
@@ -296,6 +279,9 @@ public class BoardController {
         return nbPlayers;
     }
     
+	/*
+	 * Initializes player position labels.
+	 * */
     private void initializePlayersPos() {
     	playersPos = new ArrayList<>();
     	positions = new ArrayList<>();
@@ -312,6 +298,9 @@ public class BoardController {
 		}
     }
     
+    /*
+     * Initializes player standings labels.
+     * */
     private void initializeStandingsPlayersLabel() {
 		standingsLabels = new ArrayList<>();
 		standingsLabels.add(playerStandingLabel1);
@@ -447,19 +436,24 @@ private void loadQuestions() {
     }
 
     
+    /**
+	 * Handles the hint button click event.
+	 * 
+	 * @param event The action event
+	 */
 @FXML
 private void onHintButtonClicked(ActionEvent event) {
     Player currentPlayer = game.getCurrentPlayer();
 
     if (currentPlayer.getHint() > 0 && !currentPlayer.hasUsedHintThisRound()) {
-        // Récupérer la question actuelle
+
         Question currentQuestion = (Question) validerButton.getUserData();
         if (currentQuestion == null) {
             dialog.showAlert("No question active", "You can only use a hint when a question is displayed.");
             return;
         }
 
-        // Trouver toutes les mauvaises réponses encore activées
+
         RadioButton[] responseButtons = {response1, response2, response3, response4};
         List<RadioButton> incorrectResponses = Arrays.stream(responseButtons)
             .filter(rb -> rb.isVisible() && !rb.isDisable() && rb.getUserData() != null)
@@ -469,14 +463,13 @@ private void onHintButtonClicked(ActionEvent event) {
             })
             .collect(Collectors.toList());
 
-        // Vérifier s'il reste des mauvaises réponses à désactiver
+
         if (!incorrectResponses.isEmpty() && currentPlayer.getHintCount() < 2) {
-            // Désactiver une mauvaise réponse aléatoire
+
             RadioButton toDisable = incorrectResponses.get(random.nextInt(incorrectResponses.size()));
             toDisable.setDisable(true);
             toDisable.setStyle("-fx-opacity: 0.5; -fx-text-fill: gray;");
 
-            // Utiliser un indice
             MenuController.getSecondarySound().playMedia("hint.wav", SOUND_VOLUME);
             currentPlayer.useHint();
             currentPlayer.increasehintCount();
@@ -490,8 +483,6 @@ private void onHintButtonClicked(ActionEvent event) {
         dialog.showAlert("No hints left", "You have no hints left or you have already used 2 this round.");
         MenuController.getSecondarySound().playMedia("error.wav", SOUND_VOLUME);
     }
-
-    // Mettre à jour l'affichage des indices
     updateHintsDisplay();
 }
 
@@ -538,6 +529,10 @@ private void handleToggleQuestionCard(KeyEvent event) {
 
 
 
+/*
+ * Updates the display of player hints.
+ * 
+ */
 
 private void updateHintsDisplay() {
     for (int i = 0; i < players.size(); i++) {
@@ -562,6 +557,10 @@ private void updateHintsDisplay() {
     	updateVolumeImage();
     }
     
+    /*
+     * Updates the volume image based on the current mute state.
+     * 
+     */
     private void updateVolumeImage() {
 
         if (Main.getMainSound().isMuted()) {
@@ -572,37 +571,7 @@ private void updateHintsDisplay() {
             volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
         }
     }
-    /**
-     * Displays the next question card with animation.
-     */
-    private void displayNextQuestionCard() {
-        if (currentCardIndex < questionCards.size()) {
-            QuestionCard card = questionCards.get(currentCardIndex);
-            themeLabel.setText("Theme: " + card.getTheme().toString());
-            
-            List<Question> questions = card.getQuestions();
-            Label[] labels = {questionLabel1, questionLabel2, questionLabel3, questionLabel4};
-            
-            for (int i = 0; i < Math.min(questions.size(), labels.length); i++) {
-                labels[i].setText(questions.get(i).getTexte());
-                labels[i].setVisible(true);
-            }
-            
-            questionCard.setVisible(true);
-            questionsContainer.setVisible(true);
-            themeLabel.setVisible(true);
-            
-            SequentialTransition sequentialTransition = new SequentialTransition();
-            sequentialTransition.getChildren().add(playTransitionLabel(themeLabel));
-            
-            for (Label label : labels) {
-                sequentialTransition.getChildren().add(playTransitionLabel(label));
-            }
-            
-            sequentialTransition.play();
-            currentCardIndex++;
-        }
-    }
+
     
     /**
      * Creates and plays a scale transition animation for a pane.
@@ -644,7 +613,10 @@ private void updateHintsDisplay() {
     private void onButtonPlayAgain(ActionEvent event) {
        playAgain();
     }
-    
+    /**
+     * Generates a random mystery effect and applies it to the game.
+     * 
+     */
 	private void randomMystery() {
 		// Randomly select a mystery effect
 		int randomIndex = ThreadLocalRandom.current().nextInt(0, 6);
@@ -672,12 +644,12 @@ private void updateHintsDisplay() {
         nextPlayer();   
 
      }
-	
-    /**
-     * Handles the validate button click to check the selected answer.
-     * 
-     * @param event The action event
-     */
+
+	/**
+	 * Handles the validation of the player's answer.
+	 * 
+	 * @param event The action event
+	 */
     @FXML
     private void onButtonValiderClicked(ActionEvent event) {
     	PauseTransition randomPlaying = new PauseTransition(Duration.seconds(3));
@@ -701,7 +673,6 @@ private void updateHintsDisplay() {
             // Increase score based on difficulty
             currentPlayer.increaseScore(difficulty * 50 + 50);
             currentPlayer.increaseStreak();
-            //dialog.showAlert("Correct answer!", "You move forward " + stepsToMove + " space(s).");
 
             if (currentPlayer.hasThreeStreaks()) {
                 dialog.showAlert("Three in a row!", "You have answered 3 questions correctly in a row!");
@@ -863,7 +834,18 @@ private void updateHintsDisplay() {
     }
 
     
-    //Test 
+	/**
+	 * Handles the freeze effect for the opponent.
+	 * This method:
+	 * - Creates a BonusFreezePlayer mystery state
+	 * - Applies the effect to freeze the opponent's movement
+	 * - Displays an animated notification after a short delay
+	 * - Displays a dialog message informing the player about the freeze
+	 * - Updates the hints display (although the hints themselves are not affected)
+	 *
+	 * Called when a player lands on a mystery space and the random effect
+	 * selects the freeze opponent option.
+	 */
     private void handleFreezeOpponent() {
     	System.out.println("Freeze opponent");
     	mysteryState = new BonusFreezePlayer();
@@ -872,6 +854,19 @@ private void updateHintsDisplay() {
         mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
     }
     
+    /**
+     * Handles the score bonus mystery effect for the current player.
+     * This method:
+     * - Creates a BonusExtraScore mystery state
+     * - Applies the effect to grant the current player a 200-point score bonus
+     * - Updates the score display in the UI to reflect the new score
+     * - Shows an animated notification after a short delay
+     * - Displays a dialog message informing the player about the bonus
+     * - Updates the hints display (although the hints themselves are not affected)
+     *
+     * Called when a player lands on a mystery space and the random effect
+     * selects the score bonus option.
+     */
     private void handlePlayerScoreBonus() {
     	System.out.println("Bonus score");
     	mysteryState = new BonusExtraScore();
@@ -889,19 +884,29 @@ private void updateHintsDisplay() {
 		waitTransition.play();
     }
 
-    
+    /**
+     * Handles the hint bonus mystery effect for the current player.
+     * This method:
+     * - Creates a BonusExtraHint mystery state
+     * - Applies the effect to grant the current player an additional hint
+     * - Also moves the player forward by 1 space as part of the bonus
+     * - Displays a notification dialog about the activated mystery
+     * - Updates the hints display in the UI
+     * - Adds a delay to ensure animations complete before continuing
+     * 
+     * Called when a player lands on a mystery space and the random effect
+     * selects the hint bonus option.
+     */
     private void handlePlayerHintBonus() {
     	System.out.println("Bonus hint");
     	mysteryState = new BonusExtraHint();
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerView currentPlayerView = playerViews.get(game.getCurrentPlayerIndex());
 		mysteryState.executeMystery(game ,currentPlayer, currentPlayerView);
-		// Important : utilisez une pause pour attendre la fin de l'animation
-		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
+
 		PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
 		waitTransition.setOnFinished(e -> {
-			// Ne rien faire ici - juste attendre que l'animation se termine
-			// avant de permettre d'autres actions
+
 			dialog.showAlert("Mystery Activated", "You have received a hint bonus.");
 			updateHintsDisplay();
 
@@ -923,19 +928,30 @@ private void updateHintsDisplay() {
      
         dialog.showAlert("Mystery Activated", "You landed on a penalty square. Moving back 2 spaces."); 
         
-        // Affiche l'animation gif
+
         displayGif(MALUS_GIF);
 
-        // Important : utilisez une pause pour attendre la fin de l'animation
-        // sans déclencher de nouveau displayQuestionCardBasedOnPosition
+
         PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
         waitTransition.setOnFinished(e -> {
-            // Ne rien faire ici - juste attendre que l'animation se termine
-            // avant de permettre d'autres actions
+
         });
         waitTransition.play();
     }
     
+    /**
+     * Handles the player switch mystery effect.
+     * This method:
+     * - Creates a BonusSwitchPlayer mystery state
+     * - Applies the effect that swaps positions between the current player
+     *   and another randomly selected player on the board
+     * - Displays a notification dialog about the activated mystery
+     * - Updates the visual representation of all players on the board
+     * - May trigger additional effects if players land on special spaces
+     * 
+     * Called when a player lands on a mystery space and the random effect
+     * selects the player switch option.
+     */
     private void handleSwitchPlayers() {
     	 System.out.println("Switch players");
     	 mysteryState = new BonusSwitchPlayer();
@@ -946,6 +962,19 @@ private void updateHintsDisplay() {
     	
     }
     
+    /**
+     * Handles the bonus forward mystery effect for the current player.
+     * This method:
+     * - Creates a BonusExtraSteps mystery state
+     * - Applies the effect to move the current player forward by 2 spaces
+     * - Displays a notification dialog about the activated mystery
+     * - Shows an animated bonus GIF effect
+     * - Plays a corresponding sound effect
+     * - Adds a delay to ensure animations complete before continuing
+     * 
+     * Called when a player lands on a mystery space and the random effect
+     * selects the forward movement bonus.
+     */
    private void handlePlayerBonusForward() {
 	    System.out.println("Bonus forward");
 	    mysteryState = new BonusExtraSteps();
@@ -954,16 +983,14 @@ private void updateHintsDisplay() {
 		mysteryState.executeMystery(game, currentPlayer, currentPlayerView);
 		dialog.showAlert("Mystery Activated", "You have moved forward 2 spaces.");
 
-		// Affiche l'animation gif
+
 		displayGif(BONUS_GIF);
 		MenuController.getSecondarySound().playMedia("bonus.wav", SOUND_VOLUME);
 
-		// Important : utilisez une pause pour attendre la fin de l'animation
-		// sans déclencher de nouveau displayQuestionCardBasedOnPosition
+
 		PauseTransition waitTransition = new PauseTransition(Duration.seconds(ANIMATION_DURATION + 0.2));
 		waitTransition.setOnFinished(e -> {
-			// Ne rien faire ici - juste attendre que l'animation se termine
-			// avant de permettre d'autres actions
+
 		});
 		waitTransition.play();
 	   
@@ -1244,7 +1271,17 @@ private void displaySelectedQuestion(Question question) {
     }
     
 	    
-	
+    /**
+     * Initializes the score and streak display elements for all players.
+     * This method:
+     * - Creates lists to hold the score and streak label references
+     * - Populates these lists with the appropriate UI elements
+     * - Sets initial values for these elements based on player count
+     * - Shows score and streak displays only for active players
+     * - Hides display elements for inactive player slots
+     * 
+     * Called during game initialization to set up the player statistics UI.
+     */
 	private void initializeScoreAndStreak() {
 	    playersScores = new ArrayList<>();
 	    playersScores.add(scorePlayer1);
@@ -1286,6 +1323,14 @@ private void displaySelectedQuestion(Question question) {
 	    }
 	}
 	
+	/**
+	 * Creates a delay to wait for animations to complete before proceeding with game flow.
+	 * This method creates a pause transition of 1.5 seconds and then triggers the display
+	 * of a question card based on the current player's position.
+	 * 
+	 * Used throughout the game to ensure smooth visual transitions between game states
+	 * and prevent UI elements from updating too quickly for players to follow.
+	 */
 	private void waitForAnimation() {
 	    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 	    pause.setOnFinished(event -> {
@@ -1296,7 +1341,19 @@ private void displaySelectedQuestion(Question question) {
 	}
 	
 
-
+	/**
+	 * Displays an animated GIF image with visual effects.
+	 * This method:
+	 * - Loads and configures the specified GIF file
+	 * - Sets appropriate display properties for the image
+	 * - Centers the image in its container pane
+	 * - Applies a scaling animation when showing the GIF
+	 * - Automatically hides the GIF after a set duration
+	 * 
+	 * Used for displaying bonus and malus animations during gameplay.
+	 * 
+	 * @param file The file path to the GIF image to be displayed
+	 */
 private void displayGif(String file) {
     // Load the image
     bonusMalusImage.setImage(new Image(file));
@@ -1339,62 +1396,75 @@ private void displayGif(String file) {
 	
 
 	
-
-public void nextPlayer() {
-
-
-    // Check if game is finished (only one player left)
-    if (standingsPlayers.size() == game.getPlayers().size() - 1 || (nbPlayers == 2 && standingsPlayers.size() == 1)) {
-        updatePlayerPostions();
-        handleGameEnd();
-        return;
-    }
-
-    // Skip players who have already finished
-    do {
-        game.nextPlayer();
-    } while (standingsPlayers.contains(game.getCurrentPlayer()));
-
-    Player nextPlayer = game.getCurrentPlayer();
-
-    // Reset hints and states for all players
-    for (Player player : players) {
-        player.setUsedHintThisRound(false);
-        player.setHintCount(0);
-    }
-
-    // Display the next player's turn with a delay
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
-        Platform.runLater(() -> {
-        	// Skip the turn if the player is blocked
-            if (checkIfPlayerIsBlocked(nextPlayer)) {
-                return;
-            }
-            waitForAnimation();
-            displayCurrentPlayerLabel();
-        });
-    }));
-    timeline.play();
-
-    checkPlayerOverlap();
-    updatePlayerPostions();
-}
-
 /**
- * Checks if the player is blocked. If so, shows an alert and skips their turn.
- *
- * @param nextPlayer The next player to check
- * @return true if the player is blocked, false otherwise
+ * Advances the game to the next player's turn.
+ * This method:
+ * - Checks if the game has ended (when only one player remains active)
+ * - Skips players who have already finished the game
+ * - Resets hint usage status for all players
+ * - Handles blocked players by skipping their turns
+ * - Displays the current player's turn with appropriate visual indicators
+ * - Checks for player overlaps on the board
+ * - Updates player positions in the UI
+ * 
+ * The method uses a delay to provide visual feedback between turns and
+ * ensures smooth transition between player actions.
  */
-private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
-	 if (nextPlayer.isBlocked()) {
-         dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
-         nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
-         nextPlayer(); // Move to the next player
-         return true;
-     }
-	 return false;
-}
+	public void nextPlayer() {
+	
+	
+	    // Check if game is finished (only one player left)
+	    if (standingsPlayers.size() == game.getPlayers().size() - 1 || (nbPlayers == 2 && standingsPlayers.size() == 1)) {
+	        updatePlayerPostions();
+	        handleGameEnd();
+	        return;
+	    }
+	
+	    // Skip players who have already finished
+	    do {
+	        game.nextPlayer();
+	    } while (standingsPlayers.contains(game.getCurrentPlayer()));
+	
+	    Player nextPlayer = game.getCurrentPlayer();
+	
+	    // Reset hints and states for all players
+	    for (Player player : players) {
+	        player.setUsedHintThisRound(false);
+	        player.setHintCount(0);
+	    }
+	
+	    // Display the next player's turn with a delay
+	    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), evt -> {
+	        Platform.runLater(() -> {
+	        	// Skip the turn if the player is blocked
+	            if (checkIfPlayerIsBlocked(nextPlayer)) {
+	                return;
+	            }
+	            waitForAnimation();
+	            displayCurrentPlayerLabel();
+	        });
+	    }));
+	    timeline.play();
+	
+	    checkPlayerOverlap();
+	    updatePlayerPostions();
+	}
+
+	/**
+	 * Checks if the player is blocked. If so, shows an alert and skips their turn.
+	 *
+	 * @param nextPlayer The next player to check
+	 * @return true if the player is blocked, false otherwise
+	 */
+	private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
+		 if (nextPlayer.isBlocked()) {
+	         dialog.showAlert("Turn Skipped", nextPlayer.getName() + " is blocked");
+	         nextPlayer.setBlocked(false); // Unblock the player after skipping their turn
+	         nextPlayer(); // Move to the next player
+	         return true;
+	     }
+		 return false;
+	}
 	
 /*
  * Displays the current player label with a specific color.
@@ -1411,7 +1481,20 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	
 	
 	
-	
+
+
+/**
+ * Resets the game state to start a new game with the same players.
+ * This method:
+ * - Hides the standings pane
+ * - Resets all player attributes (position, score, streak, hints, etc.)
+ * - Updates the UI displays (scores, streaks, hints)
+ * - Resets player positions on the board
+ * - Restarts the background music
+ * - Clears the standings list
+ * - Sets the current player to the first player
+ * - Displays the appropriate question card
+ */
 	private void playAgain() {
 		standingsPane.setVisible(false);
 		for (int i = 0; i < players.size(); i++) {
@@ -1438,12 +1521,11 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 		displayCurrentPlayerLabel();
 		displayQuestionCardBasedOnPosition();
 		
-		
 	}
 	
 	
 	/*
-	 * * Updates the positions of all players after a turn. Displays their current
+	 * Updates the positions of all players after a turn. Displays their current
 	 * position and updates the UI accordingly.
 	 */
 	private void updatePlayerPostions(){
@@ -1474,10 +1556,17 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 			}
 			
 		}
-	    System.out.println("Positions des joueurs"+ positions);
+	    System.out.println("Players positions : " + positions);
 	    System.out.println("\n");
 	}
 
+		/**
+		 * Cleans up the game state when quitting a game.
+		 * Resets all game-related collections and variables to their initial state,
+		 * including player data, game board elements, question cards, and audio.
+		 * This method is called when navigating back to the main menu or when
+		 * exiting the game to ensure a clean state for future game sessions.
+		 */
 	    private void quitGame() {
 	    	nbPlayers = 0;
 	        players.clear();
@@ -1566,14 +1655,16 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	    }
 
 	    /**
-	     * Handles collision between two players.
-	     * The player with the higher score moves forward 2 spaces,
-	     * and the player with the lower score moves back 2 spaces.
+	     * Handles collision between two players on the same space.
+	     * When two players occupy the same space, a battle occurs based on their scores.
+	     * The player with the higher score advances 2 spaces forward, while the player
+	     * with the lower score moves back 2 spaces. In case of a tie, the first player
+	     * is considered the winner.
 	     * 
-	     * @param player1 First player
-	     * @param player2 Second player
-	     * @param index1 Index of first player
-	     * @param index2 Index of second player
+	     * @param player1 The first player involved in the collision
+	     * @param player2 The second player involved in the collision
+	     * @param index1 The index of the first player in the players list
+	     * @param index2 The index of the second player in the players list
 	     */
 	    private void handlePlayerCollision(Player player1, Player player2, int index1, int index2) {
 	        Player higherScorePlayer;
@@ -1581,7 +1672,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	        int higherScoreIndex;
 	        int lowerScoreIndex;
 	        
-	        // First message - Battle announcement
+	     // Display initial battle announcement dialog
 	        dialog.showAlert("Player Battle!", 
 	            "A battle is taking place between " + player1.getName() + " and " + player2.getName() + "!");
 	        
@@ -1598,7 +1689,7 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	            lowerScoreIndex = index1;
 	        }
 	        
-	        // Create sequence of actions with delays
+	     // Create a sequence of actions with delays for animated battle resolution
 	        PauseTransition battlePause = new PauseTransition(Duration.seconds(2));
 	        battlePause.setOnFinished(e -> {
 	            // Second message - Winner announcement
@@ -1618,7 +1709,6 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    
 	                    // Check if higher score player can move forward (not at the end)
 	                    int highPlayerMaxPos = higherScoreView.getSpaces().size() - 1;
-	                    //int moveForwardSteps = Math.min(2, highPlayerMaxPos - higherScorePlayer.getPosition());
 	                    int moveForwardSteps = 2;
 	                    
 	                    // Move higher score player forward
@@ -1626,15 +1716,11 @@ private boolean checkIfPlayerIsBlocked(Player nextPlayer) {
 	                    higherScoreView.animateMovement(moveForwardSteps);
 	                  
 	                    // Move lower score player back (but not before start)
-	                    //int moveBackSteps = Math.min(1, lowerScorePlayer.getPosition());
 	                    int moveBackSteps = 0;
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);
 
-	                    // Optional: Play sound effect
-	                    // MenuController.getSecondarySound().playMedia("battle.wav", SOUND_VOLUME);
 
-	                    
 	                });
 	                movePause.play();
 	                updatePlayerPostions();

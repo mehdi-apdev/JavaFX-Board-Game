@@ -2,9 +2,7 @@
 package models;
 
 import view.PlayerView;
-import models.Player;
 import java.util.List;
-import models.Game;
 
 /**
  * 

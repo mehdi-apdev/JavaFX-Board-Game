@@ -7,11 +7,107 @@
 	  "responses": ["3", "1", "10", "5"]
 	},
 	{
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What is the only food that never spoils?",
+	    "responses": ["Honey", "Rice", "Salt", "Sugar"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "How many legs does a spider have?",
+	    "responses": ["8", "6", "10", "4"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What is the fastest land animal?",
+	    "responses": ["Cheetah", "Lion", "Horse", "Eagle"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which fruit floats on water because it’s 25% air?",
+	    "responses": ["Apple", "Pear", "Orange", "Banana"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which planet is closest to Earth?",
+	    "responses": ["Venus", "Mars", "Mercury", "Jupiter"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which sea creature has three hearts and blue blood?",
+	    "responses": ["Octopus", "Crab", "Shrimp", "Lobster"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which Disney movie features a flying elephant?",
+	    "responses": ["Dumbo", "Bambi", "The Jungle Book", "Peter Pan"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which animal can sleep for three years?",
+	    "responses": ["Snail", "Bear", "Koala", "Frog"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "How many colors are there in a rainbow?",
+	    "responses": ["7", "5", "6", "8"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What is the main gas in the air we breathe?",
+	    "responses": ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What do you call a group of crows?",
+	    "responses": ["A murder", "A swarm", "A herd", "A colony"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What’s the tallest mountain on Earth?",
+	    "responses": ["Mount Everest", "K2", "Kangchenjunga", "Makalu"]
+	  },
+	{
 	  "theme_name": "improbable",
 	  "priority": 1,
 	  "question": "What is the smallest country in the world?",
 	  "responses": ["Vatican City", "Monaco", "Nauru", "San Marino"]
 	},
+	{
+	   "theme_name": "improbable",
+	   "priority": 1,
+	   "question": "Which bird is capable of mimicking human speech and various sounds, often kept as a pet for this reason?",
+	   "responses": ["Parrot", "Sparrow", "Eagle", "Penguin"]
+	 },
+	 {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "Which Disney character would most likely become a famous chef in a restaurant?",
+	    "responses": ["Remy (Ratatouille)", "Olaf", "Dumbo", "Stitch"]
+	  },
+	  {
+	      "theme_name": "improbable",
+	      "priority": 1,
+	      "question": "What is the most famous alien from Hollywood?",
+	      "responses": ["E.T.", "Yoda", "Predator", "Klingon"]
+	  },
+	 {
+	    "theme_name": "improbable",
+	    "priority": 1,
+	    "question": "What is the name of the triangle where several planes and ships have mysteriously disappeared?",
+	    "responses": ["Bermuda Triangle", "Devil's Sea", "Dragon's Triangle", "Sargasso Sea"]
+	  },
 	{
 	  "theme_name": "improbable",
 	  "priority": 1,
@@ -20,17 +116,102 @@
 	},
 	{
 	  "theme_name": "improbable",
-	  "priority": 1,
-	  "question": "How many bones are in the human body?",
-	  "responses": ["206", "195", "210", "256"]
+	  "priority": 3,
+	  "question": "How many moons does Earth have?",
+	  "responses": ["1", "2", "0", "3"]
 	},
-
 	{
 	  "theme_name": "improbable",
 	  "priority": 2,
 	  "question": "Which planet in our solar system spins the fastest?",
 	  "responses": ["Jupiter", "Earth", "Mars", "Venus"]
 	},
+	{
+		    "theme_name": "improbable",
+		    "priority": 2,
+		    "question": "What is the name of the area owned by the US Military that was long believed to hide aliens and alien spaceships?",
+		    "responses": ["Area 51", "Fort Knox", "Roswell", "Alcatraz"]
+		},
+	{
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "What is the name of the most viewed Latino song on YouTube?",
+	    "responses": ["Despacito", "Bailando", "Mi Gente", "Taki Taki"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "What is the largest desert in the world?",
+	    "responses": ["Antarctica", "Sahara", "Gobi", "Kalahari"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which planet is known for its beautiful rings?",
+	    "responses": ["Saturn", "Jupiter", "Uranus", "Neptune"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which organ can regrow after damage?",
+	    "responses": ["Liver", "Heart", "Brain", "Lung"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which Disney character lives under the sea?",
+	    "responses": ["Ariel", "Moana", "Elsa", "Merida"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which bird can fly backward?",
+	    "responses": ["Hummingbird", "Eagle", "Swan", "Pigeon"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which creature produces pearls?",
+	    "responses": ["Oyster", "Crab", "Squid", "Shrimp"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which is the largest mammal in the world?",
+	    "responses": ["Blue whale", "Elephant", "Giraffe", "Hippopotamus"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which insect can survive being frozen solid?",
+	    "responses": ["Wood Frog", "Dragonfly", "Bee", "Ant"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which planet has the longest day compared to its year?",
+	    "responses": ["Venus", "Mars", "Mercury", "Saturn"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which animal is known as the 'King of the Jungle'?",
+	    "responses": ["Lion", "Tiger", "Elephant", "Panther"]
+	  },
+	  {
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which precious gem is made of carbon?",
+	    "responses": ["Diamond", "Emerald", "Sapphire", "Ruby"]
+	  },
+
+	{
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "What is the most surprising fact about the creation of Tinker Bell's character?",
+	    "responses": ["She was modeled after a real actress", "She was originally a fairy godmother", "She had no speaking lines at first", "She was supposed to be a villain"]
+	  },
+
 	{
 	  "theme_name": "improbable",
 	  "priority": 2,
@@ -44,11 +225,30 @@
 	  "responses": ["Burj Khalifa", "Shanghai Tower", "Abraj Al-Bait Clock Tower", "Ping An Finance Centre"]
 	},
 	{
+	   "theme_name": "improbable",
+	   "priority": 2,
+	   "question": "Which insect is known for its ability to carry objects many times its own body weight?",
+	   "responses": ["Ant", "Bee", "Butterfly", "Mosquito"]
+	 },
+	 {
+	     "theme_name": "improbable",
+	     "priority": 2,
+	     "question": "What natural phenomenon is characterized by glowing lights in the sky, typically visible near the Arctic and Antarctic?",
+	     "responses": ["Aurora", "Meteor Shower", "Rainbow", "Solar Eclipse"]
+	   },
+
+	{
 	  "theme_name": "improbable",
 	  "priority": 2,
 	  "question": "How many ants are there for each human on earth?",
 	  "responses": ["2 million", "1 million", "10 million", "500,000"]
 	},
+	{
+	    "theme_name": "improbable",
+	    "priority": 2,
+	    "question": "Which country has the highest number of people claiming to have seen UFOs?",
+	    "responses": ["United States", "Russia", "China", "Brazil"]
+	  },
 	{
 	  "theme_name": "improbable",
 	  "priority": 3,
@@ -56,11 +256,92 @@
 	  "responses": ["3 years", "2 years", "1 year", "5 years"]
 	},
 	{
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Who is the most streamed Latino artist?",
+	   "responses": ["Bad Bunny", "J Balvin", "Maluma", "Ozuna"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "What is the smallest bone in the human body?",
+	   "responses": ["Stapes", "Femur", "Tibia", "Radius"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which animal's heart is located in its head?",
+	   "responses": ["Shrimp", "Octopus", "Frog", "Crab"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which tree produces acorns?",
+	   "responses": ["Oak", "Maple", "Pine", "Willow"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "What natural phenomenon is measured by the Richter scale?",
+	   "responses": ["Earthquake", "Tornado", "Hurricane", "Volcano eruption"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which animal never sleeps?",
+	   "responses": ["Bullfrog", "Shark", "Whale", "Eagle"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which blood type is considered the universal donor?",
+	   "responses": ["O negative", "A positive", "B negative", "AB positive"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "What is the rarest M&M color?",
+	   "responses": ["Brown", "Blue", "Yellow", "Red"]
+	 },
+	 {
+	 	  "theme_name": "improbable",
+	 	  "priority": 3,
+	 	  "question": "How many bones are in the human body?",
+	 	  "responses": ["206", "195", "210", "256"]
+	 	},
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which country has the most pyramids?",
+	   "responses": ["Sudan", "Egypt", "Mexico", "Peru"]
+	 },
+	 {
+	   "theme_name": "improbable",
+	   "priority": 3,
+	   "question": "Which planet is called the Morning Star?",
+	   "responses": ["Venus", "Mars", "Mercury", "Jupiter"]
+	 },
+
+	{
 		  "theme_name": "improbable",
 		  "priority": 3,
 		  "question": "Which condition causes people to fall asleep unexpectedly during the day?",
 		  "responses": ["Narcolepsy", "Cataplexy", "Apnea", "Insomnia"]
 		},
+		{
+		   "theme_name": "improbable",
+		   "priority": 3,
+		   "question": "What is the most dangerous animal in the world (deaths per year)?",
+		   "responses": ["Mosquito", "Shark", "Snake", "Lion"]
+		 },
+
+		{
+		   "theme_name": "improbable",
+		   "priority": 3,
+		   "question": "Which animal has the ability to regrow its tail?",
+		   "responses": ["Lizard", "Frog", "Rabbit", "Cat"]
+		 },
+
 	{
 	  "theme_name": "improbable",
 	  "priority": 3,
@@ -68,18 +349,41 @@
 	  "responses": ["100,000 to 150,000 hairs", "50,000 to 80,000 hairs", "200,000 to 300,000 hairs", "500,000 to 1 million hairs"]
 	},
 	{
+	    "theme_name": "improbable",
+	    "priority": 3,
+	    "question": "Which country produced the first tank in history?",
+	    "responses": ["United Kingdom", "Germany", "France", "United States"]
+	  },
+	  {
+	  		    "theme_name": "improbable",
+	  		    "priority": 3,
+	  		    "question": "Which eSports event gathered over 100,000 spectators live?",
+	  		    "responses": ["League of Legends World Championship 2017", "The International 2019", "Overwatch League Finals", "Fortnite World Cup 2019"]
+	  		  },
+	{
 	  "theme_name": "improbable",
 	  "priority": 3,
 	  "question": "What is the longest river in the world?",
 	  "responses": ["Nile", "Amazon", "Yangtze", "Mississippi"]
 	},
 	{
+		    "theme_name": "improbable",
+		    "priority": 3,
+		    "question": "What was the name of the Titan who held the sky on his shoulders?",
+		    "responses": ["Atlas", "Prometheus", "Cronus", "Hercules"]
+		},
+	{
+	    "theme_name": "improbable",
+	    "priority": 3,
+	    "question": "Which Fortnite player won $3 million at a single tournament?",
+	    "responses": ["Bugha", "Ninja", "Tfue", "Mongraal"]
+	  },
+	{
 	  "theme_name": "improbable",
 	  "priority": 4,
 	  "question": "What is the name of the mental condition where a person thinks they are a cow?",
 	  "responses": ["Boanthropy", "Lycanthropy", "Minotauria", "Tauritis"]
 	},
-
 	{
 	  "theme_name": "improbable",
 	  "priority": 4,
@@ -98,6 +402,106 @@
 	   "question": "What is the rarest blood type?",
 	   "responses": ["AB negative", "O positive", "A negative", "B positive"]
 		},
+		{
+		    "theme_name": "improbable",
+		    "priority": 4,
+		    "question": "Which mammal is known for its ability to glide through the air using a membrane called a patagium?",
+		    "responses": ["Flying squirrel", "Bat", "Eagle", "Kangaroo"]
+		  },
+		  {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "What is the probability of being struck by lightning in a year (within 0,2 million)?",
+		     "responses": ["1 in 500,000", "1 in 100,000", "1 in 1,000,000", "1 in 2,000,000"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "How many faces does a regular dodecahedron have?",
+		     "responses": ["12", "20", "8", "6"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "How many teeth does an adult human have?",
+		     "responses": ["32", "28", "30", "36"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which animal can hold its breath the longest underwater?",
+		     "responses": ["Sperm Whale", "Sea Turtle", "Dolphin", "Seal"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "What is the fear of heights called?",
+		     "responses": ["Acrophobia", "Claustrophobia", "Agoraphobia", "Nyctophobia"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "What is the only mammal capable of true flight?",
+		     "responses": ["Bat", "Flying Squirrel", "Owl", "Pigeon"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "How many arms does a typical starfish have?",
+		     "responses": ["5", "4", "6", "8"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which color is absorbed the least by water?",
+		     "responses": ["Blue", "Red", "Yellow", "Green"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "What’s the heaviest organ in the human body?",
+		     "responses": ["Liver", "Brain", "Heart", "Kidney"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which part of a plant conducts photosynthesis?",
+		     "responses": ["Leaf", "Root", "Stem", "Flower"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which ocean is the largest?",
+		     "responses": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which animal has the longest lifespan?",
+		     "responses": ["Bowhead Whale", "Elephant", "Tortoise", "Shark"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "How many chambers does the human heart have?",
+		     "responses": ["4", "2", "3", "5"]
+		   },
+		   {
+		     "theme_name": "improbable",
+		     "priority": 4,
+		     "question": "Which chemical element has the symbol 'Fe'?",
+		     "responses": ["Iron", "Fluorine", "Francium", "Fermium"]
+		   },
+		   {
+		      "theme_name": "improbable",
+		      "priority": 4,
+		      "question": "What is the most produced tank in the world?",
+		      "responses": ["T-34", "Panzer IV", "M1 Abrams", "Sherman"]
+		    },
+
+
+
+
 	
 	
 	
@@ -109,24 +513,176 @@
 	    "responses": ["Random Access Memory", "Read Access Memory", "Rapid Access Memory", "Real-time Access Memory"]
 	  },
 	  {
+	      "theme_name": "informatics",
+	      "priority": 1,
+	      "question": "What do you need to add to your computer to be able to type?",
+	      "responses": ["Keyboard", "Mouse", "Monitor", "Printer"]
+	    },
+
+	  {
+	      "theme_name": "informatics",
+	      "priority": 1,
+	      "question": "What is the central concept of OOP that allows organizing code into entities?",
+	      "responses": ["Classes", "Functions", "Modules", "Arrays"]
+	    },
+		{
+		   "theme_name": "informatics",
+		   "priority": 1,
+		   "question": "What does CPU stand for in a computer?",
+		   "responses": ["Central Processing Unit", "Computer Personal Unit", "Central Program Utility", "Core Processing Unit"]
+		 },
+		 {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What keyword is used to define a constant in Java?",
+		     "responses": ["final", "static", "constant", "immutable"]
+		   },
+		{
+		    "theme_name": "informatics",
+		    "priority": 1,
+		    "question": "Which component is considered the \"brain\" of the computer and executes program instructions?",
+		    "responses": ["CPU", "GPU", "RAM", "Hard Drive"]
+		  },
+		  {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which method do you use to create a clone of an object?",
+		     "responses": ["clone()", "copy()", "duplicate()", "new()"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which device allows you to see the computer's output visually?",
+		     "responses": ["Monitor", "Keyboard", "Mouse", "Speaker"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which operating system is developed by Microsoft?",
+		     "responses": ["Windows", "macOS", "Linux", "Android"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What does 'USB' stand for?",
+		     "responses": ["Universal Serial Bus", "Unique System Block", "United System Base", "Ultra Speed Buffer"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which company created the iPhone?",
+		     "responses": ["Apple", "Samsung", "Google", "Microsoft"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which storage device is fastest among these?",
+		     "responses": ["SSD", "HDD", "CD-ROM", "USB Stick"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What does GUI stand for?",
+		     "responses": ["Graphical User Interface", "Global Unit Interface", "General Usage Input", "Generated User Interaction"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What device is used for pointing and clicking?",
+		     "responses": ["Mouse", "Keyboard", "Printer", "Speaker"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What is the brain of a smartphone?",
+		     "responses": ["Processor", "Battery", "Screen", "Camera"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "What is the full form of URL?",
+		     "responses": ["Uniform Resource Locator", "Universal Realtime Loader", "Unified Route Language", "Ultimate Relay Link"]
+		   },
+		   {
+		     "theme_name": "informatics",
+		     "priority": 1,
+		     "question": "Which device connects a computer to a network?",
+		     "responses": ["Router", "Printer", "Scanner", "Monitor"]
+		   },
+	  {
 	    "theme_name": "informatics",
 	    "priority": 1,
 	    "question": "What is the function of an IP address?",
 	    "responses": ["Identify a device on a network", "Store website data", "Encrypt messages", "Speed up browsing"]
 	  },
 	  {
+	      "theme_name": "informatics",
+	      "priority": 1,
+	      "question": "What type of memory is used to temporarily store data currently in use by the processor?",
+	      "responses": ["RAM", "SSD", "ROM", "Cache Disk"]
+	    },
+	  {
 	    "theme_name": "informatics",
 	    "priority": 2,
 	    "question": "What does 'IP' stand for in networking?",
 	      "responses": ["Internet Protocol", "Internal Protocol", "Interconnected Protocol", "Internet Provider"]
 	  },
-	  
+	  {
+	      "theme_name": "informatics",
+	      "priority": 2,
+	      "question": "Which OOP principle allows a class to inherit properties and methods from another?",
+	      "responses": ["Inheritance", "Encapsulation", "Polymorphism", "Abstraction"]
+	    },
+		{
+		    "theme_name": "informatics",
+		    "priority": 2,
+		    "question": "Which device is used to store data permanently, even when the computer is off?",
+		    "responses": ["Hard Drive", "RAM", "CPU", "Motherboard"]
+		  },
+		  {
+		      "theme_name": "informatics",
+		      "priority": 2,
+		      "question": "In Java, what is the value of the variable ‘a’ after these operations: ‘a = 2’ then ‘a += 4’ then ‘a /= 2’?",
+		      "responses": ["3", "4", "2", "6"]
+		  },
 	  {
 	    "theme_name": "informatics",
 	    "priority": 2,
 	    "question": "What part of web development deals with UI/UX?",
 	    "responses": ["Front end", "Back end", "Database", "Server-side"]
 	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "In Java, which method is used to find the length of a string?",
+	    "responses": [".length()", ".size()", ".getLength()", ".measure()"]
+	  },
+	  {
+	  	     "theme_name": "informatics",
+	  	     "priority": 2,
+	  	     "question": "Choose one operating system (OS) you can install on a computer.",
+	  	     "responses": ["Linux", "Photoshop", "Google Chrome", "MS Word"]
+	  	   },
+		   {
+		      "theme_name": "informatics",
+		      "priority":2,
+		      "question": "What is inheritance in programming?",
+		      "responses": ["An organizational structure based on hierarchy", "A backup method", "A file encryption process", "A debugging technique"]
+		    },
+			{
+			    "theme_name": "informatics",
+			    "priority": 2,
+			    "question": "Which of these design patterns is not part of the structural patterns: Adapter, Proxy, Iterator?",
+			    "responses": ["Iterator", "Adapter", "Proxy", "Bridge"]
+			  },
+
+	  {
+	     "theme_name": "informatics",
+	     "priority": 2,
+	     "question": "In Java, what is the superclass of all classes?",
+	     "responses": ["Object class", "String class", "ArrayList class", "Scanner class"]
+	   },
+
 	  {
 	    "theme_name": "informatics",
 	    "priority": 2,
@@ -139,6 +695,55 @@
 	  	    "question": "What is the difference between HTTP and HTTPS?",
 	  	    "responses": ["HTTPS is secure, HTTP is not", "HTTP is faster", "HTTPS is a newer version", "There is no difference"]
 	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "Which programming language is mainly used for web development?",
+	    "responses": ["JavaScript", "Python", "C++", "Java"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What protocol is used to send emails?",
+	    "responses": ["SMTP", "HTTP", "FTP", "DNS"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "What is Git primarily used for?",
+	    "responses": ["Version Control", "Image Editing", "File Compression", "Data Analysis"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "Which tag is used to create a link in HTML?",
+	    "responses": ["<a>", "<p>", "<div>", "<span>"]
+	  },
+	  {
+	    "theme_name": "informatics",
+	    "priority": 2,
+	    "question": "In a database, what does SQL stand for?",
+	    "responses": ["Structured Query Language", "Simple Quick Language", "Standard Query Listing", "Systematic Question Logic"]
+	  },
+
+	  {
+	      "theme_name": "informatics",
+	      "priority": 2,
+	      "question": "What is a Singleton?",
+	      "responses": ["A class that allows only one instance", "A class with multiple parents", "A class that inherits many classes", "A class that cannot be instantiated"]
+	    },
+		{
+		  "theme_name": "informatics",
+		  "priority": 3,
+		  "question": "Which object-oriented programming concept in Java is commonly used in video games to allow different types of game objects to share common behaviors while having unique characteristics?",
+		  "responses": ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"]
+		},
+		{
+		   "theme_name": "informatics",
+		   "priority": 2,
+		   "question": "What keyword is used for inheritance in Java?",
+		   "responses": ["extends", "implements", "inherits", "derives"]
+		 },
 	  {
 	    "theme_name": "informatics",
 	    "priority": 2,
@@ -158,11 +763,71 @@
 	  	  "responses": ["Java", "Python", "Swift", "C++"]
 	  },
 	  {
+	     "theme_name": "informatics",
+	     "priority": 3,
+	     "question": "Which access modifier allows a subclass to access its parent’s attributes but prevents other classes from doing so?",
+	     "responses": ["protected", "private", "public", "default"]
+	   },
+	  {
+	      "theme_name": "informatics",
+	      "priority": 3,
+	      "question": "Choose the right list of the construction design patterns.",
+	      "responses": ["Singleton, Abstract Factory, Factory Method, Builder", "Observer, Visitor, Proxy, Decorator", "Adapter, Bridge, Composite, Facade", "Strategy, State, Chain of Responsibility, Mediator"]
+	    },
+		{
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "How should you name a method that returns the value of the boolean 'open'?",
+		   "responses": ["isOpen()", "getOpen()", "open()", "hasOpen()"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "Which company developed the Android operating system?",
+		   "responses": ["Google", "Apple", "Microsoft", "Samsung"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "Which programming language is often associated with machine learning?",
+		   "responses": ["Python", "Java", "C#", "Ruby"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "What does the 'public' keyword mean in Java?",
+		   "responses": ["Accessible from any other class", "Private to its package", "Protected from subclasses", "Hidden from the user"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "Which data structure works on the principle of LIFO (Last In First Out)?",
+		   "responses": ["Stack", "Queue", "Array", "Linked List"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "Which principle suggests hiding internal object details?",
+		   "responses": ["Encapsulation", "Abstraction", "Polymorphism", "Inheritance"]
+		 },
+		 {
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "Which cloud platform is developed by Amazon?",
+		   "responses": ["AWS", "Azure", "Google Cloud", "IBM Cloud"]
+		 },
+	  {
 	    "theme_name": "informatics",
 	    "priority": 3,
 	    "question": "What is an API?",
 	    "responses": ["Application Programming Interface", "Automated Process Integration", "Advanced Programming Instruction", "Application Protocol Interface"]
 	  },
+	  {
+	     "theme_name": "informatics",
+	     "priority": 3,
+	     "question": "In Phineas and Ferb, Candace constantly monitors her brothers' activities and alerts their mom. Which design pattern does this represent?",
+	     "responses": ["Observer Pattern", "Singleton Pattern", "Factory Pattern", "Adapter Pattern"]
+	   },
 	  {
 	    "theme_name": "informatics",
 	    "priority": 3,
@@ -170,17 +835,48 @@
 	    "responses": ["An attack overwhelming a server with requests.", "SQL Injection", "Brute Force", "Phishing"]
 	  },
 	  {
+	      "theme_name": "informatics",
+	      "priority": 3,
+	      "question": "Which Java keyword is used to declare a non-instantiable class?",
+	      "responses": ["abstract", "final", "static", "interface"]
+	    },
+	  {
 	    "theme_name": "informatics",
 	    "priority": 3,
 	    "question": "What is the purpose of a firewall?",
 	    "responses": ["To protect networks from unauthorized access", "To increase internet speed", "To store passwords", "To block ads"]
 	  },
 	  {
+	     "theme_name": "informatics",
+	     "priority": 3,
+	     "question": "In a UML sequence diagram, which symbol represents a method call?",
+	     "responses": ["Solid horizontal arrow", "Dashed arrow", "Curved arrow", "Double line"]
+	   },
+	  {
 	    "theme_name": "informatics",
 	    "priority": 3,
 	    "question": "Which Java keyword is used to declare a non-instantiable class?",
 	    "responses": ["Abstract", "Final", "Static", "Transient"]
 	  },
+	  {
+	      "theme_name": "informatics",
+	      "priority": 3,
+	      "question": "What are the main components required to build a computer?",
+	      "responses": ["Motherboard, CPU, RAM, GPU, Power Supply, Storage", "Monitor, Printer, Mouse", "Charger, Battery, Keyboard", "Router, Switch, Modem"]
+	    },
+		{
+		   "theme_name": "informatics",
+		   "priority": 3,
+		   "question": "What process allows reading and writing in files in OOP?",
+		   "responses": ["Serialization", "Deserialization", "Encryption", "Compilation"]
+		 },
+
+	  {
+	     "theme_name": "informatics",
+	     "priority": 3,
+	     "question": "Which Disney movie emphasizes the importance of debugging and fixing system errors?",
+	     "responses": ["Wreck-It Ralph", "Big Hero 6", "Toy Story", "Frozen"]
+	   },
 	  {
 	    "theme_name": "informatics",
 	    "priority": 4,
@@ -199,6 +895,113 @@
 	    "question": "What is the main function of an operating system?",
 	    "responses": ["Manage computer hardware and software resources", "Store user data", "Provide internet access", "Run antivirus programs"]
 	  },
+	  {
+	      "theme_name": "informatics",
+	      "priority": 4,
+	      "question": "What concept in OOP provides reusable solutions to common problems and helps to design software architecture more efficiently?",
+	      "responses": ["Design Patterns", "Data Structures", "Algorithms", "Frameworks"]
+	    },
+		{
+		    "theme_name": "informatics",
+		    "priority": 4,
+		    "question": "What is polymorphism in object-oriented programming?",
+		    "responses": ["A principle allowing objects to exist in different forms", "A method for data encryption", "A network protocol", "A way to store data"]
+		  },
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which bus is used to connect modern graphics cards to motherboards?",
+		  "responses": ["PCI Express", "SATA", "USB", "Ethernet"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "What is the main advantage of cloud computing?",
+		  "responses": ["Scalability", "Low internet usage", "More RAM", "Faster CPU"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "What is encryption used for?",
+		  "responses": ["Securing data", "Deleting data", "Compressing files", "Increasing speed"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which database is known for being NoSQL?",
+		  "responses": ["MongoDB", "MySQL", "PostgreSQL", "Oracle"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "What is an IP address made up of?",
+		  "responses": ["Numbers", "Letters", "Symbols", "Images"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which protocol secures data transfer on websites?",
+		  "responses": ["HTTPS", "HTTP", "FTP", "SMTP"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "What is the main role of DNS?",
+		  "responses": ["Translate domain names to IP addresses", "Encrypt email messages", "Connect printers", "Store passwords"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which JavaScript framework is mainly used for building user interfaces?",
+		  "responses": ["React", "Node.js", "Express", "Django"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which device is used to input voice into a computer?",
+		  "responses": ["Microphone", "Speaker", "Monitor", "Router"]
+		},
+		{
+		  "theme_name": "informatics",
+		  "priority": 4,
+		  "question": "Which part of the computer is responsible for rendering graphics?",
+		  "responses": ["GPU", "CPU", "RAM", "SSD"]
+		},
+		{
+		    "theme_name": "informatics",
+		    "priority": 4,
+		    "question": "Which Disney character best exemplifies the concept of encapsulation in object-oriented programming?",
+		    "responses": ["Baymax", "Olaf", "Woody", "Buzz Lightyear"]
+		  },
+		  {
+		      "theme_name": "informatics",
+		      "priority": 4,
+		      "question": "Difference between Abstract Factory and Factory Method?",
+		      "responses": ["Abstract Factory creates families of objects; Factory Method creates single objects", "Factory Method is faster", "Abstract Factory works only for GUIs", "Factory Method requires no code"]
+		    },
+		  {
+		     "theme_name": "informatics",
+		     "priority": 4,
+		     "question": "Which Disney movie features a computer program that helps a boy become a hero?",
+		     "responses": ["Big Hero 6", "Tron", "Wreck-It Ralph", "Ratatouille"]
+		   },
+		   {
+		       "theme_name": "informatics",
+		       "priority": 4,
+		       "question": "What is the primary programming language used for developing Disney-based video games?",
+		       "responses": ["C++", "Python", "Java", "Swift"]
+		     },
+			  {
+			   "theme_name": "informatics",
+			   "priority": 4,
+			   "question": "Which Java functionality is used to 'kill' an object?",
+			   "responses": ["Garbage Collector", "Destructor", "Memory Cleaner", "Resource Releaser"]
+			 },
+
+
+
+
+
   
   
   
@@ -209,11 +1012,67 @@
 	     "responses": ["Blue", "Green", "Red", "Yellow"]
 	   },
 	   {
+	       "theme_name": "entertainment",
+	       "priority": 1,
+	       "question": "In the movie Cars, what number does Lightning McQueen have in the Piston Cup?",
+	       "responses": ["95", "86", "57", "42"]
+	     },
+	   {
+	       "theme_name": "entertainment",
+	       "priority": 1,
+	       "question": "Which book inspired a movie starring a hunchback called Quasimodo?",
+	       "responses": ["Notre-Dame de Paris", "Les Misérables", "The Hunchback", "Oliver Twist"]
+	     },
+
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 1,
+	     "question": "What is the name of the fictional country in Black Panther?",
+	     "responses": ["Wakanda", "Zamunda", "Genovia", "Latveria"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 1,
+	     "question": "Who is the main character in The Legend of Zelda series?",
+	     "responses": ["Link", "Zelda", "Ganon", "Epona"]
+	   },
+	   {
+	      "theme_name": "entertainment",
+	      "priority": 1,
+	      "question": "Name one hostile mob in Minecraft.",
+	      "responses": ["Zombie", "Cow", "Pig", "Sheep"]
+	    },
+		{
+		    "theme_name": "entertainment",
+		    "priority": 1,
+		    "question": "What is the name of the Belgian men's national football team?",
+		    "responses": ["Red Devils", "Blue Lions", "Golden Tigers", "White Falcons"]
+		  },
+	     {
+	       "theme_name": "entertainment",
+	       "priority": 1,
+	       "question": "Did Walt Disney create Mickey Mouse?",
+	       "responses": ["Yes, with Ub Iwerks", "No, with Chuck Jones", "No, with Tex Avery", "Yes, alone without help"]
+	     },
+
+	   {
+	      "theme_name": "entertainment",
+	      "priority": 1,
+	      "question": "What is the name of the robot in Star Wars that accompanies C-3PO?",
+	      "responses": ["R2-D2", "BB-8", "T-800", "WALL-E"]
+	    },
+	   {
 	     "theme_name": "entertainment",
 	     "priority": 1,
 	     "question": "What is the most popular sport in the world",
 	     "responses": ["Football", "Golf", "Basketball", "Baseball"]
 	   },
+	   {
+	       "theme_name": "entertainment",
+	       "priority": 1,
+	       "question": "Who sang the song 'Waka Waka'?",
+	       "responses": ["Shakira", "Jennifer Lopez", "Camila Cabello", "Rosalía"]
+	     },
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 1,
@@ -228,17 +1087,99 @@
 	   	     "responses": ["Michael Jackson", "Elvis Presley", "Prince", "Madonna"]
 	   	   },
 		   {
+		       "theme_name": "entertainment",
+		       "priority": 1,
+		       "question": "Which Disney character learns that true beauty comes from within rather than appearances?",
+		       "responses": ["Beast (Beauty and the Beast)", "Ariel (The Little Mermaid)", "Rapunzel (Tangled)", "Elsa (Frozen)"]
+		     },
+			 {
+			   "theme_name": "entertainment",
+			   "priority": 1,
+			   "question": "What is the name of the main character in 'Super Mario Bros'?",
+			   "responses": ["Mario", "Luigi", "Peach", "Bowser"]
+			 },
+
+			 {
+			    "theme_name": "entertainment",
+			    "priority": 1,
+			    "question": "Which Disney movie teaches children about emotions and mental health?",
+			    "responses": ["Inside Out", "Coco", "Zootopia", "Brave"]
+			  },
+			  {
+			     "theme_name": "entertainment",
+			     "priority": 1,
+			     "question": "Which Disney movie emphasizes the importance of honesty through the story of a boy who cannot lie?",
+			     "responses": ["Pinocchio", "Peter Pan", "Aladdin", "The Sword in the Stone"]
+			   },
+			   {
+			      "theme_name": "entertainment",
+			      "priority": 1,
+			      "question": "What is Spider-Man's real name?",
+			      "responses": ["Peter Parker", "Bruce Wayne", "Tony Stark", "Clark Kent"]
+			    },
+
+			   {
+			       "theme_name": "entertainment",
+			       "priority": 1,
+			       "question": "Who teaches Simba about responsibility in The Lion King?",
+			       "responses": ["Mufasa", "Scar", "Timon", "Pumbaa"]
+			     },
+				 {
+				     "theme_name": "entertainment",
+				     "priority": 2,
+				     "question": "Which series stars two brothers with geometric-shaped heads?",
+				     "responses": ["Phineas and Ferb", "Gravity Falls", "Kim Possible", "The Proud Family"]
+				   },
+				   {
+				      "theme_name": "entertainment",
+				      "priority": 2,
+				      "question": "Which wizard in Disney lore accidentally turned into a woman because of a bad spell?",
+				      "responses": ["Merlin", "Yen Sid", "Morgana", "The Fairy Godmother"]
+				    },
+
+				   {
+				       "theme_name": "entertainment",
+				       "priority": 2,
+				       "question": "Which animal leads a double life after putting on a hat?",
+				       "responses": ["Perry the Platypus", "Simba", "Dumbo", "Bambi"]
+				     },
+
+		   {
 		      "theme_name": "entertainment",
 		       "priority": 2,
 		       "question": "Who has won the ballon d'or in 2023?",
 		       "responses": ["Lionel Messi", "Cristiano Ronaldo", "Karim Benzema", "Neymar"]
 		     },
+			 {
+			    "theme_name": "entertainment",
+			    "priority": 2,
+			    "question": "Which Belgian player won the PFA Player of the Year award in 2021?",
+			    "responses": ["Kevin De Bruyne", "Eden Hazard", "Romelu Lukaku", "Thibaut Courtois"]
+			  },
+			 {
+			     "theme_name": "entertainment",
+			     "priority": 2,
+			     "question": "Which instrument is primarily associated with Jimi Hendrix?",
+			     "responses": ["Electric Guitar", "Drums", "Piano", "Saxophone"]
+			},
+			{
+			    "theme_name": "entertainment",
+			    "priority": 2,
+			    "question": "Which director is known for his intertwined films like Pulp Fiction and Kill Bill?",
+			    "responses": ["Quentin Tarantino", "Steven Spielberg", "Christopher Nolan", "James Cameron"]
+			  },
 		   {
 		   	 "theme_name": "entertainment",
 		   	 "priority": 2,
 		   	 "question": "How many Stars Wars are there ?",
 		     "responses": ["9", "8", "10", "7"]
 		},
+		{
+		   "theme_name": "entertainment",
+		   "priority": 2,
+		   "question": "When was Minecraft created?",
+		   "responses": ["2009", "2010", "2008", "2011"]
+		 },
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 2,
@@ -252,11 +1193,36 @@
 	     "responses": ["The Terminator", "Predator", "Die Hard", "RoboCop"]
 	   },
 	   {
+	      "theme_name": "entertainment",
+	      "priority": 2,
+	      "question": "Who performed 'Not Like Us' at the 2025 Super Bowl?",
+	      "responses": ["Kendrick Lamar", "Drake", "Jay-Z", "Lil Wayne"]
+	    },
+	   {
 	   	     "theme_name": "entertainment",
 	   	     "priority": 2,
 	   	     "question": "Who played the character of Jack in 'Titanic'?",
 	   	     "responses": ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Johnny Depp"]
 	   	   },
+		   
+		    {
+		     "theme_name": "entertainment",
+		     "priority": 2,
+		     "question": "Which famous rapper released the single 'Hit Em Up' in 1996?",
+		     "responses": ["Tupac Shakur", "Notorious B.I.G.", "Snoop Dogg", "Nas"]
+		   },
+		   {
+		      "theme_name": "entertainment",
+		      "priority": 2,
+		      "question": "In which TV series can you find the character Walter White?",
+		      "responses": ["Breaking Bad", "The Wire", "Better Call Saul", "Narcos"]
+		    },
+			{
+			    "theme_name": "entertainment",
+			    "priority": 2,
+			    "question": "Which video game allows players to build and launch rockets while learning the basics of astronomy and physics?",
+			    "responses": ["Kerbal Space Program", "Elite Dangerous", "Space Engineers", "Universe Sandbox"]
+			  },
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 2,
@@ -275,6 +1241,13 @@
 	     "question": "Who played the character of Tony Stark in the MCU?",
 	     "responses": ["Robert Downey Jr.", "Chris Evans", "Chris Hemsworth", "Mark Ruffalo"]
 	   },
+	      {
+	     "theme_name": "entertainment",
+	     "priority": 2,
+	     "question": "In which simulation video game do players manage a business to learn financial management and marketing skills?",
+	     "responses": ["SimCity", "RollerCoaster Tycoon", "Cities: Skylines", "Planet Coaster"]
+	   },
+
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 2,
@@ -300,11 +1273,86 @@
 	     "responses": ["Queen", "The Beatles", "Led Zeppelin", "Pink Floyd"]
 	   },
 	   {
+	   			      "theme_name": "entertainment",
+	   			      "priority": 3,
+	   			      "question": "Which rock band released 'Smells Like Teen Spirit'?",
+	   			      "responses": ["Nirvana", "Pearl Jam", "Soundgarden", "Foo Fighters"]
+	   	},
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	     "question": "Which Disney movie features a young inventor creating a time machine?",
+	     "responses": ["Meet the Robinsons", "Big Hero 6", "Wall-E", "Bolt"]
+	   },
+	   {
+	     "theme_name": "entertainment",
+	     "priority": 3,
+	      "question": "Which video game, developed by Nintendo, offers language lessons (such as English or Japanese) through interactive mini-games?",
+	     "responses": ["Learn with Pokémon: Typing Adventure", "Duolingo", "Rosetta Stone", "Memrise"]
+	    },
+	   
+	   {
+	    "theme_name": "entertainment",
+	    "priority": 3,
+	    "question": "Which Disney movie shows characters discovering that their true power lies within themselves?",
+	    "responses": ["Frozen", "Tangled", "Brave", "The Incredibles"]
+	   	},
+		{
+		    "theme_name": "entertainment",
+		    "priority": 3,
+		    "question": "Who was the goalkeeper of Spain during the 2010 World Cup?",
+		    "responses": ["Iker Casillas", "David De Gea", "Manuel Neuer", "Gianluigi Buffon"]
+		  },
+		
+	   	{
+	   	 "theme_name": "entertainment",
+	   	 "priority": 3,
+	   	 "question": "Which princess falls in love with an amphibian?",
+	   	  "responses": ["Tiana", "Ariel", "Aurora", "Rapunzel"]
+	   	 },
+		 {
+		  "theme_name": "entertainment",
+		  "priority":3,
+		  "question": "In 2014, Ariana Grande released 'Love Me Harder'. Which famous singer featured on the song?",
+		  "responses": ["The Weeknd", "Drake", "Bruno Mars", "Ed Sheeran"]
+		 },
+	   {
 	   	 "theme_name": "entertainment",
 	   	 "priority": 3,
 	   	 "question": "Who is the artist the most Grammy-awarded of all time?",
 	   	 "responses": [ "Beyoncé", "Michael Jackson", "Stevie Wonder", "Whitney Houston"]
-	   	 },	   
+	   	 },	
+		 {
+		   "theme_name": "entertainment",
+		   "priority": 3,
+		   "question": "Which animated movie tells the story of a cooking rat in Paris?",
+		   "responses": ["Ratatouille", "The Aristocats", "Lady and the Tramp", "The Rescuers"]
+		 },
+		 {
+		   "theme_name": "entertainment",
+		   "priority": 3,
+		   "question": "Who is the famous archaeologist played by Harrison Ford?",
+		   "responses": ["Indiana Jones", "Lara Croft", "Benjamin Gates", "Nathan Drake"]
+		 },
+		 {
+		   "theme_name": "entertainment",
+		   "priority": 3,
+		   "question": "What is the name of the villainous sea witch in 'The Little Mermaid'?",
+		   "responses": ["Ursula", "Maleficent", "Cruella", "Gothel"]
+		 },
+		 {
+		   "theme_name": "entertainment",
+		   "priority": 3,
+		   "question": "In which series would you find characters like Sheldon, Leonard, and Penny?",
+		   "responses": ["The Big Bang Theory", "Friends", "How I Met Your Mother", "Modern Family"]
+		 },
+		 {
+		   "theme_name": "entertainment",
+		   "priority": 3,
+		   "question": "Who composed the famous score for the 'Harry Potter' movies?",
+		   "responses": ["John Williams", "Hans Zimmer", "Howard Shore", "James Newton Howard"]
+		 },
+
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 3,
@@ -312,11 +1360,31 @@
 	     "responses": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars: The Force Awakens"]
 	   },
 	   {
+	       "theme_name": "entertainment",
+	       "priority": 3,
+	       "question": "Which artist composed the music for the movie Interstellar?",
+	       "responses": ["Hans Zimmer", "John Williams", "James Horner", "Danny Elfman"]
+	     },
+
+		 {
+		     "theme_name": "entertainment",
+		     "priority": 3,
+		     "question": "In Inception, what object does Dom Cobb use to determine whether he is dreaming?",
+		     "responses": ["Spinning top", "Dice", "Watch", "Coin"]
+		   },
+	   {
 	        "theme_name": "entertainment",
 	        "priority": 3,
 	        "question": "Which country won the first-ever football World Cup?",
 	        "responses": ["Uruguay", "Brazil", "Germany", "Italy"]
 	      },
+		  {
+		     "theme_name": "entertainment",
+		     "priority": 3,
+		     "question": "Which FPS features a multiplayer mode where players take on the role of heroes with unique abilities, such as Tracer or Reaper?",
+		     "responses": ["Overwatch", "Valorant", "Fortnite", "Paladins"]
+		   },
+
 	   {
 	     "theme_name": "entertainment",
 	     "priority": 3,
@@ -343,25 +1411,199 @@
 	     "responses": ["Kelly Clarkson", "Carrie Underwood", "Jennifer Hudson", "Adam Lambert"]
 	   },
 	   {
+	      "theme_name": "entertainment",
+	      "priority": 4,
+	      "question": "What species is Ravi's pet in Disney's Jessie?",
+	      "responses": ["Asian Water Monitor Lizard", "Chameleon", "Gecko", "Iguana"]
+	    },
+		{
+		   "theme_name": "entertainment",
+		   "priority": 4,
+		   "question": "What is the name of the evil triangle in Gravity Falls?",
+		   "responses": ["Bill Cipher", "Dipper Pines", "Stanford Pines", "Ford Cipher"]
+		 },
+		{
+		    "theme_name": "entertainment",
+		    "priority": 4,
+		    "question": "Who voiced Phineas in Phineas and Ferb?",
+		    "responses": ["Vincent Martella", "Tom Kenny", "Troy Baker", "Drake Bell"]
+		  },
+		  {
+		     "theme_name": "education",
+		     "priority": 4,
+		     "question": "What is the full name of Sherlock Holmes' friend?",
+		     "responses": ["John Watson", "James Watson", "Greg Lestrade", "Mycroft Holmes"]
+		   },
+	   {
 	   	     "theme_name": "entertainment",
 	   	     "priority": 4,
 	   	     "question": "What is the name of the dragon in 'The Hobbit'?",
 	   	     "responses": ["Smaug", "Drogon", "Falkor", "Toothless"]
 	   	   },
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
 		   {
-		      "theme_name": "education",
-		      "priority": 1,
-		      "question": "When did humans first set foot on the Moon?",
-		      "responses": ["1969", "1955", "1972", "1980"]
-		    },
+		       "theme_name": "entertainment",
+		       "priority": 4,
+		       "question": "In Big Hero 6, what does Hiro study to become an inventor?",
+		       "responses": ["Robotics", "Architecture", "Literature", "Psychology"]
+		     },
+			 {
+			   "theme_name": "entertainment",
+			   "priority": 4,
+			   "question": "Which superhero is known as the 'Man of Steel'?",
+			   "responses": ["Superman", "Batman", "Iron Man", "Captain America"]
+			 },
+			 {
+			   "theme_name": "entertainment",
+			   "priority": 4,
+			   "question": "What is the title of the series about a chemistry teacher turned drug dealer?",
+			   "responses": ["Breaking Bad", "Ozark", "Narcos", "The Sopranos"]
+			 },
+			 {
+			   "theme_name": "entertainment",
+			   "priority": 4,
+			   "question": "Which animal is the star of the movie 'Babe'?",
+			   "responses": ["Pig", "Sheep", "Dog", "Horse"]
+			 },
+			 {
+			   "theme_name": "entertainment",
+			   "priority": 4,
+			   "question": "Which animated movie features a fish searching for his son?",
+			   "responses": ["Finding Nemo", "Shark Tale", "The Little Mermaid", "Moana"]
+			 },
+
+			 {
+			 	     "theme_name": "entertainment",
+			 	     "priority": 4,
+			 	     "question": "Which nation won EURO 1992?",
+			 	     "responses": ["Denmark", "Germany", "France", "Italy"]
+			 	   },
+			 {
+			 	      "theme_name": "entertainment",
+			 	      "priority": 4,
+			 	      "question": "Which 1994 film features a prisoner escaping through a tunnel dug over 19 years?",
+			 	      "responses": ["The Shawshank Redemption", "Escape Plan", "The Green Mile", "Prison Break"]
+			 	    },
+					{
+						      "theme_name": "entertainment",
+						      "priority": 4,
+						      "question": "Which TV series is based on the works of George R. R. Martin?",
+						      "responses": ["Game of Thrones", "The Witcher", "The Expanse", "Lord of the Rings"]
+						    },
+							{
+							    "theme_name": "entertainment",
+							    "priority": 4,
+							    "question": "In which MCU movie does Thanos first appear in a post-credit scene?",
+							    "responses": ["The Avengers", "Guardians of the Galaxy", "Avengers: Infinity War", "Thor"]
+							  },
+							  {
+							      "theme_name": "entertainment",
+							      "priority": 4,
+							      "question": "Who is the creator of 'The Legend of Zelda' series?",
+							      "responses": ["Shigeru Miyamoto", "Hideo Kojima", "Gabe Newell", "Satoru Iwata"]
+							    },
+								 {
+								  "theme_name": "entertainment",
+								  "priority": 4,
+								  "question": "Which FPS, developed by Valve, is famous for its competitive multiplayer mode and iconic maps like 'Dust II' and 'Inferno'?",
+								  "responses": ["Counter-Strike: Global Offensive", "Valorant", "Overwatch", "Apex Legends"]
+								},
+
+
+
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		 
+			{
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "Choose the 5 corrects European capitals.",
+			    "responses": ["Brussels, Paris, Amsterdam, Berlin, Madrid", "London, New York, Sydney, Tokyo, Rio", "Moscow, Cairo, Delhi, Nairobi, Lima", "Toronto, Chicago, Los Angeles, Houston, Miami"]
+			  },
+
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What is the capital of Italy?",
+			    "responses": ["Rome", "Paris", "Berlin", "Madrid"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What is 5 + 26?",
+			    "responses": ["31", "30", "32", "29"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "Which planet is known as the Red Planet?",
+			    "responses": ["Mars", "Earth", "Venus", "Jupiter"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What animal is known for its long trunk?",
+			    "responses": ["Elephant", "Lion", "Giraffe", "Zebra"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What is the largest ocean in the world?",
+			    "responses": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What shape has 4 equal sides?",
+			    "responses": ["Square", "Rectangle", "Triangle", "Circle"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "Which season comes after summer?",
+			    "responses": ["Autumn", "Spring", "Winter", "Summer"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What fruit is known as the king of fruits?",
+			    "responses": ["Mango", "Apple", "Banana", "Pineapple"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "What is the primary language spoken in Spain?",
+			    "responses": ["Spanish", "French", "Italian", "English"]
+			  },
+			      {
+			    "theme_name": "education",
+			    "priority": 1,
+			    "question": "Which animal is known for its stripes?",
+			    "responses": ["Tiger", "Leopard", "Elephant", "Cheetah"]
+			  },
+			  {
+			      "theme_name": "education",
+			      "priority": 1,
+			      "question": "What is the capital of France?",
+			      "responses": ["Paris", "London", "Rome", "Madrid"]
+			    },
+				{
+				    "theme_name": "education",
+				    "priority": 1,
+				    "question": "What is the chemical symbol for gold?",
+				    "responses": ["Au", "Ag", "Fe", "Pb"]
+				  },
+			{
+			   "theme_name": "education",
+			   "priority": 1,
+			   "question": "How many sides does a hexagon have?",
+			   "responses": ["6", "5", "7", "8"]
+			 },
 		    {
 		      "theme_name": "education",
 		      "priority": 1,
@@ -375,17 +1617,91 @@
 		      "responses": ["Brussels", "Antwerp", "Ghent", "Liège"]
 		    },
 			{
+			   "theme_name": "education",
+			   "priority": 1,
+			   "question": "How many continents are there on Earth?",
+			   "responses": ["7", "5", "6", "8"]
+			 },
+			{
 			  "theme_name": "education",
 			  "priority": 2,
 			  "question": "Solve this equation (15 x 2) - (8 + 5)..",
 			  "responses": ["17", "22", "15", "19"]
 			 },
+			 {
+			     "theme_name": "education",
+			     "priority": 2,
+			     "question": "What is the name of the constant approximately equal to 3.1416?",
+			     "responses": ["Pi", "Euler's number", "Golden Ratio", "Avogadro's number"]
+			   },
+			   {
+			     "theme_name": "education",
+			     "priority": 2,
+			     "question": "What is the name of the Belgian detective created by the English novelist Agatha Christie?",
+			     "responses": ["Hercule Poirot", "Sherlock Holmes", "Miss Marple", "Inspector Clouseau"]
+			   },
+			   {
+			   		    "theme_name": "education",
+			   		    "priority": 2,
+			   		    "question": "In what year did the Titanic sink?",
+			   		    "responses": ["1912", "1905", "1920", "1898"]
+			   		},
+			   {
+			      "theme_name": "education",
+			      "priority": 2,
+			      "question": "What is the science that studies Earth's atmosphere?",
+			      "responses": ["Meteorology", "Geology", "Astronomy", "Biology"]
+			    },
+				
+			   {
+			   	      "theme_name": "education",
+			   	      "priority": 2,
+			   	      "question": "When did humans first set foot on the Moon?",
+			   	      "responses": ["1969", "1955", "1972", "1980"]
+			   	    },
 		    {
 		      "theme_name": "education",
 		      "priority": 2,
 		      "question": "Who fought against racism in South Africa?",
 		      "responses": ["Nelson Mandela", "Martin Luther King Jr.", "Mahatma Gandhi", "Winston Churchill"]
 		    },
+			{
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "What is the largest organ in the human body?",
+			   "responses": ["Skin", "Liver", "Brain", "Heart"]
+			 },
+
+			  {
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "What is the boiling point of water in Celsius?",
+			   "responses": ["100°C", "90°C", "80°C", "70°C"]
+			 },
+			 {
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "Who is known as the 'Father of Computers'?",
+			   "responses": ["Charles Babbage", "Alan Turing", "Bill Gates", "Steve Jobs"]
+			 },
+			 {
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "Which continent is the Sahara Desert located in?",
+			   "responses": ["Africa", "Asia", "Australia", "South America"]
+			 },
+			 {
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "What is the primary gas in Earth's atmosphere?",
+			   "responses": ["Nitrogen", "Oxygen", "Carbon Dioxide", "Hydrogen"]
+			 },
+			 {
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "What is the term for animals that eat both plants and meat?",
+			   "responses": ["Omnivores", "Herbivores", "Carnivores", "Insectivores"]
+			 },
 		    {
 		      "theme_name": "education",
 		      "priority": 2,
@@ -404,12 +1720,25 @@
 		      "question": "What is the chemical symbol for water?",
 		      "responses": ["H2O", "O2", "CO2", "H2"]
 		    },
+			{
+			      "theme_name": "education",
+			      "priority": 2,
+			      "question": "Which literary movement, initiated by Émile Zola, aimed to represent reality scientifically and objectively?",
+			      "responses": ["Naturalism", "Romanticism", "Symbolism", "Expressionism"]
+			    },
 		    {
 		      "theme_name": "education",
 		      "priority": 2,
 		      "question": "How long is the lifespan of a human red blood cell?",
 		      "responses": ["120 days", "90 days", "100 days", "150 days"]
 		    },
+			{
+			   "theme_name": "education",
+			   "priority": 2,
+			   "question": "Who wrote 'Les Misérables'?",
+			   "responses": ["Victor Hugo", "Jean-Paul Sartre", "Albert Camus", "Molière"]
+			 },
+
 		    {
 		      "theme_name": "education",
 		      "priority": 2,
@@ -418,10 +1747,40 @@
 		    },
 			{
 			    "theme_name": "education",
+			    "priority": 3,
+			    "question": "Which planets are gaseous in our solar system?",
+			    "responses": ["Jupiter, Saturn, Uranus, Neptune", "Mercury, Venus, Earth, Mars", "Pluto, Ceres, Haumea", "Eris, Makemake, Sedna"]
+			  },
+			{
+			    "theme_name": "education",
 				 "priority": 3,
 				 "question": "What is the largest country in Africa?",
 				 "responses": ["Algeria", "Nigeria", "Dr Congo", "South Africa"]
 		     },
+			 {
+			     "theme_name": "education",
+			     "priority": 3,
+			     "question": "What is the process by which cells divide to produce two identical daughter cells?",
+			     "responses": ["Mitosis", "Meiosis", "Fusion", "Replication"]
+			   },
+			   {
+			   	      "theme_name": "education",
+			   	      "priority": 3,
+			   	      "question": "What is the longest river in Africa?",
+			   	       "responses": ["Nile", "Amazon", "Yangtze", "Congo"]
+			   	    },
+			 {
+			     "theme_name": "education",
+			     "priority": 3,
+			     "question": "Which theorem states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides?",
+			     "responses": ["Pythagorean theorem", "Fermat's Last Theorem", "Fundamental theorem of algebra", "Bayes' theorem"]
+			   },
+			   {
+			      "theme_name": "education",
+			      "priority": 3,
+			      "question": "What is the closest planet to the Sun?",
+			      "responses": ["Mercury", "Venus", "Earth", "Mars"]
+			    },
 		    {
 		      "theme_name": "education",
 		      "priority": 3,
@@ -434,6 +1793,13 @@
 		      "question": "Who developed the theory of relativity?",
 		      "responses": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"]
 		    },
+			{
+			    "theme_name": "education",
+			    "priority": 3,
+			    "question": "What is the capital of Australia?",
+			    "responses": ["Canberra", "Sydney", "Melbourne", "Brisbane"]
+			  },
+
 		    {
 		      "theme_name": "education",
 		      "priority": 3,
@@ -446,30 +1812,172 @@
 		      "question": "Solve this equation: (48 ÷ 6) × (7 - 3).",
 		      "responses": ["32", "28", "30", "36"]
 		    },
+
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "Which organelle is known as the 'control center' of the cell?",
+			  "responses": ["Nucleus", "Mitochondria", "Ribosome", "Golgi apparatus"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "What is the primary function of red blood cells?",
+			  "responses": ["Transport oxygen", "Fight infections", "Regulate temperature", "Produce hormones"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "Which battle marked the end of Napoleon's rule?",
+			  "responses": ["Battle of Waterloo", "Battle of Trafalgar", "Battle of Austerlitz", "Battle of Leipzig"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "What is the chemical formula for table salt?",
+			  "responses": ["NaCl", "KCl", "CaCO3", "H2O"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "Which natural disaster is measured using the Richter scale?",
+			  "responses": ["Earthquake", "Tsunami", "Hurricane", "Volcanic eruption"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "Who is credited with the discovery of penicillin?",
+			  "responses": ["Alexander Fleming", "Louis Pasteur", "Marie Curie", "Gregor Mendel"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "Which mountain range separates Europe and Asia?",
+			  "responses": ["Ural Mountains", "Andes", "Alps", "Himalayas"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "What is the term for animals that live both on land and in water?",
+			  "responses": ["Amphibians", "Reptiles", "Mammals", "Birds"]
+			},
+			{
+			  "theme_name": "education",
+			  "priority": 3,
+			  "question": "What is the largest type of star in the universe?",
+			  "responses": ["Red supergiant", "White dwarf", "Neutron star", "Blue giant"]
+			},
 		    {
 		      "theme_name": "education",
 		      "priority": 4,
 		      "question": "What is Newton's third law of motion?",
 		      "responses": ["For every action, there is an equal and opposite reaction.", "An object in motion stays in motion.", "Force equals mass times acceleration.", "Energy cannot be created or destroyed."]
 		    },
+			{
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which country has Ouagadougou as its capital?",
+			    "responses": ["Burkina Faso", "Mali", "Niger", "Chad"]
+			  },
 		    {
 		      "theme_name": "education",
 		      "priority": 4,
 		      "question": "What was the result of Charles Quint's expedition against Algiers?",
 		      "responses": ["Failure due to a storm and resistance", "Victory", "A peace treaty", "No significant impact"]
 		    },
+			{
+			   "theme_name": "education",
+			   "priority": 4,
+			   "question": "What is the name of the irrational number approximately equal to 2.718, used as the base of the natural logarithm?",
+			   "responses": ["Euler's number", "Pi", "Golden Ratio", "Planck's constant"]
+			 },
+			 
+			 {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "What is the name of the galaxy next to the Milky Way?",
+			    "responses": ["Andromeda", "Triangulum", "Sagittarius Dwarf", "Large Magellanic Cloud"]
+			  },
+			  {
+			      "theme_name": "education",
+			      "priority": 4,
+			      "question": "What is the name of the hormone that regulates metabolism and is produced by the thyroid gland?",
+			      "responses": ["Thyroxine", "Adrenaline", "Insulin", "Melatonin"]
+			    },
+
 		    {
 		      "theme_name": "education",
 		      "priority": 4,
 		      "question": "What is the powerhouse of the cell?",
 		      "responses": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"]
 		    },
-		    {
-		      "theme_name": "education",
-		      "priority": 4,
-		      "question": "What is the longest river in Africa?",
-		       "responses": ["Nile", "Amazon", "Yangtze", "Congo"]
-		    }
+			{
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which country has the highest university enrollment rate?",
+			    "responses": ["South Korea", "United States", "Japan", "Germany"]
+			  },
+
+			   {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "What is the name of the largest galaxy in the Local Group?",
+			    "responses": ["Andromeda", "Milky Way", "Triangulum", "Large Magellanic Cloud"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "What is the term for a material that prevents the flow of electric current?",
+			    "responses": ["Insulator", "Conductor", "Semiconductor", "Resistor"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which treaty ended World War I?",
+			    "responses": ["Treaty of Versailles", "Treaty of Paris", "Treaty of Vienna", "Treaty of Ghent"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "What is the name of the study of fungi?",
+			    "responses": ["Mycology", "Botany", "Zoology", "Ecology"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which physicist is known for the uncertainty principle in quantum mechanics?",
+			    "responses": ["Werner Heisenberg", "Max Planck", "Erwin Schrödinger", "Paul Dirac"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Who composed the symphony 'Ode to Joy'?",
+			    "responses": ["Ludwig van Beethoven", "Wolfgang Amadeus Mozart", "Johann Sebastian Bach", "Franz Schubert"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "What is the name of the process in which plants convert sunlight into energy?",
+			    "responses": ["Photosynthesis", "Respiration", "Transpiration", "Fermentation"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which element has the atomic number 92?",
+			    "responses": ["Uranium", "Plutonium", "Thorium", "Radium"]
+			  },
+			  {
+			    "theme_name": "education",
+			    "priority": 4,
+			    "question": "Which mathematician is known for formulating calculus independently of Newton?",
+			    "responses": ["Gottfried Wilhelm Leibniz", "Leonhard Euler", "Carl Friedrich Gauss", "Pierre-Simon Laplace"]
+			  },
+			  {
+			     "theme_name": "education",
+			     "priority": 4,
+			     "question": "What is the name of the author of 'The Three Musketeers' and 'The Count of Monte Cristo'?",
+			     "responses": ["Alexandre Dumas", "Victor Hugo", "Gustave Flaubert", "Émile Zola"]
+			   }
 ]
 
 

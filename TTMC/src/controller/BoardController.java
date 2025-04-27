@@ -342,7 +342,7 @@ public class BoardController {
 private void loadQuestions() {
     QuestionLoader loader = new QuestionLoader();
     loader.loadQuestions("ressources/questions/questions.json");
-
+    
     Map<Topic, List<Question>> questionsByTopic = new HashMap<>();
     for (Topic topic : Topic.values()) {
         QuestionFactory factory = loader.getFactories().get(topic);
@@ -791,7 +791,6 @@ private void updateHintsDisplay() {
         currentPlayer.move(steps);
         //currentPlayerView.updatePosition();
         currentPlayerView.animateMovement(steps);
-        //checkPlayerOverlap();
     }
     
     /**
@@ -1189,9 +1188,7 @@ private void displaySelectedQuestion(Question question) {
                 int stepsBack = Math.min(1, currentPlayer.getPosition());             
                 currentPlayer.move(-stepsBack);
                 currentPlayerView.animateMovement(-stepsBack);
-                //checkPlayerOverlap();
                 updateScoreAndStreakDisplay();
-            
                 nextPlayer();
             }
 

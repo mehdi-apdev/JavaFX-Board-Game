@@ -8,8 +8,6 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -25,9 +23,6 @@ public class PlayerView {
     public PlayerView(Player player, Circle circle , List<Rectangle> spaces) {
         this.player = player;
         this.spaces = spaces;
-
-        // Create the circle
-        //this.circle = new Circle(12, color);
         this.circle = circle;
        
         // Set the initial position of the circle
@@ -66,14 +61,14 @@ public class PlayerView {
             int nextPos = currentPos + 1;
 
             if (nextPos < spaces.size()) {
-                Rectangle currentRect = spaces.get(currentPos);
+                //Rectangle currentRect = spaces.get(currentPos);
                 Rectangle nextRect = spaces.get(nextPos);
 
                 // Calculate absolute positions instead of relative translations
                 double nextX = nextRect.getLayoutX() + nextRect.getWidth() / 2;
                 double nextY = nextRect.getLayoutY() + nextRect.getHeight() / 2;
-                double currentX = currentRect.getLayoutX() + currentRect.getWidth() / 2;
-                double currentY = currentRect.getLayoutY() + currentRect.getHeight() / 2;
+                //double currentX = currentRect.getLayoutX() + currentRect.getWidth() / 2;
+                //double currentY = currentRect.getLayoutY() + currentRect.getHeight() / 2;
 
                 // Create bounce effect
                 ParallelTransition stepTransition = new ParallelTransition();

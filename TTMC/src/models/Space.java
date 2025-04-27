@@ -2,7 +2,9 @@ package models;
 
 public abstract class Space {
 	
+	@SuppressWarnings("unused")
 	private int number; // number of the space aka position
+	@SuppressWarnings("unused")
 	private int road; // road number, 1 to 4
 	private int id; // id of the square in javafx
 	

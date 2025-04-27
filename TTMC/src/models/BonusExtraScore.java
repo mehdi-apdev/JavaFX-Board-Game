@@ -4,7 +4,6 @@ import view.PlayerView;
 
 import java.util.List;
 
-import models.Player;
 /*
 *This class implements the BonusExtraScore mystery state,allowing a player to increase their score by 200 points and advance by 1 step.
 **/

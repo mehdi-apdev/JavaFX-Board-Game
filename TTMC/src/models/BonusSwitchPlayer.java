@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import models.DialogWindow;
-
 
 public class BonusSwitchPlayer implements MysteryState {
 

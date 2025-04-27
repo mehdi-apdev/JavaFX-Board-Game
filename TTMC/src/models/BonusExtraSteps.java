@@ -4,8 +4,6 @@ import view.PlayerView;
 
 import java.util.List;
 
-import models.Player;
-
 /*
  * This class implements the BonusExtraSteps mystery state, allowing a player to advance by 3 steps.
  */

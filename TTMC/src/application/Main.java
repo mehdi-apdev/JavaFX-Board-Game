@@ -1,7 +1,5 @@
 package application;
 
-import java.util.List;
-import java.util.Optional;
 
 import controller.Sound;
 import javafx.application.Application;
@@ -10,19 +8,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import models.QuestionLoader;
 import models.DialogWindow;
-import models.Question;
-import models.QuestionCard;
-import models.QuestionCardFactory;
 
 public class Main extends Application {
 	
@@ -34,9 +22,6 @@ public class Main extends Application {
 		try {
 				Parent root = (Parent)FXMLLoader.load(getClass().getResource("../view/menuView.fxml"));
 				
-				// Obtenir les dimensions de l'écran
-		        double screenWidth = Screen.getPrimary().getBounds().getWidth();
-		        double screenHeight = Screen.getPrimary().getBounds().getHeight();
 		        
 				Scene scene = new Scene(root,1536,864);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

@@ -3,23 +3,15 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import application.Main;
-import controller.MenuController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +20,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DialogWindow;
 
@@ -175,7 +166,7 @@ public class PlayerChoiceViewController {
 
 			// Get the current scene
 			Node source = (Node) event.getSource();
-			Stage stage = (Stage) source.getScene().getWindow();
+			//Stage stage = (Stage) source.getScene().getWindow();
 			Scene currentScene = source.getScene();
 			Pane currentRoot = (Pane) currentScene.getRoot();
 

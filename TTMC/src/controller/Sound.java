@@ -2,9 +2,7 @@ package controller;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 

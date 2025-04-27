@@ -1,5 +1,6 @@
 
 /* Déclaration de la police personnalisée */
+
 @font-face {
     -fx-font-family: "CustomFont";
     src: url("../../ressources/police/eras-itc-bold.ttf"); /* Ajustez le nom du fichier selon votre police */

@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Optional;
-
 import application.Main;
-import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,21 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.DialogWindow;
-import javafx.scene.control.ButtonBar;
+
 
 /**
  * Controller for the main menu of the application.
@@ -146,7 +139,7 @@ public class MenuController {
 
 			// Get the current scene
 			Node source = (Node) event.getSource();
-			Stage stage = (Stage) source.getScene().getWindow();
+			//Stage stage = (Stage) source.getScene().getWindow();
 			Scene currentScene = source.getScene();
 			Pane currentRoot = (Pane) currentScene.getRoot();
 

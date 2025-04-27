@@ -1,10 +1,8 @@
 package models;
 
 import view.PlayerView;
-
 import java.util.List;
 
-import models.Player;
 
 /*
  * This class implements the BonusExtraHint mystery state, allowing a player to

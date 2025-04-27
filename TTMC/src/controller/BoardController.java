@@ -1086,7 +1086,7 @@ private void displayQuestionCard(QuestionCard card) {
 
     // Display questions in order of priority
     for (int i = 0; i < Math.min(sortedQuestions.size(), labels.length); i++) {
-        final int questionIndex = i;
+        //final int questionIndex = i;
         
         Question question = sortedQuestions.get(i);
         labels[i].setText("Difficulty: " + question.getDifficulty() + "");
@@ -1589,7 +1589,8 @@ private void displayGif(String file) {
 	     * and the player with the lower score moves back 2 spaces.
 	     * No questions are asked after movement, and the game proceeds to the next player.
 	     */
-	    public void checkPlayerOverlap() {
+	    @SuppressWarnings("unused")
+		public void checkPlayerOverlap() {
 	        // Define the common spaces where lanes intersect
 	        Map<String, String> commonSpaces = new HashMap<>();
 	        commonSpaces.put("rec1_7", "rec3_10");  // Lane 1 and Lane 3 intersection
@@ -1705,14 +1706,14 @@ private void displayGif(String file) {
 	                    PlayerView lowerScoreView = playerViews.get(lowerScoreIndex);
 	                    
 	                    // Check if higher score player can move forward (not at the end)
-	                    int highPlayerMaxPos = higherScoreView.getSpaces().size() - 1;
+	                    //int highPlayerMaxPos = higherScoreView.getSpaces().size() - 1;
 	                    int moveForwardSteps = 2;
 	                    
 	                    // Move higher score player forward
 	                    higherScorePlayer.move(moveForwardSteps);
 	                    higherScoreView.animateMovement(moveForwardSteps);
 	                  
-	                    // Move lower score player back (but not before start)
+	                    // player stay at the same position
 	                    int moveBackSteps = 0;
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);

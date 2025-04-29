@@ -1714,6 +1714,7 @@ private void displayGif(String file) {
 	                    higherScoreView.animateMovement(moveForwardSteps);
 	                  
 	                    // player stay at the same position
+	                    //Chehk if this fixes the bug --> int moveBackSteps = 1;
 	                    int moveBackSteps = 0;
 	                    lowerScorePlayer.move(-moveBackSteps);
 	                    lowerScoreView.animateMovement(-moveBackSteps);

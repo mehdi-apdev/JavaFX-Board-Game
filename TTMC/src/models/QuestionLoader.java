@@ -8,7 +8,15 @@ import java.util.*;
 
 public class QuestionLoader {
 	private Map<Topic, QuestionFactory> factories;
-
+	
+	/**
+	 * Handles loading and organizing questions from JSON files for the game.
+	 * This class is responsible for:
+	 * - Loading question data from JSON files
+	 * - Parsing and validating question content
+	 * - Organizing questions by topic and difficulty
+	 * - Distributing questions to appropriate QuestionFactory implementations
+	 */
 	public QuestionLoader() {
 		factories = new EnumMap<>(Topic.class);
 		factories.put(Topic.IMPROBABLE, new ImprobableQuestionFactory());
@@ -17,12 +25,26 @@ public class QuestionLoader {
 		factories.put(Topic.EDUCATION, new EducationQuestionFactory());
 	}
 
+	
+	/**
+	 * Loads questions from a JSON file and organizes them by topic and difficulty.
+	 * 
+	 * This method:
+	 * 1. Parses the JSON file using Jackson's ObjectMapper
+	 * 2. Extracts question data including theme, text, difficulty, and response options
+	 * 3. Creates Question objects using appropriate factory classes
+	 * 4. Organizes questions to ensure balanced distribution across difficulty levels
+	 * 5. Assigns the organized questions to their respective factory implementations
+	 *
+	 * @param jsonFilePath Path to the JSON file containing question data
+	 * @throws RuntimeException If there is an error reading or parsing the JSON file
+	 */
 	public void loadQuestions(String jsonFilePath) {
 	    try {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath));
 	        
-	        // Map pour stocker les questions par thème et difficulté
+	        
 	        Map<Topic, Map<Integer, List<Question>>> questionsByTopicAndDifficulty = new HashMap<>();
 	        for (Topic topic : Topic.values()) {
 	            questionsByTopicAndDifficulty.put(topic, new HashMap<>());
@@ -31,7 +53,7 @@ public class QuestionLoader {
 	            }
 	        }
 
-	        // Charger toutes les questions et les classer par thème et difficulté
+	        
 	        for (JsonNode questionNode : rootNode) {
 	            String themeName = questionNode.get("theme_name").asText();
 	            Topic topic = Topic.valueOf(themeName.toUpperCase());
@@ -41,7 +63,7 @@ public class QuestionLoader {
 	            List<String> responses = new ArrayList<>();
 	            JsonNode responsesNode = questionNode.get("responses");
 	            
-	            // Déterminer la réponse correcte (première réponse dans le JSON)
+	            
 	            int correctIndex = 0;
 	            
 	            for (int i = 0; i < responsesNode.size(); i++) {
@@ -51,13 +73,12 @@ public class QuestionLoader {
 	            QuestionFactory factory = factories.get(topic);
 	            Question question = factory.createQuestion(text, responses, correctIndex, difficulty);
 	            
-	            // Stocker la question par thème et difficulté
 	            if (difficulty >= 1 && difficulty <= 4) {
 	                questionsByTopicAndDifficulty.get(topic).get(difficulty).add(question);
 	            }
 	        }
 	        
-	        // Réorganiser les questions pour chaque thème
+	        
 	        for (Topic topic : Topic.values()) {
 	            QuestionFactory factory = factories.get(topic);
 	            
@@ -65,21 +86,21 @@ public class QuestionLoader {
 	                Map<Integer, List<Question>> questionsByDifficulty = questionsByTopicAndDifficulty.get(topic);
 	                List<Question> organizedQuestions = new ArrayList<>();
 	                
-	                // Déterminer combien de cartes complètes on peut créer (une carte = 4 questions de difficultés différentes)
+	                
 	                int maxCompleteCards = Integer.MAX_VALUE;
 	                for (int difficulty = 1; difficulty <= 4; difficulty++) {
 	                    int questionsCount = questionsByDifficulty.get(difficulty).size();
 	                    maxCompleteCards = Math.min(maxCompleteCards, questionsCount);
 	                }
 	                
-	                // Créer des cartes complètes (1 question de chaque difficulté)
+	                
 	                for (int cardIndex = 0; cardIndex < maxCompleteCards; cardIndex++) {
 	                    for (int difficulty = 1; difficulty <= 4; difficulty++) {
 	                        organizedQuestions.add(questionsByDifficulty.get(difficulty).get(cardIndex));
 	                    }
 	                }
 	                
-	                // Remplacer les questions dans la factory
+	                
 	                if (factory instanceof ImprobableQuestionFactory) {
 	                    ((ImprobableQuestionFactory) factory).setQuestions(organizedQuestions);
 	                } else if (factory instanceof InformaticsQuestionFactory) {

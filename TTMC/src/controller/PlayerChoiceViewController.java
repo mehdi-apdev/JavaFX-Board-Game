@@ -307,7 +307,8 @@ public class PlayerChoiceViewController {
 		playerName.setText("");
 		
 		System.out.println("Player name: " + name);
-
+		System.out.println("Player color: " + selectedColor + "\n");
+		
 	}
     
     /**

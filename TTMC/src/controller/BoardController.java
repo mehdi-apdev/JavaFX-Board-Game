@@ -211,6 +211,7 @@ public class BoardController {
             
             System.out.println("Player " + (i + 1) + " Circle: " + allCircles.get(i).getId());
         }
+        System.out.println("\n");
         
     }
     

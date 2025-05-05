@@ -6,24 +6,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="menuPane"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+<Pane fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
    <children>
       <ImageView fitHeight="868.0" fitWidth="1545.0" layoutX="-4.0" layoutY="-2.0" opacity="0.89" pickOnBounds="true" styleClass="entertaiment">
          <image>
             <Image url="@../../ressources/images/cartoon-nature-forest-scenery-free-vector.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="btnPlay" layoutX="633.0" layoutY="327.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="105.0" prefWidth="290.0" text="NEW GAME">
+      <Button fx:id="btnPlay" layoutX="633.0" layoutY="365.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="135.0" prefWidth="316.0" text="NEW GAME">
          <font>
             <Font name="Eras Bold ITC" size="35.0" />
          </font>
       </Button>
-      <Button fx:id="btnOption" layoutX="634.0" layoutY="450.0" mnemonicParsing="false" onAction="#onButtonOptionClicked" prefHeight="105.0" prefWidth="290.0" text="OPTIONS">
-         <font>
-            <Font name="Eras Bold ITC" size="35.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnQuit" layoutX="634.0" layoutY="571.0" mnemonicParsing="false" onAction="#onButtonQuitClicked" prefHeight="105.0" prefWidth="290.0" text="QUIT">
+      <Button fx:id="btnQuit" layoutX="633.0" layoutY="533.0" mnemonicParsing="false" onAction="#onButtonQuitClicked" prefHeight="129.0" prefWidth="316.0" text="QUIT">
          <font>
             <Font name="Eras Bold ITC" size="35.0" />
          </font>

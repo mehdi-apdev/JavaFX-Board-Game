@@ -77,23 +77,7 @@ public class MenuController {
         navigateToView("../view/playerChoiceView.fxml", event);
     }
     
-    /**
-     * Handles the options button click event.
-     * Currently only plays a sound effect.
-     * 
-     * @param event The action event
-     */
-    @FXML
-    protected void onButtonOptionClicked(ActionEvent event) {
-    	 touchSound.playMedia(CLICK_SOUND, SOUND_VOLUME);
-    	if(optionPane.isVisible()) {
-			optionPane.setVisible(false);
-		} else {
-			optionPane.setVisible(true);
-    	} 
-    }
-
-
+   
     /**
      * Handles the music image toggle event.
      * Mutes or unmutes the game sound.

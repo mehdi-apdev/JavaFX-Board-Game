@@ -57,7 +57,7 @@ public class Sound {
     
     public void resetMedia() {
     	 if (mediaPlayer != null) {
-    		 mediaPlayer.seek(Duration.ZERO); // Repositionne au début
+    		 mediaPlayer.seek(Duration.ZERO); 
          }
     }
     

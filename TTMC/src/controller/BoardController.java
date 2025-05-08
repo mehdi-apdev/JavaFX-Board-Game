@@ -572,8 +572,18 @@ private void updateHintsDisplay() {
             volumeImage.setImage(new Image(VOLUME_OFF_IMAGE));
         }
     }
-
     
+    /**
+	 * Unlock the volume image and unmute the sound.
+	 */
+	public void unlockVolumeImage() {
+		volumeImage.setDisable(false);
+        Image img = volumeImage.getImage();
+        if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
+            Main.getMainSound().unMuteMedia();
+        }
+	}
+
     /**
      * Creates and plays a scale transition animation for a pane.
      * 
@@ -721,9 +731,11 @@ private void updateHintsDisplay() {
 				});
 			    toggleQuestionCardVisibility();
 				randomPlaying.play();
+				unlockVolumeImage();
 				return;
 			}
-
+			
+	      
         } else {
         	stopTimer();
         	MenuController.getSecondarySound().playMedia("wrong.mp3",SOUND_VOLUME);
@@ -736,13 +748,9 @@ private void updateHintsDisplay() {
         updateScoreAndStreakDisplay();
         toggleQuestionCardVisibility();
         nextPlayer();       
-        volumeImage.setDisable(false);
-        Image img = volumeImage.getImage();
-        if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
-            Main.getMainSound().unMuteMedia();
-        }
+        unlockVolumeImage();
     }
-
+   
     /**
      * Moves the player forward a specified number of steps.
      * 
@@ -1237,7 +1245,7 @@ private void displaySelectedQuestion(Question question) {
             timeline.stop();
             //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         }
-        MenuController.getTimerSound().stopMedia();
+        MenuController.getTimerSound().stopMedia();;
         //sound.playMedia("timerEnd.wav", SOUND_VOLUME);
         timerLabel.setStyle("-fx-text-fill: white;");
         timerLabel.setVisible(false);

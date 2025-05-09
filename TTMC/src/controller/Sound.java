@@ -87,6 +87,14 @@ public class Sound {
         }
     }
     
+ // Method to unmute playback
+    public void unMuteMainMedia() {
+        if (mediaPlayer != null) {
+        	isMuted = false;
+            mediaPlayer.setVolume(0.05);
+        }
+    }
+    
     public boolean isPlaying() {
     	return isPlaying;
     }

@@ -580,7 +580,7 @@ private void updateHintsDisplay() {
 		volumeImage.setDisable(false);
         Image img = volumeImage.getImage();
         if (img.getUrl().equals(VOLUME_ON_IMAGE)) {
-            Main.getMainSound().unMuteMedia();
+            Main.getMainSound().unMuteMainMedia();
         }
 	}
 
